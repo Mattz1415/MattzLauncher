@@ -7,6 +7,7 @@ object QuickConnectHelper {
     private const val KEY_LAST_IP = "last_server_ip"
     private const val KEY_LAST_PORT = "last_server_port"
 
+    @JvmOverloads
     fun saveServer(context: Context, ip: String, port: Int = 25565) {
         context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).edit()
             .putString(KEY_LAST_IP, ip)

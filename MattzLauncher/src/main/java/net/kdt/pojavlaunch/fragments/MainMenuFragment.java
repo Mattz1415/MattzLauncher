@@ -272,7 +272,7 @@ public class MainMenuFragment extends FragmentWithAnim {
                 .setPositiveButton("Simpan & Siapkan", (dialog, which) -> {
                     String val = input.getText().toString().trim();
                     if (!val.isEmpty()) {
-                        QuickConnectHelper.INSTANCE.saveServer(requireContext(), val);
+                        QuickConnectHelper.INSTANCE.saveServer(requireContext(), val, 25565);
                         Toast.makeText(requireContext(), "Server tersimpan: " + val, Toast.LENGTH_SHORT).show();
                     }
                 })

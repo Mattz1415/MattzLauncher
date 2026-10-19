@@ -30,5 +30,10 @@ class TaskExecutors {
         fun runInUIThread(runnable: Runnable) {
             uiHandler.post(runnable)
         }
+
+        @JvmStatic
+        fun runInBack(runnable: Runnable) {
+            defaultExecutors.execute(runnable)
+        }
     }
 }

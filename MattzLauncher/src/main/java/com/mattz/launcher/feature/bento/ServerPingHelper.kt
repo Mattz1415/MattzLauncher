@@ -12,6 +12,7 @@ object ServerPingHelper {
         val message: String
     )
 
+    @JvmOverloads
     fun pingServer(host: String, port: Int = 25565, timeoutMs: Int = 3000): PingResult {
         val start = System.currentTimeMillis()
         return try {
