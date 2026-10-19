@@ -169,7 +169,7 @@
     <string name="customctrl_forward_lock">锁定前进</string>
     <string name="customctrl_absolute_tracking">强制手指追踪</string>
     
-    <string name="controls_tip">点击齿轮悬浮窗打开菜单⚙\n点击一个按键进行自定义：编辑、缩放、删除或自定义其映射绑定</string>
+    <string name="controls_tip">点击齿轮悬浮窗打开菜单\n点击一个按键进行自定义：编辑、缩放、删除或自定义其映射绑定</string>
     <string name="controls_add_control_button">按键</string>
     <string name="controls_add_control_drawer">组合键</string>
     <string name="controls_visibility">可见性</string>

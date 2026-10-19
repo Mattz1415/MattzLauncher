@@ -162,7 +162,7 @@
     <string name="customctrl_swipeable">Glissable</string>
     <string name="customctrl_forward_lock">Verrouiller l\'avance</string>
     <string name="customctrl_absolute_tracking">Suivi forcé des doigts</string>
-    <string name="controls_tip">Cliquez sur l\'icône d\'engrenage pour ouvrir le menu ⚙\nCliquez sur un bouton pour le personnaliser : éditer, redimensionner, supprimer ou personnaliser son mappage</string>
+    <string name="controls_tip">Cliquez sur l\'icône d\'engrenage pour ouvrir le menu\nCliquez sur un bouton pour le personnaliser : éditer, redimensionner, supprimer ou personnaliser son mappage</string>
     <string name="controls_add_control_button">Bouton</string>
     <string name="controls_add_control_drawer">Combinaison de touches</string>
     <string name="controls_visibility">Visibilité</string>

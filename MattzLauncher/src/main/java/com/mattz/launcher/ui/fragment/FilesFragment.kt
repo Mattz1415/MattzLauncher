@@ -32,6 +32,7 @@ import com.mattz.launcher.utils.file.FileTools
 import com.mattz.launcher.utils.file.PasteFile
 import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
+import com.mattz.launcher.utils.path.PathManager
 import org.greenrobot.eventbus.EventBus
 import java.io.File
 import java.util.Objects
@@ -403,16 +404,17 @@ class FilesFragment : FragmentWithAnim(R.layout.fragment_files) {
     }
 
     private fun parseBundle() {
-        val bundle = arguments ?: return
-        mLockPath = bundle.getString(BUNDLE_LOCK_PATH, Environment.getExternalStorageDirectory().absolutePath)
-        mListPath = bundle.getString(BUNDLE_LIST_PATH, null)
-        mShowFiles = bundle.getBoolean(BUNDLE_SHOW_FILE, true)
-        mShowFolders = bundle.getBoolean(BUNDLE_SHOW_FOLDER, true)
-        mQuickAccessPaths = bundle.getBoolean(BUNDLE_QUICK_ACCESS_PATHS, true)
-        mMultiSelectMode = bundle.getBoolean(BUNDLE_MULTI_SELECT_MODE, true)
-        mSelectFolderMode = bundle.getBoolean(BUNDLE_SELECT_FOLDER_MODE, false)
-        mRemoveLockPath = bundle.getBoolean(BUNDLE_REMOVE_LOCK_PATH, true)
-        mTitleRemoveLockPath = bundle.getBoolean(BUNDLE_TITLE_REMOVE_LOCK_PATH, true)
+        val defaultPath = PathManager.DIR_GAME_HOME
+        val bundle = arguments
+        mLockPath = bundle?.getString(BUNDLE_LOCK_PATH, defaultPath) ?: defaultPath
+        mListPath = bundle?.getString(BUNDLE_LIST_PATH, mLockPath) ?: mLockPath
+        mShowFiles = bundle?.getBoolean(BUNDLE_SHOW_FILE, true) ?: true
+        mShowFolders = bundle?.getBoolean(BUNDLE_SHOW_FOLDER, true) ?: true
+        mQuickAccessPaths = bundle?.getBoolean(BUNDLE_QUICK_ACCESS_PATHS, true) ?: true
+        mMultiSelectMode = bundle?.getBoolean(BUNDLE_MULTI_SELECT_MODE, true) ?: true
+        mSelectFolderMode = bundle?.getBoolean(BUNDLE_SELECT_FOLDER_MODE, false) ?: false
+        mRemoveLockPath = bundle?.getBoolean(BUNDLE_REMOVE_LOCK_PATH, true) ?: true
+        mTitleRemoveLockPath = bundle?.getBoolean(BUNDLE_TITLE_REMOVE_LOCK_PATH, true) ?: true
     }
 
     override fun slideIn(animPlayer: AnimPlayer) {

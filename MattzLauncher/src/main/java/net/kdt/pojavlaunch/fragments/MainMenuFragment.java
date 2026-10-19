@@ -48,6 +48,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
+import java.util.List;
 
 public class MainMenuFragment extends FragmentWithAnim {
     public static final String TAG = "MainMenuFragment";
@@ -70,14 +71,16 @@ public class MainMenuFragment extends FragmentWithAnim {
     @SuppressLint("SetTextI18n")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        initTopBar();
         initNavigationDock();
         initBentoDashboard();
         initLaunchBar();
         refreshCurrentVersion();
 
-        // Staggered entrance animation for Bento Grid
+        // Staggered entrance animation for Nexus Cards
         BentoAnimationHelper.INSTANCE.animateBentoStagger(
                 binding.bentoGreetingCard,
+                binding.cardDiscoveryHub,
                 binding.cardOptimizer,
                 binding.cardServerPing,
                 binding.cardOptionsTweaker,
@@ -85,6 +88,25 @@ public class MainMenuFragment extends FragmentWithAnim {
                 binding.cardPortalCalc,
                 binding.cardToolsHub
         );
+    }
+
+    private void initTopBar() {
+        binding.btnTopSearch.setOnClickListener(v -> {
+            BentoAnimationHelper.INSTANCE.animatePillClick(v);
+            ZHTools.swapFragmentWithAnim(this, VersionsListFragment.class, VersionsListFragment.TAG, null);
+        });
+
+        binding.segTabInstances.setOnClickListener(v -> binding.bentoScrollContainer.smoothScrollTo(0, 0));
+
+        binding.segTabLibrary.setOnClickListener(v -> {
+            BentoAnimationHelper.INSTANCE.animatePillClick(v);
+            ZHTools.swapFragmentWithAnim(this, VersionsListFragment.class, VersionsListFragment.TAG, null);
+        });
+
+        binding.segTabCommunity.setOnClickListener(v -> {
+            BentoAnimationHelper.INSTANCE.animatePillClick(v);
+            ZHTools.swapFragmentWithAnim(this, AboutFragment.class, AboutFragment.TAG, null);
+        });
     }
 
     private void initNavigationDock() {
@@ -95,7 +117,9 @@ public class MainMenuFragment extends FragmentWithAnim {
 
         binding.tabMods.setOnClickListener(v -> {
             BentoAnimationHelper.INSTANCE.animatePillClick(v);
-            ZHTools.swapFragmentWithAnim(this, ModsFragment.class, ModsFragment.TAG, null);
+            Bundle bundle = new Bundle();
+            bundle.putString(ModsFragment.BUNDLE_ROOT_PATH, PathManager.DIR_GAME_HOME + "/mods");
+            ZHTools.swapFragmentWithAnim(this, ModsFragment.class, ModsFragment.TAG, bundle);
         });
 
         binding.tabOptimizer.setOnClickListener(v -> {
@@ -113,18 +137,19 @@ public class MainMenuFragment extends FragmentWithAnim {
             ZHTools.swapFragmentWithAnim(this, VersionsListFragment.class, VersionsListFragment.TAG, null);
         });
 
-        binding.tabSettings.setOnClickListener(v -> {
-            BentoAnimationHelper.INSTANCE.animatePillClick(v);
-            ZHTools.swapFragmentWithAnim(this, SettingsFragment.class, SettingsFragment.TAG, null);
-        });
+        if (binding.tabSettings != null) {
+            binding.tabSettings.setOnClickListener(v -> {
+                BentoAnimationHelper.INSTANCE.animatePillClick(v);
+                ZHTools.swapFragmentWithAnim(this, SettingsFragment.class, SettingsFragment.TAG, null);
+            });
+        }
     }
 
     @SuppressLint("SetTextI18n")
     private void initBentoDashboard() {
         // 1. Dynamic Greeting & Stats
-        binding.dynamicGreetingText.setText(GreetingHelper.INSTANCE.getGreeting("Adventurer"));
-        kotlin.Pair<String, Integer> playtimeStats = PlaytimeTrackerHelper.INSTANCE.getStatsFormatted(requireContext());
-        binding.playtimeSessionBadge.setText("Waktu Bermain: " + playtimeStats.getFirst() + " • " + playtimeStats.getSecond() + " Sesi");
+        binding.dynamicGreetingText.setText("SIAP DIMAINKAN");
+        updateHeroStats();
 
         // 2. Hardware Live Monitor (RAM & Battery)
         updateHardwareStats();
@@ -132,13 +157,17 @@ public class MainMenuFragment extends FragmentWithAnim {
         // 3. JVM Optimizer Button
         binding.btnOptimizeJvm.setOnClickListener(v -> showJvmPresetDialog());
 
-        // 4. Boost RAM Button
+        // 4. Boost RAM Button (Amber pill)
         binding.btnBoostRam.setOnClickListener(v -> {
             ViewAnimUtils.setViewAnim(binding.btnBoostRam, Animations.Pulse);
             float freedMb = MemoryBoosterHelper.INSTANCE.boostMemory(requireContext());
-            Toast.makeText(requireContext(), "🚀 RAM Dioptimasi! " + String.format("%.1f", freedMb) + " MB dibebaskan.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "RAM Dioptimasi: " + String.format("%.1f", freedMb) + " MB dibebaskan", Toast.LENGTH_SHORT).show();
             updateHardwareStats();
+            updateHeroStats();
         });
+
+        // Filter & Quick Tweaks button
+        binding.btnFilterTweaks.setOnClickListener(v -> showQuickTweaksDialog());
 
         // 5. Server Ping Button
         binding.btnPingServer.setOnClickListener(v -> {
@@ -157,22 +186,22 @@ public class MainMenuFragment extends FragmentWithAnim {
         binding.btnToggleFullbright.setOnClickListener(v -> {
             boolean nowOn = OptionsTxtTweakerHelper.INSTANCE.toggleFullbright();
             updateFullbrightButtonLabel();
-            Toast.makeText(requireContext(), nowOn ? "💡 Fullbright 1000% Aktif!" : "Gamma Normal (100%)", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), nowOn ? "Fullbright 1000% Aktif" : "Gamma Normal (100%)", Toast.LENGTH_SHORT).show();
         });
 
         // 8. Cleaner Button
         binding.btnCleanJunk.setOnClickListener(v -> {
             JunkCleanerHelper.CleanResult result = JunkCleanerHelper.INSTANCE.cleanJunk(requireContext());
             binding.cleanerStatus.setText("Bersih! Membebaskan " + String.format("%.1f", result.getFreedMb()) + " MB");
-            Toast.makeText(requireContext(), "🧹 " + String.format("%.1f", result.getFreedMb()) + " MB file sampah & cache dibersihkan!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), String.format("%.1f", result.getFreedMb()) + " MB cache dibersihkan", Toast.LENGTH_SHORT).show();
         });
 
         // 9. Crash Analyzer Button
         binding.btnAnalyzeCrash.setOnClickListener(v -> {
             CrashLogAnalyzerHelper.CrashDiagnosis diagnosis = CrashLogAnalyzerHelper.INSTANCE.analyzeLatestCrash();
             new AlertDialog.Builder(requireContext(), R.style.CustomAlertDialogTheme)
-                    .setTitle("🔍 " + diagnosis.getSummary())
-                    .setMessage("File: " + diagnosis.getReportFile() + "\n\n⚠️ Penyebab:\n" + diagnosis.getSuspectedCause() + "\n\n💡 Solusi:\n" + diagnosis.getRecommendedSolution())
+                    .setTitle(diagnosis.getSummary())
+                    .setMessage("Berkas: " + diagnosis.getReportFile() + "\n\nPenyebab:\n" + diagnosis.getSuspectedCause() + "\n\nSolusi:\n" + diagnosis.getRecommendedSolution())
                     .setPositiveButton("Tutup", null)
                     .show();
         });
@@ -185,6 +214,7 @@ public class MainMenuFragment extends FragmentWithAnim {
         binding.openMainDirButton.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putString(FilesFragment.BUNDLE_LIST_PATH, PathManager.DIR_GAME_HOME);
+            bundle.putString(FilesFragment.BUNDLE_LOCK_PATH, PathManager.DIR_GAME_HOME);
             ZHTools.swapFragmentWithAnim(this, FilesFragment.class, FilesFragment.TAG, bundle);
         });
         binding.installJarButton.setOnClickListener(v -> runInstallerWithConfirmation(false));
@@ -192,6 +222,58 @@ public class MainMenuFragment extends FragmentWithAnim {
             runInstallerWithConfirmation(true);
             return true;
         });
+    }
+
+    private void showQuickTweaksDialog() {
+        String[] options = new String[]{
+                "Toggle Fullbright 1000%",
+                "Pilih Preset JVM Arguments",
+                "Bersihkan Cache & Junk",
+                "Kalkulator Portal Nether",
+                "Periksa Ping Server",
+                "Direct Server Quick-Connect",
+                "Pusat Alat & Utilitas"
+        };
+        new AlertDialog.Builder(requireContext(), R.style.CustomAlertDialogTheme)
+                .setTitle("Filter & Quick Tweaks")
+                .setItems(options, (dialog, which) -> {
+                    switch (which) {
+                        case 0: {
+                            boolean on = OptionsTxtTweakerHelper.INSTANCE.toggleFullbright();
+                            updateFullbrightButtonLabel();
+                            Toast.makeText(requireContext(), on ? "Fullbright 1000% Aktif" : "Gamma Normal (100%)", Toast.LENGTH_SHORT).show();
+                            break;
+                        }
+                        case 1:
+                            showJvmPresetDialog();
+                            break;
+                        case 2: {
+                            JunkCleanerHelper.CleanResult result = JunkCleanerHelper.INSTANCE.cleanJunk(requireContext());
+                            binding.cleanerStatus.setText("Bersih! Membebaskan " + String.format("%.1f", result.getFreedMb()) + " MB");
+                            Toast.makeText(requireContext(), String.format("%.1f", result.getFreedMb()) + " MB cache dibersihkan", Toast.LENGTH_SHORT).show();
+                            break;
+                        }
+                        case 3:
+                            showPortalCalculatorDialog();
+                            break;
+                        case 4:
+                            binding.btnPingServer.performClick();
+                            break;
+                        case 5:
+                            showDirectConnectDialog();
+                            break;
+                        case 6:
+                            showToolsDialog();
+                            break;
+                    }
+                })
+                .setNegativeButton("Tutup", null)
+                .show();
+    }
+
+    private void updateHeroStats() {
+        kotlin.Pair<String, Integer> stats = PlaytimeTrackerHelper.INSTANCE.getStatsFormatted(requireContext());
+        binding.playtimeSessionBadge.setText("Total Bermain: " + stats.getFirst() + " • " + stats.getSecond() + " Sesi");
     }
 
     @SuppressLint("SetTextI18n")
@@ -208,18 +290,30 @@ public class MainMenuFragment extends FragmentWithAnim {
     @SuppressLint("SetTextI18n")
     private void updateFullbrightButtonLabel() {
         boolean isFull = OptionsTxtTweakerHelper.INSTANCE.isFullbrightEnabled();
-        binding.btnToggleFullbright.setText(isFull ? "💡 Fullbright 1000% (Aktif)" : "💡 Aktifkan Fullbright 1000%");
+        binding.btnToggleFullbright.setText(isFull ? "Fullbright (Aktif)" : "Aktifkan Fullbright");
     }
 
     private void initLaunchBar() {
-        binding.version.setOnClickListener(v -> {
+        // Arrow navigation for cycling versions
+        binding.btnPrevVersion.setOnClickListener(v -> cycleVersion(-1));
+        binding.btnNextVersion.setOnClickListener(v -> cycleVersion(1));
+
+        binding.versionName.setOnClickListener(v -> {
             if (!isTaskRunning()) {
                 ZHTools.swapFragmentWithAnim(this, VersionsListFragment.class, VersionsListFragment.TAG, null);
             } else {
-                ViewAnimUtils.setViewAnim(binding.version, Animations.Shake);
+                ViewAnimUtils.setViewAnim(binding.versionName, Animations.Shake);
                 Toast.makeText(requireContext(), R.string.version_manager_task_in_progress, Toast.LENGTH_SHORT).show();
             }
         });
+
+        if (binding.version != null) {
+            binding.version.setOnClickListener(v -> {
+                if (!isTaskRunning()) {
+                    ZHTools.swapFragmentWithAnim(this, VersionsListFragment.class, VersionsListFragment.TAG, null);
+                }
+            });
+        }
 
         binding.managerProfileButton.setOnClickListener(v -> {
             if (!isTaskRunning()) {
@@ -242,6 +336,33 @@ public class MainMenuFragment extends FragmentWithAnim {
         binding.versionInfo.setSelected(true);
     }
 
+    private void cycleVersion(int direction) {
+        List<Version> list = VersionsManager.INSTANCE.getVersions();
+        if (list == null || list.isEmpty()) {
+            Toast.makeText(requireContext(), "Belum ada versi Minecraft terpasang", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Version current = VersionsManager.INSTANCE.getCurrentVersion();
+        int currentIndex = -1;
+        if (current != null) {
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).getVersionName().equals(current.getVersionName())) {
+                    currentIndex = i;
+                    break;
+                }
+            }
+        }
+        int newIndex;
+        if (currentIndex == -1) {
+            newIndex = 0;
+        } else {
+            newIndex = (currentIndex + direction + list.size()) % list.size();
+        }
+        Version target = list.get(newIndex);
+        VersionsManager.INSTANCE.saveCurrentVersion(target.getVersionName());
+        refreshCurrentVersion();
+    }
+
     private void showJvmPresetDialog() {
         JvmOptimizerHelper.JvmPreset[] presets = JvmOptimizerHelper.JvmPreset.values();
         String[] names = new String[presets.length];
@@ -250,7 +371,7 @@ public class MainMenuFragment extends FragmentWithAnim {
         }
 
         new AlertDialog.Builder(requireContext(), R.style.CustomAlertDialogTheme)
-                .setTitle("⚡ Pilih Preset JVM Arguments")
+                .setTitle("Pilih Preset JVM Arguments")
                 .setItems(names, (dialog, which) -> {
                     JvmOptimizerHelper.INSTANCE.applyPreset(presets[which]);
                     binding.optCurrentPreset.setText("Preset: " + presets[which].getDisplayName());
@@ -266,7 +387,7 @@ public class MainMenuFragment extends FragmentWithAnim {
         input.setTextColor(0xFFFFFFFF);
 
         new AlertDialog.Builder(requireContext(), R.style.CustomAlertDialogTheme)
-                .setTitle("🌐 Direct Server Quick-Connect")
+                .setTitle("Direct Server Quick-Connect")
                 .setMessage("Masukkan IP dan Port server tujuan:")
                 .setView(input)
                 .setPositiveButton("Simpan & Siapkan", (dialog, which) -> {
@@ -286,7 +407,7 @@ public class MainMenuFragment extends FragmentWithAnim {
         input.setTextColor(0xFFFFFFFF);
 
         new AlertDialog.Builder(requireContext(), R.style.CustomAlertDialogTheme)
-                .setTitle("🌀 Nether Portal Calculator")
+                .setTitle("Nether Portal Calculator")
                 .setMessage("Masukkan koordinat X di Overworld untuk menghitung posisi portal di Nether:")
                 .setView(input)
                 .setPositiveButton("Hitung", (dialog, which) -> {
@@ -295,7 +416,7 @@ public class MainMenuFragment extends FragmentWithAnim {
                         x = Integer.parseInt(input.getText().toString().trim());
                     } catch (Exception ignored) {}
                     PortalCalculatorHelper.Coords res = PortalCalculatorHelper.INSTANCE.overworldToNether(x, 64, x);
-                    binding.portalResultPreview.setText("Overworld [" + x + ", " + x + "] ➔ Nether [" + res.getX() + ", " + res.getZ() + "]");
+                    binding.portalResultPreview.setText("Overworld [" + x + ", " + x + "] -> Nether [" + res.getX() + ", " + res.getZ() + "]");
                     Toast.makeText(requireContext(), "Nether Coords: X=" + res.getX() + ", Z=" + res.getZ(), Toast.LENGTH_LONG).show();
                 })
                 .setNegativeButton("Tutup", null)
@@ -304,15 +425,15 @@ public class MainMenuFragment extends FragmentWithAnim {
 
     private void showToolsDialog() {
         String[] tools = new String[]{
-                "📓 Catatan Koordinat & Seed Dunia",
-                "⚡ Benchmark Performa Java Runtime",
-                "📦 Cadangkan Dunia (Backup ZIP)",
-                "🎨 Ganti Tema Aksen Neon (Theme Engine)",
-                "ℹ️ Tentang MattzLauncher"
+                "Catatan Koordinat & Seed Dunia",
+                "Benchmark Performa Java Runtime",
+                "Cadangkan Dunia (Backup ZIP)",
+                "Ganti Tema Aksen (Theme Engine)",
+                "Tentang MattzLauncher"
         };
 
         new AlertDialog.Builder(requireContext(), R.style.CustomAlertDialogTheme)
-                .setTitle("🛠️ Pusat Alat & Utilitas")
+                .setTitle("Pusat Alat & Utilitas")
                 .setItems(tools, (dialog, which) -> {
                     switch (which) {
                         case 0: {
@@ -322,7 +443,7 @@ public class MainMenuFragment extends FragmentWithAnim {
                                 sb.append("• ").append(n.getTitle()).append(": ").append(n.getCoordinates()).append(" (").append(n.getDescription()).append(")\n\n");
                             }
                             new AlertDialog.Builder(requireContext(), R.style.CustomAlertDialogTheme)
-                                    .setTitle("📓 Catatan Koordinat")
+                                     .setTitle("Catatan Koordinat")
                                     .setMessage(sb.toString().trim())
                                     .setPositiveButton("OK", null)
                                     .show();
@@ -350,7 +471,7 @@ public class MainMenuFragment extends FragmentWithAnim {
                             String[] accNames = new String[accents.length];
                             for (int i = 0; i < accents.length; i++) accNames[i] = accents[i].getDisplayName();
                             new AlertDialog.Builder(requireContext(), R.style.CustomAlertDialogTheme)
-                                    .setTitle("🎨 Pilih Tema Neon")
+                                    .setTitle("Pilih Tema Aksen")
                                     .setItems(accNames, (d, idx) -> {
                                         ThemeEngineHelper.INSTANCE.setAccent(requireContext(), accents[idx]);
                                         Toast.makeText(requireContext(), "Tema diatur ke " + accents[idx].getDisplayName(), Toast.LENGTH_SHORT).show();
@@ -374,12 +495,17 @@ public class MainMenuFragment extends FragmentWithAnim {
         if (version != null) {
             binding.versionName.setText(version.getVersionName());
             VersionInfo versionInfo = version.getVersionInfo();
-            if (versionInfo != null) {
+            if (versionInfo != null && versionInfo.getInfoString() != null) {
                 binding.versionInfo.setText(versionInfo.getInfoString());
                 versionInfoVisibility = View.VISIBLE;
-            } else versionInfoVisibility = View.GONE;
+            } else {
+                binding.versionInfo.setText("Minecraft • Siap");
+                versionInfoVisibility = View.VISIBLE;
+            }
 
-            new VersionIconUtils(version).start(binding.versionIcon);
+            if (binding.versionIcon != null) {
+                new VersionIconUtils(version).start(binding.versionIcon);
+            }
             binding.managerProfileButton.setVisibility(View.VISIBLE);
         } else {
             binding.versionName.setText(R.string.version_no_versions);
@@ -387,6 +513,7 @@ public class MainMenuFragment extends FragmentWithAnim {
             versionInfoVisibility = View.GONE;
         }
         binding.versionInfo.setVisibility(versionInfoVisibility);
+        updateHeroStats();
     }
 
     @Subscribe()
@@ -422,15 +549,15 @@ public class MainMenuFragment extends FragmentWithAnim {
 
     @Override
     public void slideIn(AnimPlayer animPlayer) {
-        animPlayer.apply(new AnimPlayer.Entry(binding.navigationPillDock, Animations.SlideInLeft))
+        animPlayer.apply(new AnimPlayer.Entry(binding.nexusTopBar, Animations.FadeInDown))
                 .apply(new AnimPlayer.Entry(binding.bentoScrollContainer, Animations.FadeInDown))
-                .apply(new AnimPlayer.Entry(binding.floatingLaunchBar, Animations.SlideInUp));
+                .apply(new AnimPlayer.Entry(binding.floatingNavigationIsland, Animations.SlideInUp));
     }
 
     @Override
     public void slideOut(AnimPlayer animPlayer) {
-        animPlayer.apply(new AnimPlayer.Entry(binding.navigationPillDock, Animations.SlideOutLeft))
+        animPlayer.apply(new AnimPlayer.Entry(binding.nexusTopBar, Animations.FadeOutUp))
                 .apply(new AnimPlayer.Entry(binding.bentoScrollContainer, Animations.FadeOutUp))
-                .apply(new AnimPlayer.Entry(binding.floatingLaunchBar, Animations.SlideOutDown));
+                .apply(new AnimPlayer.Entry(binding.floatingNavigationIsland, Animations.SlideOutDown));
     }
 }

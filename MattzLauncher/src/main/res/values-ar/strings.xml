@@ -162,7 +162,7 @@
     <string name="customctrl_swipeable">قابل للتمرير</string>
     <string name="customctrl_forward_lock">قفل التقدم</string>
     <string name="customctrl_absolute_tracking">تتبع الإصبع بالقوة</string>
-    <string name="controls_tip">انقر على نافذة التروس العائمة لفتح القائمة ⚙\nانقر على زر للتخصيص: تحرير، تكبير/تصغير، حذف أو تخصيص تعييناته</string>
+    <string name="controls_tip">انقر على نافذة التروس العائمة لفتح القائمة\nانقر على زر للتخصيص: تحرير، تكبير/تصغير، حذف أو تخصيص تعييناته</string>
     <string name="controls_add_control_button">زر</string>
     <string name="controls_add_control_drawer">مجموعة أزرار</string>
     <string name="controls_visibility">الرؤية</string>

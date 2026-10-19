@@ -5,626 +5,919 @@
     android:id="@+id/fragment_menu_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
+    android:background="@color/nexus_bg"
     tools:ignore="ContentDescription,HardcodedText,SmallSp">
 
-    <!-- Ambient Mesh Aura Background (VisionOS Dark OLED Atmosphere) -->
+    <!-- Ambient Subtle Dark Depth Glow in background -->
     <View
         android:id="@+id/ambient_aura_top"
-        android:layout_width="380dp"
-        android:layout_height="240dp"
-        android:alpha="0.18"
-        android:background="@drawable/bg_chip_neon"
+        android:layout_width="400dp"
+        android:layout_height="250dp"
+        android:alpha="0.08"
+        android:background="@drawable/bg_nexus_circle_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- LEFT / FLOATING NAVIGATION PILL DOCK (VisionOS Glass Style) -->
+    <!-- TOP BAR (NEXUS EDITORIAL STYLE) -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/navigation_pill_dock"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginVertical="10dp"
-        android:layout_marginStart="10dp"
-        android:background="@drawable/bg_glass_dock"
-        android:paddingHorizontal="6dp"
-        android:paddingVertical="8dp"
-        android:elevation="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/floating_launch_bar"
+        android:id="@+id/nexus_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:paddingHorizontal="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
+        <!-- Left: Circular glass badge with monogram "M" -->
+        <FrameLayout
+            android:id="@+id/top_monogram_badge"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:background="@drawable/bg_nexus_monogram_badge"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <!-- App Logo Icon -->
             <ImageView
-                android:id="@+id/dock_logo_badge"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginBottom="8dp"
-                android:src="@mipmap/ic_launcher_round" />
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_nexus_m_monogram" />
+        </FrameLayout>
 
-            <!-- Tab 1: Dashboard -->
-            <com.mattz.launcher.ui.view.AnimTextView
-                android:id="@+id/tab_dashboard"
+        <!-- Center-Left: Segmented Pill Switcher inside dark glass container -->
+        <LinearLayout
+            android:id="@+id/nexus_segmented_switcher"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/bg_nexus_segmented_container"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="3dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/top_monogram_badge"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!-- Active Tab: Solid White Capsule with bold charcoal text -->
+            <TextView
+                android:id="@+id/seg_tab_instances"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="3dp"
-                android:background="@drawable/bg_pill_tab_selected"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="6dp"
-                android:text="🏠 Hub"
-                android:textColor="@color/neon_cyan"
-                android:textSize="10sp"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_nexus_pill_white"
+                android:gravity="center"
+                android:paddingHorizontal="16dp"
+                android:text="Instans"
+                android:textColor="@color/nexus_pill_active_text"
+                android:textSize="11sp"
                 android:textStyle="bold" />
 
-            <!-- Tab 2: Mod & Pack Hub -->
-            <com.mattz.launcher.ui.view.AnimTextView
-                android:id="@+id/tab_mods"
+            <TextView
+                android:id="@+id/seg_tab_library"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="3dp"
-                android:background="@drawable/bg_pill_tab_unselected"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="6dp"
-                android:text="🧩 Mods"
-                android:textColor="@color/secondary_text"
-                android:textSize="10sp" />
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingHorizontal="14dp"
+                android:text="Library"
+                android:textColor="@color/nexus_text_muted"
+                android:textSize="11sp" />
 
-            <!-- Tab 3: Optimizer -->
-            <com.mattz.launcher.ui.view.AnimTextView
-                android:id="@+id/tab_optimizer"
+            <TextView
+                android:id="@+id/seg_tab_community"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="3dp"
-                android:background="@drawable/bg_pill_tab_unselected"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="6dp"
-                android:text="⚡ Boost"
-                android:textColor="@color/secondary_text"
-                android:textSize="10sp" />
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingHorizontal="14dp"
+                android:text="Komunitas"
+                android:textColor="@color/nexus_text_muted"
+                android:textSize="11sp" />
 
-            <!-- Tab 4: Tools -->
-            <com.mattz.launcher.ui.view.AnimTextView
-                android:id="@+id/tab_tools"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="3dp"
-                android:background="@drawable/bg_pill_tab_unselected"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="6dp"
-                android:text="🛠️ Tools"
-                android:textColor="@color/secondary_text"
-                android:textSize="10sp" />
+        </LinearLayout>
 
-            <!-- Tab 5: Profiles & Files -->
-            <com.mattz.launcher.ui.view.AnimTextView
-                android:id="@+id/tab_profiles"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="3dp"
-                android:background="@drawable/bg_pill_tab_unselected"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="6dp"
-                android:text="🎮 Files"
-                android:textColor="@color/secondary_text"
-                android:textSize="10sp" />
+        <!-- Right: Search button + Profile Avatar with online green dot -->
+        <LinearLayout
+            android:id="@+id/top_actions_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <!-- Tab 6: Settings -->
-            <com.mattz.launcher.ui.view.AnimTextView
-                android:id="@+id/tab_settings"
+            <!-- Minimalist Search Button -->
+            <ImageView
+                android:id="@+id/btn_top_search"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/bg_nexus_circle_btn"
+                android:padding="8dp"
+                android:src="@drawable/ic_nexus_search" />
+
+            <!-- Profile Avatar Container with Green Online Dot -->
+            <FrameLayout
+                android:id="@+id/profile_avatar_container"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="3dp"
-                android:background="@drawable/bg_pill_tab_unselected"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="6dp"
-                android:text="⚙️ Config"
-                android:textColor="@color/secondary_text"
-                android:textSize="10sp" />
+                android:layout_height="wrap_content">
+
+                <include
+                    android:id="@+id/view_account"
+                    layout="@layout/view_account"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <!-- Online Green Indicator Dot -->
+                <View
+                    android:id="@+id/avatar_online_dot"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_gravity="bottom|end"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@drawable/bg_nexus_green_dot" />
+
+            </FrameLayout>
 
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- CENTER AREA: INTERACTIVE BENTO GRID DASHBOARD -->
+    <!-- CENTER AREA: SCROLLABLE EDITORIAL DASHBOARD -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/bento_scroll_container"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginHorizontal="16dp"
         android:overScrollMode="never"
         android:scrollbars="none"
-        app:layout_constraintBottom_toTopOf="@+id/floating_launch_bar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/navigation_pill_dock"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintBottom_toTopOf="@+id/floating_navigation_island"
+        app:layout_constraintTop_toBottomOf="@+id/nexus_top_bar">
 
         <LinearLayout
             android:id="@+id/bento_grid_root"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="12dp">
+            android:paddingBottom="24dp">
 
-            <!-- 1. DYNAMIC GREETING & STATUS BANNER (Feature 20 & 12) -->
+            <!-- 1. HERO INSTANCE CARD (NEXUS HERO STYLE) -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/bento_greeting_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/bg_bento_card_accent"
-                android:padding="12dp">
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/bg_nexus_hero_card"
+                android:padding="20dp">
 
-                <ImageView
-                    android:id="@+id/player_avatar_icon"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:src="@drawable/ic_minecraft"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
+                <!-- Top badges row: "SIAP DIMAINKAN" + Version Chip -->
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:id="@+id/hero_badges_row"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/chips_layout"
-                    app:layout_constraintStart_toEndOf="@+id/player_avatar_icon"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <TextView
-                        android:id="@+id/dynamic_greeting_text"
+                    <!-- Sparkle Badge: SIAP DIMAINKAN -->
+                    <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Selamat Datang, Penjelajah ⚔️"
-                        android:textColor="@color/neon_cyan"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
+                        android:layout_height="24dp"
+                        android:background="@drawable/bg_nexus_status_badge"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="10dp">
+
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:layout_marginEnd="6dp"
+                            android:src="@drawable/ic_nexus_sparkle" />
+
+                        <TextView
+                            android:id="@+id/dynamic_greeting_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SIAP DIMAINKAN"
+                            android:textColor="#FFFFFF"
+                            android:textSize="9sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <!-- Version / Instance Capsule Badge -->
+                    <TextView
+                        android:id="@+id/version_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/bg_nexus_pill_glass"
+                        android:gravity="center"
+                        android:paddingHorizontal="10dp"
+                        android:text="1.20.4 • Fabric"
+                        android:textColor="@color/nexus_text_muted"
+                        android:textSize="9sp" />
+
+                </LinearLayout>
+
+                <!-- Instance Title in Large Elegant Display Typography -->
+                <TextView
+                    android:id="@+id/version_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:ellipsize="end"
+                    android:fontFamily="serif"
+                    android:maxLines="1"
+                    android:text="Vanilla Plus Expedition"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@+id/hero_badges_row" />
+
+                <!-- Subtitle: Status RAM & Playtime & Sessions in clean gray -->
+                <LinearLayout
+                    android:id="@+id/hero_stats_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/version_name">
+
+                    <ImageView
+                        android:layout_width="13dp"
+                        android:layout_height="13dp"
+                        android:layout_marginEnd="6dp"
+                        android:src="@drawable/ic_nexus_clock" />
 
                     <TextView
                         android:id="@+id/playtime_session_badge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Playtime: 0 Jam • 1 Session"
-                        android:textColor="@color/secondary_text"
-                        android:textSize="10sp" />
+                        android:text="Alokasi RAM: 4.0 GB • Total Bermain: 0m • 1 Sesi"
+                        android:textColor="@color/nexus_text_muted"
+                        android:textSize="11sp" />
 
                 </LinearLayout>
 
-                <!-- Real-time Hardware Indicators (Feature 1) -->
+                <!-- Action Buttons Row: "Mainkan Sekarang" & "+ Konfigurasi" -->
                 <LinearLayout
-                    android:id="@+id/chips_layout"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/hero_actions_row"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toBottomOf="@+id/hero_stats_row">
 
-                    <TextView
-                        android:id="@+id/hw_ram_chip"
+                    <!-- Primary Action Button: Solid White Capsule -->
+                    <LinearLayout
+                        android:id="@+id/play_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="44dp"
+                        android:background="@drawable/bg_nexus_pill_white"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="24dp">
+
+                        <ImageView
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:layout_marginEnd="8dp"
+                            android:src="@drawable/ic_nexus_play" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Mainkan Sekarang"
+                            android:textColor="@color/nexus_pill_active_text"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <!-- Secondary Action Button: Dark Glass Capsule -->
+                    <LinearLayout
+                        android:id="@+id/manager_profile_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="44dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/bg_nexus_pill_glass"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="18dp">
+
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:layout_marginEnd="6dp"
+                            android:src="@drawable/ic_nexus_plus" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Konfigurasi"
+                            android:textColor="#FFFFFF"
+                            android:textSize="11sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Bottom Row: Page indicator dots & Circular arrow navigation -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/hero_footer_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintTop_toBottomOf="@+id/hero_actions_row">
+
+                    <!-- Capsule Page Indicator Dots: • • • ▬ -->
+                    <LinearLayout
+                        android:id="@+id/instance_page_indicators"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <View
+                            android:layout_width="14dp"
+                            android:layout_height="4dp"
+                            android:layout_marginEnd="5dp"
+                            android:background="@drawable/bg_nexus_page_dot_active" />
+
+                        <View
+                            android:layout_width="4dp"
+                            android:layout_height="4dp"
+                            android:layout_marginEnd="5dp"
+                            android:background="@drawable/bg_nexus_page_dot_inactive" />
+
+                        <View
+                            android:layout_width="4dp"
+                            android:layout_height="4dp"
+                            android:layout_marginEnd="5dp"
+                            android:background="@drawable/bg_nexus_page_dot_inactive" />
+
+                        <View
+                            android:layout_width="4dp"
+                            android:layout_height="4dp"
+                            android:background="@drawable/bg_nexus_page_dot_inactive" />
+
+                    </LinearLayout>
+
+                    <!-- Circular Arrow Buttons (< and >) to cycle instances -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/btn_prev_version"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/bg_nexus_circle_btn"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_nexus_chevron_left" />
+
+                        <ImageView
+                            android:id="@+id/btn_next_version"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/bg_nexus_circle_btn"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_nexus_chevron_right" />
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- 2. "MATTZ DISCOVERY & COMMANDS" SECTION CARD -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/card_discovery_hub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_nexus_card"
+                android:padding="20dp">
+
+                <!-- Tracked Uppercase Header (letter-spacing 0.1em) -->
+                <TextView
+                    android:id="@+id/discovery_header_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="0.1"
+                    android:text="MATTZ DISCOVERY &amp; COMMANDS"
+                    android:textColor="@color/nexus_text_muted"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!-- Two Prominent Action Capsules: Amber Gold & Dark Glass -->
+                <LinearLayout
+                    android:id="@+id/discovery_top_capsules_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/discovery_header_title">
+
+                    <!-- Solid Amber Gold Capsule: "Auto-Optimize & Boost" -->
+                    <LinearLayout
+                        android:id="@+id/btn_boost_ram"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
                         android:layout_marginEnd="6dp"
-                        android:background="@drawable/bg_chip_neon"
-                        android:text="RAM: -- / -- GB"
-                        android:textColor="@color/neon_cyan"
-                        android:textSize="9sp" />
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_nexus_pill_amber"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="14dp">
 
-                    <TextView
-                        android:id="@+id/hw_battery_chip"
-                        android:layout_width="wrap_content"
+                        <ImageView
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:layout_marginEnd="6dp"
+                            android:src="@drawable/ic_nexus_bolt"
+                            app:tint="@color/nexus_amber_btn_text" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Auto-Optimize &amp; Boost"
+                            android:textColor="@color/nexus_amber_btn_text"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <!-- Dark Glass Capsule: "Filter & Quick Tweaks" -->
+                    <LinearLayout
+                        android:id="@+id/btn_filter_tweaks"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_nexus_pill_glass"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="14dp">
+
+                        <ImageView
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:layout_marginEnd="6dp"
+                            android:src="@drawable/ic_nexus_tune" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Filter &amp; Quick Tweaks"
+                            android:textColor="#FFFFFF"
+                            android:textSize="11sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Clean Grid of Features (Editorial Dark Glass) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/discovery_top_capsules_row">
+
+                    <!-- Row 1: Hardware Live Monitor Widget -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bg_chip_neon"
-                        android:text="Baterai: --°C"
-                        android:textColor="@color/neon_emerald"
-                        android:textSize="9sp" />
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/bg_nexus_pill_glass"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="10dp">
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_nexus_bolt" />
+
+                        <TextView
+                            android:id="@+id/hw_ram_chip"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_weight="1"
+                            android:text="RAM: -- / -- GB"
+                            android:textColor="#FFFFFF"
+                            android:textSize="11sp" />
+
+                        <TextView
+                            android:id="@+id/hw_battery_chip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Suhu: --°C"
+                            android:textColor="@color/nexus_text_muted"
+                            android:textSize="11sp" />
+
+                    </LinearLayout>
+
+                    <!-- Row 2: JVM Optimizer & Server Ping -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal">
+
+                        <!-- Card: Smart JVM Preset Optimizer -->
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/card_optimizer"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_nexus_pill_glass"
+                            android:padding="12dp">
+
+                            <TextView
+                                android:id="@+id/opt_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Tuning JVM Preset"
+                                android:textColor="#FFFFFF"
+                                android:textSize="11sp"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/opt_current_preset"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="Aikar Flags (Stabil)"
+                                android:textColor="@color/nexus_text_muted"
+                                android:textSize="9sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/opt_title" />
+
+                            <com.mattz.launcher.ui.view.AnimButton
+                                android:id="@+id/btn_optimize_jvm"
+                                android:layout_width="match_parent"
+                                android:layout_height="32dp"
+                                android:layout_marginTop="8dp"
+                                android:background="@drawable/bg_nexus_circle_btn"
+                                android:text="Ganti Preset"
+                                android:textColor="#FFFFFF"
+                                android:textSize="9sp"
+                                app:layout_constraintTop_toBottomOf="@+id/opt_current_preset" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <!-- Card: Server Ping Checker -->
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/card_server_ping"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_nexus_pill_glass"
+                            android:padding="12dp">
+
+                            <TextView
+                                android:id="@+id/ping_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Status Server"
+                                android:textColor="#FFFFFF"
+                                android:textSize="11sp"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/server_ping_result"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="mc.hypixel.net • Latency: -- ms"
+                                android:textColor="@color/nexus_text_muted"
+                                android:textSize="9sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/ping_title" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:orientation="horizontal"
+                                app:layout_constraintTop_toBottomOf="@+id/server_ping_result">
+
+                                <com.mattz.launcher.ui.view.AnimButton
+                                    android:id="@+id/btn_ping_server"
+                                    android:layout_width="0dp"
+                                    android:layout_height="32dp"
+                                    android:layout_marginEnd="3dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/bg_nexus_circle_btn"
+                                    android:text="Cek Ping"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="9sp" />
+
+                                <com.mattz.launcher.ui.view.AnimButton
+                                    android:id="@+id/btn_direct_connect"
+                                    android:layout_width="0dp"
+                                    android:layout_height="32dp"
+                                    android:layout_marginStart="3dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/bg_nexus_circle_btn"
+                                    android:text="Koneksi"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="9sp" />
+
+                            </LinearLayout>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </LinearLayout>
+
+                    <!-- Row 3: Options Tweaker & Cleaner -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal">
+
+                        <!-- Card: Options Tweaker -->
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/card_options_tweaker"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_nexus_pill_glass"
+                            android:padding="12dp">
+
+                            <TextView
+                                android:id="@+id/tweaker_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Pengatur Opsi Game"
+                                android:textColor="#FFFFFF"
+                                android:textSize="11sp"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tweaker_desc"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="Fullbright 1000% • FOV 90"
+                                android:textColor="@color/nexus_text_muted"
+                                android:textSize="9sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/tweaker_title" />
+
+                            <com.mattz.launcher.ui.view.AnimButton
+                                android:id="@+id/btn_toggle_fullbright"
+                                android:layout_width="match_parent"
+                                android:layout_height="32dp"
+                                android:layout_marginTop="8dp"
+                                android:background="@drawable/bg_nexus_circle_btn"
+                                android:text="Fullbright 1000%"
+                                android:textColor="#FFFFFF"
+                                android:textSize="9sp"
+                                app:layout_constraintTop_toBottomOf="@+id/tweaker_desc" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <!-- Card: Cache Cleaner & Crash Doctor -->
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/card_cleaner_crash"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_nexus_pill_glass"
+                            android:padding="12dp">
+
+                            <TextView
+                                android:id="@+id/cleaner_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Pembersih &amp; Crash Doctor"
+                                android:textColor="#FFFFFF"
+                                android:textSize="11sp"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/cleaner_status"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="Siap Dibersihkan"
+                                android:textColor="@color/nexus_text_muted"
+                                android:textSize="9sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/cleaner_title" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:orientation="horizontal"
+                                app:layout_constraintTop_toBottomOf="@+id/cleaner_status">
+
+                                <com.mattz.launcher.ui.view.AnimButton
+                                    android:id="@+id/btn_clean_junk"
+                                    android:layout_width="0dp"
+                                    android:layout_height="32dp"
+                                    android:layout_marginEnd="3dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/bg_nexus_circle_btn"
+                                    android:text="Bersihkan"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="9sp" />
+
+                                <com.mattz.launcher.ui.view.AnimButton
+                                    android:id="@+id/btn_analyze_crash"
+                                    android:layout_width="0dp"
+                                    android:layout_height="32dp"
+                                    android:layout_marginStart="3dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/bg_nexus_circle_btn"
+                                    android:text="Cek Crash"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="9sp" />
+
+                            </LinearLayout>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </LinearLayout>
+
+                    <!-- Row 4: Portal Calculator & Quick Launch Tools -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <!-- Portal Calculator Card -->
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/card_portal_calc"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_nexus_pill_glass"
+                            android:padding="12dp">
+
+                            <TextView
+                                android:id="@+id/portal_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Kalkulator Portal Nether"
+                                android:textColor="#FFFFFF"
+                                android:textSize="11sp"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/portal_result_preview"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="Overworld [800] -> Nether [100]"
+                                android:textColor="@color/nexus_text_muted"
+                                android:textSize="9sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/portal_title" />
+
+                            <com.mattz.launcher.ui.view.AnimButton
+                                android:id="@+id/btn_open_portal_calc"
+                                android:layout_width="match_parent"
+                                android:layout_height="32dp"
+                                android:layout_marginTop="8dp"
+                                android:background="@drawable/bg_nexus_circle_btn"
+                                android:text="Hitung Koordinat"
+                                android:textColor="#FFFFFF"
+                                android:textSize="9sp"
+                                app:layout_constraintTop_toBottomOf="@+id/portal_result_preview" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <!-- Hub Berkas Game -->
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/card_tools_hub"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_nexus_pill_glass"
+                            android:padding="12dp">
+
+                            <TextView
+                                android:id="@+id/tools_hub_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Berkas &amp; Kontrol"
+                                android:textColor="#FFFFFF"
+                                android:textSize="11sp"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tools_hub_subtitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="Tombol • Folder • Pasang JAR"
+                                android:textColor="@color/nexus_text_muted"
+                                android:textSize="9sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/tools_hub_title" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:orientation="horizontal"
+                                app:layout_constraintTop_toBottomOf="@+id/tools_hub_subtitle">
+
+                                <com.mattz.launcher.ui.view.AnimButton
+                                    android:id="@+id/custom_control_button"
+                                    android:layout_width="0dp"
+                                    android:layout_height="32dp"
+                                    android:layout_marginEnd="2dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/bg_nexus_circle_btn"
+                                    android:text="Tombol"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="8sp" />
+
+                                <com.mattz.launcher.ui.view.AnimButton
+                                    android:id="@+id/open_main_dir_button"
+                                    android:layout_width="0dp"
+                                    android:layout_height="32dp"
+                                    android:layout_marginHorizontal="2dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/bg_nexus_circle_btn"
+                                    android:text="Berkas"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="8sp" />
+
+                                <com.mattz.launcher.ui.view.AnimButton
+                                    android:id="@+id/install_jar_button"
+                                    android:layout_width="0dp"
+                                    android:layout_height="32dp"
+                                    android:layout_marginStart="2dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/bg_nexus_circle_btn"
+                                    android:text="Pasang"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="8sp" />
+
+                            </LinearLayout>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- BENTO ROW 1: OPTIMIZER & SERVER PING -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
-
-                <!-- Card: Smart JVM Optimizer & RAM Booster (Feature 2 & 14) -->
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/card_optimizer"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_bento_card"
-                    android:padding="12dp">
-
-                    <TextView
-                        android:id="@+id/opt_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="⚡ Smart JVM Optimizer"
-                        android:textColor="@color/neon_cyan"
-                        android:textSize="11sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/opt_current_preset"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="Preset: Extreme FPS (Aikar)"
-                        android:textColor="@color/secondary_text"
-                        android:textSize="9sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/opt_title" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:orientation="horizontal"
-                        app:layout_constraintTop_toBottomOf="@+id/opt_current_preset">
-
-                        <com.mattz.launcher.ui.view.AnimButton
-                            android:id="@+id/btn_optimize_jvm"
-                            android:layout_width="0dp"
-                            android:layout_height="32dp"
-                            android:layout_marginEnd="4dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/bg_pill_tab_selected"
-                            android:text="Terapkan Preset"
-                            android:textColor="@color/neon_cyan"
-                            android:textSize="9sp" />
-
-                        <com.mattz.launcher.ui.view.AnimButton
-                            android:id="@+id/btn_boost_ram"
-                            android:layout_width="0dp"
-                            android:layout_height="32dp"
-                            android:layout_marginStart="4dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/button_play_background"
-                            android:text="🚀 Boost RAM"
-                            android:textColor="#FFFFFF"
-                            android:textSize="9sp" />
-
-                    </LinearLayout>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <!-- Card: Minecraft Server Ping & Status Checker (Feature 5 & 16) -->
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/card_server_ping"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_bento_card"
-                    android:padding="12dp">
-
-                    <TextView
-                        android:id="@+id/ping_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="🌐 Server Ping &amp; Status"
-                        android:textColor="@color/neon_emerald"
-                        android:textSize="11sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/server_ping_result"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="mc.hypixel.net • Latency: -- ms"
-                        android:textColor="@color/secondary_text"
-                        android:textSize="9sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/ping_title" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:orientation="horizontal"
-                        app:layout_constraintTop_toBottomOf="@+id/server_ping_result">
-
-                        <com.mattz.launcher.ui.view.AnimButton
-                            android:id="@+id/btn_ping_server"
-                            android:layout_width="0dp"
-                            android:layout_height="32dp"
-                            android:layout_marginEnd="4dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/bg_pill_tab_selected"
-                            android:text="Cek Ping"
-                            android:textColor="@color/neon_emerald"
-                            android:textSize="9sp" />
-
-                        <com.mattz.launcher.ui.view.AnimButton
-                            android:id="@+id/btn_direct_connect"
-                            android:layout_width="0dp"
-                            android:layout_height="32dp"
-                            android:layout_marginStart="4dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/bg_bento_card_accent"
-                            android:text="Quick-Connect"
-                            android:textColor="@color/neon_cyan"
-                            android:textSize="9sp" />
-
-                    </LinearLayout>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </LinearLayout>
-
-            <!-- BENTO ROW 2: QUICK OPTIONS TWEAKER & CACHE/CRASH TOOLS -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
-
-                <!-- Card: Quick Options.txt Tweaker (Feature 6) -->
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/card_options_tweaker"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_bento_card_purple"
-                    android:padding="12dp">
-
-                    <TextView
-                        android:id="@+id/tweaker_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="🎮 Quick Options.txt Tweaker"
-                        android:textColor="@color/neon_violet"
-                        android:textSize="11sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tweaker_desc"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="Gamma 1000% (Fullbright) • FOV 90 • VSync Off"
-                        android:textColor="@color/secondary_text"
-                        android:textSize="9sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tweaker_title" />
-
-                    <com.mattz.launcher.ui.view.AnimButton
-                        android:id="@+id/btn_toggle_fullbright"
-                        android:layout_width="match_parent"
-                        android:layout_height="32dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/bg_pill_tab_selected"
-                        android:text="💡 Aktifkan Fullbright 1000%"
-                        android:textColor="@color/neon_violet"
-                        android:textSize="9sp"
-                        app:layout_constraintTop_toBottomOf="@+id/tweaker_desc" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <!-- Card: Junk Cleaner & Crash Analyzer (Feature 3 & 4) -->
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/card_cleaner_crash"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_bento_card"
-                    android:padding="12dp">
-
-                    <TextView
-                        android:id="@+id/cleaner_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="🧹 Cleaner &amp; Crash Doctor"
-                        android:textColor="@color/neon_rose"
-                        android:textSize="11sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/cleaner_status"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="Junk Cache: Siap Dibersihkan"
-                        android:textColor="@color/secondary_text"
-                        android:textSize="9sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/cleaner_title" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:orientation="horizontal"
-                        app:layout_constraintTop_toBottomOf="@+id/cleaner_status">
-
-                        <com.mattz.launcher.ui.view.AnimButton
-                            android:id="@+id/btn_clean_junk"
-                            android:layout_width="0dp"
-                            android:layout_height="32dp"
-                            android:layout_marginEnd="4dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/bg_pill_tab_selected"
-                            android:text="🧹 Bersihkan"
-                            android:textColor="@color/neon_rose"
-                            android:textSize="9sp" />
-
-                        <com.mattz.launcher.ui.view.AnimButton
-                            android:id="@+id/btn_analyze_crash"
-                            android:layout_width="0dp"
-                            android:layout_height="32dp"
-                            android:layout_marginStart="4dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/bg_bento_card_accent"
-                            android:text="🔍 Cek Crash"
-                            android:textColor="@color/neon_cyan"
-                            android:textSize="9sp" />
-
-                    </LinearLayout>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </LinearLayout>
-
-            <!-- BENTO ROW 3: PORTAL CALCULATOR, SKIN & UTILITIES (Feature 10, 11, 15, 18) -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
-
-                <!-- Card: Nether-Overworld Portal Calculator (Feature 15) -->
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/card_portal_calc"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_bento_card_emerald"
-                    android:padding="12dp">
-
-                    <TextView
-                        android:id="@+id/portal_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="🌀 Portal Coordinate Calc"
-                        android:textColor="@color/neon_emerald"
-                        android:textSize="11sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/portal_result_preview"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="Overworld [X: 800, Z: 800] ➔ Nether [X: 100, Z: 100]"
-                        android:textColor="@color/secondary_text"
-                        android:textSize="9sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/portal_title" />
-
-                    <com.mattz.launcher.ui.view.AnimButton
-                        android:id="@+id/btn_open_portal_calc"
-                        android:layout_width="match_parent"
-                        android:layout_height="32dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/bg_pill_tab_selected"
-                        android:text="Buka Kalkulator Portal"
-                        android:textColor="@color/neon_emerald"
-                        android:textSize="9sp"
-                        app:layout_constraintTop_toBottomOf="@+id/portal_result_preview" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <!-- Card: Quick Launch Tools Hub (World Backup, Skins, Mods, Files) -->
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/card_tools_hub"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_bento_card"
-                    android:padding="12dp">
-
-                    <TextView
-                        android:id="@+id/tools_hub_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="📦 Hub &amp; Manajemen Game"
-                        android:textColor="@color/neon_cyan"
-                        android:textSize="11sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tools_hub_subtitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="World Backup ZIP • Skin 3D • Custom Controls"
-                        android:textColor="@color/secondary_text"
-                        android:textSize="9sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tools_hub_title" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:orientation="horizontal"
-                        app:layout_constraintTop_toBottomOf="@+id/tools_hub_subtitle">
-
-                        <!-- Re-anchored essential utility buttons to keep Pojav integration 100% functional -->
-                        <com.mattz.launcher.ui.view.AnimButton
-                            android:id="@+id/custom_control_button"
-                            android:layout_width="0dp"
-                            android:layout_height="32dp"
-                            android:layout_marginEnd="3dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/bg_pill_tab_selected"
-                            android:text="🎮 Tombol"
-                            android:textColor="@color/neon_cyan"
-                            android:textSize="8sp" />
-
-                        <com.mattz.launcher.ui.view.AnimButton
-                            android:id="@+id/open_main_dir_button"
-                            android:layout_width="0dp"
-                            android:layout_height="32dp"
-                            android:layout_marginHorizontal="2dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/bg_pill_tab_selected"
-                            android:text="📂 Berkas"
-                            android:textColor="@color/neon_cyan"
-                            android:textSize="8sp" />
-
-                        <com.mattz.launcher.ui.view.AnimButton
-                            android:id="@+id/install_jar_button"
-                            android:layout_width="0dp"
-                            android:layout_height="32dp"
-                            android:layout_marginStart="3dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/bg_pill_tab_selected"
-                            android:text="⚡ Pasang JAR"
-                            android:textColor="@color/neon_cyan"
-                            android:textSize="8sp" />
-
-                    </LinearLayout>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </LinearLayout>
-
-            <!-- Re-anchored hidden/utility anchors for seamless compatibility -->
+            <!-- Re-anchored hidden compatibility anchors -->
             <LinearLayout
                 android:id="@+id/launcher_menu"
                 android:layout_width="0dp"
@@ -647,135 +940,151 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp" />
 
+                <ImageView
+                    android:id="@+id/version_icon"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" />
+
+                <View
+                    android:id="@+id/version"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" />
+
             </LinearLayout>
 
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
 
-    <!-- BOTTOM FLOATING GLASS LAUNCH BAR (VisionOS Floating Capsule) -->
+    <!-- FLOATING NAVIGATION ISLAND (NEXUS FLOATING BOTTOM ISLAND) -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/floating_launch_bar"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/bg_floating_launch_bar"
-        android:elevation="16dp"
-        android:paddingHorizontal="10dp"
+        android:id="@+id/floating_navigation_island"
+        android:layout_width="wrap_content"
+        android:layout_height="64dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_nexus_floating_island"
+        android:elevation="20dp"
+        android:paddingHorizontal="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/play_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/island_tabs_container"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/play_buttons_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <!-- Tab 1: Jelajah (Active: Expands into Solid White Capsule + Black Icon + Label + Cyan Dot) -->
+            <FrameLayout
+                android:id="@+id/tab_dashboard_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp">
 
-                <!-- Account Badge Chip -->
-                <include
-                    android:id="@+id/view_account"
-                    layout="@layout/view_account"
+                <LinearLayout
+                    android:id="@+id/tab_dashboard"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <!-- Current Version Selector Capsule -->
-                <com.mattz.launcher.ui.layout.AnimRelativeLayout
-                    android:id="@+id/version"
-                    android:layout_width="0dp"
-                    android:layout_height="44dp"
-                    android:layout_marginHorizontal="10dp"
-                    android:background="@drawable/bg_pill_tab_selected"
-                    android:paddingHorizontal="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/manager_profile_button"
-                    app:layout_constraintStart_toEndOf="@+id/view_account"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_nexus_island_active_tab"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp">
 
                     <ImageView
-                        android:id="@+id/version_icon"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/ic_minecraft" />
+                        android:id="@+id/tab_dashboard_icon"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_nexus_explore"
+                        app:tint="@color/nexus_pill_active_text" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/tab_dashboard_label"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:layout_marginStart="8dp"
-                        android:layout_toEndOf="@id/version_icon"
-                        android:orientation="vertical">
+                        android:text="Jelajah"
+                        android:textColor="@color/nexus_pill_active_text"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
 
-                        <TextView
-                            android:id="@+id/version_name"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="marquee"
-                            android:marqueeRepeatLimit="marquee_forever"
-                            android:singleLine="true"
-                            android:text="@string/version_no_versions"
-                            android:textColor="@color/primary_text"
-                            android:textSize="11sp"
-                            android:textStyle="bold" />
+                </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/version_info"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="marquee"
-                            android:marqueeRepeatLimit="marquee_forever"
-                            android:singleLine="true"
-                            android:textColor="@color/secondary_text"
-                            android:textSize="9sp"
-                            android:visibility="gone" />
+                <!-- Tiny Cyan Accent Dot on the corner -->
+                <View
+                    android:id="@+id/tab_dashboard_dot"
+                    android:layout_width="6dp"
+                    android:layout_height="6dp"
+                    android:layout_gravity="top|end"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="7dp"
+                    android:background="@drawable/bg_nexus_cyan_dot" />
 
-                    </LinearLayout>
+            </FrameLayout>
 
-                </com.mattz.launcher.ui.layout.AnimRelativeLayout>
+            <!-- Tab 2: Mods (Minimalist Outline Vector Icon) -->
+            <ImageView
+                android:id="@+id/tab_mods"
+                android:layout_width="44dp"
+                android:layout_height="40dp"
+                android:layout_marginHorizontal="3dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="10dp"
+                android:src="@drawable/ic_nexus_mods"
+                app:tint="@color/nexus_text_muted" />
 
-                <!-- Profile Config Button -->
-                <ImageButton
-                    android:id="@+id/manager_profile_button"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/bg_pill_tab_unselected"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_setting"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/play_button"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/neon_cyan" />
+            <!-- Tab 3: Optimizer (Minimalist Outline Vector Icon) -->
+            <ImageView
+                android:id="@+id/tab_optimizer"
+                android:layout_width="44dp"
+                android:layout_height="40dp"
+                android:layout_marginHorizontal="3dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="10dp"
+                android:src="@drawable/ic_nexus_optimizer"
+                app:tint="@color/nexus_text_muted" />
 
-                <!-- Massive Glowing Neon Hero Launch Button -->
-                <com.mattz.launcher.ui.view.AnimButton
-                    android:id="@+id/play_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="44dp"
-                    android:background="@drawable/button_play_background"
-                    android:paddingHorizontal="24dp"
-                    android:text="🚀 LUNCURKAN GAME"
-                    android:textAllCaps="true"
-                    android:textColor="#FFFFFF"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <!-- Tab 4: Tools (Minimalist Outline Vector Icon) -->
+            <ImageView
+                android:id="@+id/tab_tools"
+                android:layout_width="44dp"
+                android:layout_height="40dp"
+                android:layout_marginHorizontal="3dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="10dp"
+                android:src="@drawable/ic_nexus_tools"
+                app:tint="@color/nexus_text_muted" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- Tab 5: Profil / Library (Minimalist Outline Vector Icon) -->
+            <ImageView
+                android:id="@+id/tab_profiles"
+                android:layout_width="44dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="3dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="10dp"
+                android:src="@drawable/ic_nexus_profiles"
+                app:tint="@color/nexus_text_muted" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- Hidden Settings Anchor for compatibility -->
+            <View
+                android:id="@+id/tab_settings"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="gone" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

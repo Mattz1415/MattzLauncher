@@ -162,7 +162,7 @@
     <string name="customctrl_swipeable">Прокручиваемый</string>
     <string name="customctrl_forward_lock">Блокировка движения вперед</string>
     <string name="customctrl_absolute_tracking">Принудительное отслеживание пальца</string>
-    <string name="controls_tip">Нажмите на значок шестерёнки для открытия меню ⚙\nНажмите на кнопку для настройки: редактировать, масштабировать, удалить или настроить её привязку</string>
+    <string name="controls_tip">Нажмите на значок шестерёнки для открытия меню\nНажмите на кнопку для настройки: редактировать, масштабировать, удалить или настроить её привязку</string>
     <string name="controls_add_control_button">Кнопка</string>
     <string name="controls_add_control_drawer">Комбинированная клавиша</string>
     <string name="controls_visibility">Видимость</string>

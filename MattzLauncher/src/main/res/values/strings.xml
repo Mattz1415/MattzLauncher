@@ -163,7 +163,7 @@
     <string name="customctrl_swipeable">Swipeable</string>
     <string name="customctrl_forward_lock">Forward Lock</string>
     <string name="customctrl_absolute_tracking">Force Finger Tracking</string>
-    <string name="controls_tip">Tap the gear icon to open the menu ⚙\nTap a button to customize: edit, resize, delete, or remap</string>
+    <string name="controls_tip">Tap the gear icon to open the menu\nTap a button to customize: edit, resize, delete, or remap</string>
     <string name="controls_add_control_button">Button</string>
     <string name="controls_add_control_drawer">Drawer</string>
     <string name="controls_visibility">Visibility</string>

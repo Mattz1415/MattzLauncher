@@ -30,8 +30,9 @@ import com.mattz.launcher.utils.anim.AnimUtils.Companion.setVisibilityAnim
 import com.mattz.launcher.utils.file.FileCopyHandler
 import com.mattz.launcher.utils.file.FileTools
 import com.mattz.launcher.utils.file.PasteFile
-import net.kdt.pojavlaunch.Tools
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
+import com.mattz.launcher.feature.version.VersionsManager
+import com.mattz.launcher.utils.path.PathManager
 import java.io.File
 import java.util.function.Consumer
 
@@ -289,8 +290,19 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
     }
 
     private fun parseBundle() {
-        val bundle = arguments ?: throw NullPointerException("The argument is null!")
-        mRootPath = bundle.getString(BUNDLE_ROOT_PATH) ?: throw IllegalStateException("root path is not set！")
+        val bundle = arguments
+        val path = bundle?.getString(BUNDLE_ROOT_PATH)
+        mRootPath = if (!path.isNullOrEmpty()) {
+            val dir = File(path)
+            if (!dir.exists()) dir.mkdirs()
+            dir.absolutePath
+        } else {
+            val version = VersionsManager.getCurrentVersion()
+            val gameDirPath = version?.getGameDir() ?: (PathManager.DIR_GAME_HOME + "/.minecraft")
+            val defaultModsDir = File(gameDirPath, "mods")
+            if (!defaultModsDir.exists()) defaultModsDir.mkdirs()
+            defaultModsDir.absolutePath
+        }
     }
 
     private fun initViews() {

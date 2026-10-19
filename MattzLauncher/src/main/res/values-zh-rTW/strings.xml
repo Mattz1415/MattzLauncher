@@ -162,7 +162,7 @@
     <string name="customctrl_swipeable">可滑動</string>
     <string name="customctrl_forward_lock">鎖定前進</string>
     <string name="customctrl_absolute_tracking">強制手指追蹤</string>
-    <string name="controls_tip">點擊齒輪懸浮窗打開菜單⚙\n點擊一個按鍵進行自訂：編輯、縮放、刪除或自訂其映射綁定</string>
+    <string name="controls_tip">點擊齒輪懸浮窗打開菜單\n點擊一個按鍵進行自訂：編輯、縮放、刪除或自訂其映射綁定</string>
     <string name="controls_add_control_button">按鍵</string>
     <string name="controls_add_control_drawer">組合鍵</string>
     <string name="controls_visibility">可見性</string>

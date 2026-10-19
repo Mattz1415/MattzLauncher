@@ -162,7 +162,7 @@
     <string name="customctrl_swipeable">Deslizável</string>
     <string name="customctrl_forward_lock">Bloquear avanço</string>
     <string name="customctrl_absolute_tracking">Forçar rastreamento de dedos</string>
-    <string name="controls_tip">Clique no ícone de engrenagem flutuante para abrir o menu ⚙\nClique em um botão para personalizar: editar, redimensionar, excluir ou personalizar seu mapeamento</string>
+    <string name="controls_tip">Clique no ícone de engrenagem flutuante para abrir o menu\nClique em um botão para personalizar: editar, redimensionar, excluir ou personalizar seu mapeamento</string>
     <string name="controls_add_control_button">Botão</string>
     <string name="controls_add_control_drawer">Tecla de combinação</string>
     <string name="controls_visibility">Visibilidade</string>

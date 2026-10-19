@@ -10,7 +10,7 @@ object CrosshairConfigHelper {
         CLASSIC_CROSS("Classic Cross", "┼"),
         MINIMAL_DOT("Minimal Dot", "•"),
         CIRCLE_DOT("Circle Dot", "⦿"),
-        CYBER_CROSS("Cyber Cross", "✛"),
+        CYBER_CROSS("Cyber Cross", "+"),
         CHEVRON("Chevron Angle", "∧")
     }
 

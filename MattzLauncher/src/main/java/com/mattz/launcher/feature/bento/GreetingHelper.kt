@@ -8,10 +8,10 @@ object GreetingHelper {
         val name = username?.ifEmpty { "Penjelajah" } ?: "Penjelajah"
 
         return when (hour) {
-            in 4..11 -> "Selamat Pagi, $name ☀️"
-            in 12..16 -> "Selamat Siang, $name ⚔️"
-            in 17..20 -> "Selamat Sore, $name 🌇"
-            else -> "Malam Melayang, $name 🌙"
+            in 4..11 -> "Selamat Pagi, $name"
+            in 12..16 -> "Selamat Siang, $name"
+            in 17..20 -> "Selamat Sore, $name"
+            else -> "Selamat Malam, $name"
         }
     }
 }

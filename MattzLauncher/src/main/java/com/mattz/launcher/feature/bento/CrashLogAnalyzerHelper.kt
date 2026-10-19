@@ -37,7 +37,7 @@ object CrashLogAnalyzerHelper {
         if (targetFile == null || !targetFile.exists()) {
             return CrashDiagnosis(
                 reportFile = "Tidak ada crash report",
-                summary = "Sistem Bersih ✓",
+                summary = "Sistem Bersih",
                 suspectedCause = "Tidak ditemukan laporan crash baru di .minecraft/crash-reports.",
                 recommendedSolution = "Game berjalan normal. Jika mengalami kendala peluncuran, periksa koneksi atau mod yang terpasang.",
                 rawSnippet = "Log OK."

@@ -8,11 +8,11 @@ object ThemeEngineHelper {
     private const val KEY_ACCENT = "active_accent_color"
 
     enum class ThemeAccent(val displayName: String, val hexColor: String, val intColor: Int) {
-        NEON_CYAN("⚡ Neon Cyan", "#00F0FF", Color.parseColor("#00F0FF")),
-        CYBER_PURPLE("🔮 Cyber Purple", "#A855F7", Color.parseColor("#A855F7")),
-        MATRIX_EMERALD("🌿 Matrix Emerald", "#10B981", Color.parseColor("#10B981")),
-        CRIMSON_RED("🔥 Crimson Red", "#F43F5E", Color.parseColor("#F43F5E")),
-        NEON_GOLD("⭐ Neon Gold", "#F59E0B", Color.parseColor("#F59E0B"))
+        NEON_CYAN("Cyan Core", "#00F0FF", Color.parseColor("#00F0FF")),
+        CYBER_PURPLE("Cyber Purple", "#A855F7", Color.parseColor("#A855F7")),
+        MATRIX_EMERALD("Matrix Emerald", "#10B981", Color.parseColor("#10B981")),
+        CRIMSON_RED("Crimson Red", "#F43F5E", Color.parseColor("#F43F5E")),
+        NEON_GOLD("Amber Gold", "#F59E0B", Color.parseColor("#F59E0B"))
     }
 
     fun getActiveAccent(context: Context): ThemeAccent {

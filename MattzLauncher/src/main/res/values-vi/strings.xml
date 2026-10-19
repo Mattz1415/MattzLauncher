@@ -162,7 +162,7 @@
     <string name="customctrl_swipeable">Có thể vuốt</string>
     <string name="customctrl_forward_lock">Khóa tiến</string>
     <string name="customctrl_absolute_tracking">Theo dõi ngón tay bắt buộc</string>
-    <string name="controls_tip">Nhấp vào cửa sổ nổi bánh răng để mở menu⚙\nNhấp vào một nút để tùy chỉnh: chỉnh sửa, thu nhỏ, xóa hoặc tùy chỉnh ánh xạ</string>
+    <string name="controls_tip">Nhấp vào cửa sổ nổi bánh răng để mở menu\nNhấp vào một nút để tùy chỉnh: chỉnh sửa, thu nhỏ, xóa hoặc tùy chỉnh ánh xạ</string>
     <string name="controls_add_control_button">Nút</string>
     <string name="controls_add_control_drawer">Nút kéo</string>
     <string name="controls_visibility">Khả năng hiển thị</string>

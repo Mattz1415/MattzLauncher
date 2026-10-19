@@ -57,4 +57,19 @@
     <color name="icon_tint_accent">#00F0FF</color>
     <color name="primary_text">#FFFFFF</color>
     <color name="secondary_text">#94A3B8</color>
+
+    <!-- Nexus Editorial Dark Glass Tokens -->
+    <color name="nexus_bg">#050507</color>
+    <color name="nexus_card">#0E1015</color>
+    <color name="nexus_card_glass">#CC12141C</color>
+    <color name="nexus_card_border">#14FFFFFF</color>
+    <color name="nexus_island_bg">#E6111318</color>
+    <color name="nexus_island_border">#1FFFFFFF</color>
+    <color name="nexus_pill_active">#FFFFFF</color>
+    <color name="nexus_pill_active_text">#090A0F</color>
+    <color name="nexus_text_muted">#9CA3AF</color>
+    <color name="nexus_text_dim">#6B7280</color>
+    <color name="nexus_amber">#F59E0B</color>
+    <color name="nexus_green_online">#10B981</color>
+    <color name="nexus_cyan_dot">#38BDF8</color>
 </resources>

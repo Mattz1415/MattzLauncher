@@ -162,7 +162,7 @@
     <string name="customctrl_swipeable">Wischbar</string>
     <string name="customctrl_forward_lock">Vorwärts sperren</string>
     <string name="customctrl_absolute_tracking">Fingerverfolgung erzwingen</string>
-    <string name="controls_tip">Klicken Sie auf das Zahnradsymbol, um das Menü zu öffnen ⚙\nKlicken Sie auf eine Taste, um sie anzupassen: Bearbeiten, Skalieren, Löschen oder die Zuordnung anpassen</string>
+    <string name="controls_tip">Klicken Sie auf das Zahnradsymbol, um das Menü zu öffnen\nKlicken Sie auf eine Taste, um sie anzupassen: Bearbeiten, Skalieren, Löschen oder die Zuordnung anpassen</string>
     <string name="controls_add_control_button">Taste</string>
     <string name="controls_add_control_drawer">Tastenkombination</string>
     <string name="controls_visibility">Sichtbarkeit</string>
