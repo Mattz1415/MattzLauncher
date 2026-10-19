@@ -143,7 +143,8 @@ public class MainMenuFragment extends FragmentWithAnim {
         binding.tabProfiles.setOnClickListener(v -> {
             BentoAnimationHelper.INSTANCE.animatePillClick(v);
             Bundle bundle = new Bundle();
-            bundle.putString(FilesFragment.BUNDLE_ROOT_PATH, PathManager.DIR_GAME_HOME);
+            bundle.putString(FilesFragment.BUNDLE_LOCK_PATH, PathManager.DIR_GAME_HOME);
+            bundle.putString(FilesFragment.BUNDLE_LIST_PATH, PathManager.DIR_GAME_HOME);
             ZHTools.swapFragmentWithAnim(this, FilesFragment.class, FilesFragment.TAG, bundle);
         });
 
@@ -259,8 +260,9 @@ public class MainMenuFragment extends FragmentWithAnim {
                     binding.gaugeCpuDash.setTitle("CPU");
                     binding.gaugeCpuDash.setAccentColor(0xFF10B981);
                     binding.gaugeCpuDash.setSecondaryColor(0xFF34D399);
-                    binding.gaugeCpuDash.setProgress((float) stats.getCpuLoadPercent(), true);
-                    binding.gaugeCpuDash.setValueText(stats.getCpuLoadPercent() + "%");
+                    float cpuPct = (float) Math.min(100.0, Math.max(10.0, stats.getCpuCores() * 12.5));
+                    binding.gaugeCpuDash.setProgress(cpuPct, true);
+                    binding.gaugeCpuDash.setValueText(stats.getCpuCores() + " Core");
                 }
                 if (binding.gaugeBatteryDash != null) {
                     binding.gaugeBatteryDash.setTitle("SUHU");
