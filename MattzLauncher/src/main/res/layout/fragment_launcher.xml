@@ -3,283 +3,716 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_menu_main"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@android:color/transparent"
-    android:gravity="top"
-    android:orientation="vertical"
-    tools:ignore="ContentDescription">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    tools:ignore="ContentDescription,HardcodedText,SmallSp">
 
+    <!-- Ambient Mesh Aura Background (VisionOS Dark OLED Atmosphere) -->
+    <View
+        android:id="@+id/ambient_aura_top"
+        android:layout_width="380dp"
+        android:layout_height="240dp"
+        android:alpha="0.18"
+        android:background="@drawable/bg_chip_neon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- LEFT / FLOATING NAVIGATION PILL DOCK (VisionOS Glass Style) -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/launcher_menu"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/play_layout"
-        app:layout_constraintHorizontal_weight="6.5"
+        android:id="@+id/navigation_pill_dock"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginVertical="10dp"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/bg_glass_dock"
+        android:paddingHorizontal="6dp"
+        android:paddingVertical="8dp"
+        android:elevation="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/floating_launch_bar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ScrollView
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <!-- App Logo Icon -->
+            <ImageView
+                android:id="@+id/dock_logo_badge"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginBottom="8dp"
+                android:src="@mipmap/ic_launcher_round" />
+
+            <!-- Tab 1: Dashboard -->
+            <com.mattz.launcher.ui.view.AnimTextView
+                android:id="@+id/tab_dashboard"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginVertical="3dp"
+                android:background="@drawable/bg_pill_tab_selected"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="6dp"
+                android:text="🏠 Hub"
+                android:textColor="@color/neon_cyan"
+                android:textSize="10sp"
+                android:textStyle="bold" />
 
-                <com.mattz.launcher.ui.layout.AnimRelativeLayout
-                    android:id="@+id/about_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_12sdp"
-                    android:layout_marginStart="@dimen/_12sdp"
-                    android:layout_marginEnd="@dimen/_8sdp"
-                    android:translationZ="4dp"
-                    android:background="@drawable/background_item"
-                    android:paddingHorizontal="@dimen/_8sdp"
-                    android:paddingVertical="@dimen/_12sdp"
-                    app:ripple_for_relative="true">
+            <!-- Tab 2: Mod & Pack Hub -->
+            <com.mattz.launcher.ui.view.AnimTextView
+                android:id="@+id/tab_mods"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="3dp"
+                android:background="@drawable/bg_pill_tab_unselected"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="6dp"
+                android:text="🧩 Mods"
+                android:textColor="@color/secondary_text"
+                android:textSize="10sp" />
 
-                    <ImageView
-                        android:id="@+id/about_icon"
-                        android:layout_width="@dimen/_24sdp"
-                        android:layout_height="@dimen/_24sdp"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:scaleX="0.93"
-                        android:scaleY="0.93"
-                        android:src="@drawable/ic_about"/>
+            <!-- Tab 3: Optimizer -->
+            <com.mattz.launcher.ui.view.AnimTextView
+                android:id="@+id/tab_optimizer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="3dp"
+                android:background="@drawable/bg_pill_tab_unselected"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="6dp"
+                android:text="⚡ Boost"
+                android:textColor="@color/secondary_text"
+                android:textSize="10sp" />
 
-                    <TextView
-                        android:id="@+id/about_text"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_16sdp"
-                        android:layout_marginEnd="@dimen/_8sdp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_toEndOf="@id/about_icon"
-                        android:textSize="@dimen/_12sdp"
-                        android:textColor="@color/primary_text"/>
+            <!-- Tab 4: Tools -->
+            <com.mattz.launcher.ui.view.AnimTextView
+                android:id="@+id/tab_tools"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="3dp"
+                android:background="@drawable/bg_pill_tab_unselected"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="6dp"
+                android:text="🛠️ Tools"
+                android:textColor="@color/secondary_text"
+                android:textSize="10sp" />
 
-                </com.mattz.launcher.ui.layout.AnimRelativeLayout>
+            <!-- Tab 5: Profiles & Files -->
+            <com.mattz.launcher.ui.view.AnimTextView
+                android:id="@+id/tab_profiles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="3dp"
+                android:background="@drawable/bg_pill_tab_unselected"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="6dp"
+                android:text="🎮 Files"
+                android:textColor="@color/secondary_text"
+                android:textSize="10sp" />
 
-                <com.mattz.launcher.ui.layout.AnimRelativeLayout
-                    android:id="@+id/custom_control_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_12sdp"
-                    android:layout_marginStart="@dimen/_12sdp"
-                    android:layout_marginEnd="@dimen/_8sdp"
-                    android:translationZ="4dp"
-                    android:background="@drawable/background_item"
-                    android:paddingHorizontal="@dimen/_8sdp"
-                    android:paddingVertical="@dimen/_12sdp"
-                    app:ripple_for_relative="true">
+            <!-- Tab 6: Settings -->
+            <com.mattz.launcher.ui.view.AnimTextView
+                android:id="@+id/tab_settings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="3dp"
+                android:background="@drawable/bg_pill_tab_unselected"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="6dp"
+                android:text="⚙️ Config"
+                android:textColor="@color/secondary_text"
+                android:textSize="10sp" />
 
-                    <ImageView
-                        android:id="@+id/custom_control_icon"
-                        android:layout_width="@dimen/_24sdp"
-                        android:layout_height="@dimen/_24sdp"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/ic_menu_custom_controls"/>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_16sdp"
-                        android:layout_marginEnd="@dimen/_8sdp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_toEndOf="@id/custom_control_icon"
-                        android:text="@string/custom_control_title"
-                        android:textSize="@dimen/_12sdp"
-                        android:textColor="@color/primary_text"/>
-
-                </com.mattz.launcher.ui.layout.AnimRelativeLayout>
-
-                <com.mattz.launcher.ui.layout.AnimRelativeLayout
-                    android:id="@+id/open_main_dir_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_12sdp"
-                    android:layout_marginStart="@dimen/_12sdp"
-                    android:layout_marginEnd="@dimen/_8sdp"
-                    android:translationZ="4dp"
-                    android:background="@drawable/background_item"
-                    android:paddingHorizontal="@dimen/_8sdp"
-                    android:paddingVertical="@dimen/_12sdp"
-                    app:ripple_for_relative="true">
-
-                    <ImageView
-                        android:id="@+id/open_main_dir_icon"
-                        android:layout_width="@dimen/_24sdp"
-                        android:layout_height="@dimen/_24sdp"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/ic_folder"/>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_16sdp"
-                        android:layout_marginEnd="@dimen/_8sdp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_toEndOf="@id/open_main_dir_icon"
-                        android:text="@string/main_open_main_dir"
-                        android:textSize="@dimen/_12sdp"
-                        android:textColor="@color/primary_text"/>
-
-                </com.mattz.launcher.ui.layout.AnimRelativeLayout>
-
-                <com.mattz.launcher.ui.layout.AnimRelativeLayout
-                    android:id="@+id/install_jar_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_12sdp"
-                    android:layout_marginStart="@dimen/_12sdp"
-                    android:layout_marginEnd="@dimen/_8sdp"
-                    android:translationZ="4dp"
-                    android:background="@drawable/background_item"
-                    android:paddingHorizontal="@dimen/_8sdp"
-                    android:paddingVertical="@dimen/_12sdp"
-                    app:ripple_for_relative="true">
-
-                    <ImageView
-                        android:id="@+id/install_jar_icon"
-                        android:layout_width="@dimen/_24sdp"
-                        android:layout_height="@dimen/_24sdp"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/ic_java"/>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_16sdp"
-                        android:layout_marginEnd="@dimen/_8sdp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_toEndOf="@id/install_jar_icon"
-                        android:text="@string/main_install_jar_file"
-                        android:textSize="@dimen/_12sdp"
-                        android:textColor="@color/primary_text"/>
-
-                </com.mattz.launcher.ui.layout.AnimRelativeLayout>
-
-                <com.mattz.launcher.ui.layout.AnimRelativeLayout
-                    android:id="@+id/share_logs_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_12sdp"
-                    android:layout_marginStart="@dimen/_12sdp"
-                    android:layout_marginEnd="@dimen/_8sdp"
-                    android:layout_marginBottom="@dimen/_12sdp"
-                    android:translationZ="4dp"
-                    android:background="@drawable/background_item"
-                    android:paddingHorizontal="@dimen/_8sdp"
-                    android:paddingVertical="@dimen/_12sdp"
-                    app:ripple_for_relative="true">
-
-                    <ImageView
-                        android:id="@+id/share_logs_icon"
-                        android:layout_width="@dimen/_24sdp"
-                        android:layout_height="@dimen/_24sdp"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/ic_share"/>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_16sdp"
-                        android:layout_marginEnd="@dimen/_8sdp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_toEndOf="@id/share_logs_icon"
-                        android:text="@string/main_share_logs"
-                        android:textSize="@dimen/_12sdp"
-                        android:textColor="@color/primary_text"/>
-
-                </com.mattz.launcher.ui.layout.AnimRelativeLayout>
-            </LinearLayout>
-        </ScrollView>
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/play_layout"
+    <!-- CENTER AREA: INTERACTIVE BENTO GRID DASHBOARD -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/bento_scroll_container"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@+id/floating_launch_bar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_weight="3"
-        app:layout_constraintStart_toEndOf="@+id/launcher_menu"
+        app:layout_constraintStart_toEndOf="@+id/navigation_pill_dock"
         app:layout_constraintTop_toTopOf="parent">
 
-        <View
-            android:id="@+id/shadowView"
-            android:layout_width="@dimen/_4sdp"
-            android:layout_height="match_parent"
-            android:background="@drawable/shadow_gradient_right"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/play_layout"
-            app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:id="@+id/bento_grid_root"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="12dp">
+
+            <!-- 1. DYNAMIC GREETING & STATUS BANNER (Feature 20 & 12) -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/bento_greeting_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/bg_bento_card_accent"
+                android:padding="12dp">
+
+                <ImageView
+                    android:id="@+id/player_avatar_icon"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_minecraft"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/chips_layout"
+                    app:layout_constraintStart_toEndOf="@+id/player_avatar_icon"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/dynamic_greeting_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Selamat Datang, Penjelajah ⚔️"
+                        android:textColor="@color/neon_cyan"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/playtime_session_badge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Playtime: 0 Jam • 1 Session"
+                        android:textColor="@color/secondary_text"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <!-- Real-time Hardware Indicators (Feature 1) -->
+                <LinearLayout
+                    android:id="@+id/chips_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/hw_ram_chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:background="@drawable/bg_chip_neon"
+                        android:text="RAM: -- / -- GB"
+                        android:textColor="@color/neon_cyan"
+                        android:textSize="9sp" />
+
+                    <TextView
+                        android:id="@+id/hw_battery_chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_chip_neon"
+                        android:text="Baterai: --°C"
+                        android:textColor="@color/neon_emerald"
+                        android:textSize="9sp" />
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- BENTO ROW 1: OPTIMIZER & SERVER PING -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <!-- Card: Smart JVM Optimizer & RAM Booster (Feature 2 & 14) -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/card_optimizer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_bento_card"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:id="@+id/opt_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="⚡ Smart JVM Optimizer"
+                        android:textColor="@color/neon_cyan"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/opt_current_preset"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="Preset: Extreme FPS (Aikar)"
+                        android:textColor="@color/secondary_text"
+                        android:textSize="9sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/opt_title" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintTop_toBottomOf="@+id/opt_current_preset">
+
+                        <com.mattz.launcher.ui.view.AnimButton
+                            android:id="@+id/btn_optimize_jvm"
+                            android:layout_width="0dp"
+                            android:layout_height="32dp"
+                            android:layout_marginEnd="4dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_pill_tab_selected"
+                            android:text="Terapkan Preset"
+                            android:textColor="@color/neon_cyan"
+                            android:textSize="9sp" />
+
+                        <com.mattz.launcher.ui.view.AnimButton
+                            android:id="@+id/btn_boost_ram"
+                            android:layout_width="0dp"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="4dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/button_play_background"
+                            android:text="🚀 Boost RAM"
+                            android:textColor="#FFFFFF"
+                            android:textSize="9sp" />
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Card: Minecraft Server Ping & Status Checker (Feature 5 & 16) -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/card_server_ping"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_bento_card"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:id="@+id/ping_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🌐 Server Ping &amp; Status"
+                        android:textColor="@color/neon_emerald"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/server_ping_result"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="mc.hypixel.net • Latency: -- ms"
+                        android:textColor="@color/secondary_text"
+                        android:textSize="9sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/ping_title" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintTop_toBottomOf="@+id/server_ping_result">
+
+                        <com.mattz.launcher.ui.view.AnimButton
+                            android:id="@+id/btn_ping_server"
+                            android:layout_width="0dp"
+                            android:layout_height="32dp"
+                            android:layout_marginEnd="4dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_pill_tab_selected"
+                            android:text="Cek Ping"
+                            android:textColor="@color/neon_emerald"
+                            android:textSize="9sp" />
+
+                        <com.mattz.launcher.ui.view.AnimButton
+                            android:id="@+id/btn_direct_connect"
+                            android:layout_width="0dp"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="4dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_bento_card_accent"
+                            android:text="Quick-Connect"
+                            android:textColor="@color/neon_cyan"
+                            android:textSize="9sp" />
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+            <!-- BENTO ROW 2: QUICK OPTIONS TWEAKER & CACHE/CRASH TOOLS -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <!-- Card: Quick Options.txt Tweaker (Feature 6) -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/card_options_tweaker"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_bento_card_purple"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:id="@+id/tweaker_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🎮 Quick Options.txt Tweaker"
+                        android:textColor="@color/neon_violet"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tweaker_desc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="Gamma 1000% (Fullbright) • FOV 90 • VSync Off"
+                        android:textColor="@color/secondary_text"
+                        android:textSize="9sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tweaker_title" />
+
+                    <com.mattz.launcher.ui.view.AnimButton
+                        android:id="@+id/btn_toggle_fullbright"
+                        android:layout_width="match_parent"
+                        android:layout_height="32dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/bg_pill_tab_selected"
+                        android:text="💡 Aktifkan Fullbright 1000%"
+                        android:textColor="@color/neon_violet"
+                        android:textSize="9sp"
+                        app:layout_constraintTop_toBottomOf="@+id/tweaker_desc" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Card: Junk Cleaner & Crash Analyzer (Feature 3 & 4) -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/card_cleaner_crash"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_bento_card"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:id="@+id/cleaner_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🧹 Cleaner &amp; Crash Doctor"
+                        android:textColor="@color/neon_rose"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/cleaner_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="Junk Cache: Siap Dibersihkan"
+                        android:textColor="@color/secondary_text"
+                        android:textSize="9sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cleaner_title" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintTop_toBottomOf="@+id/cleaner_status">
+
+                        <com.mattz.launcher.ui.view.AnimButton
+                            android:id="@+id/btn_clean_junk"
+                            android:layout_width="0dp"
+                            android:layout_height="32dp"
+                            android:layout_marginEnd="4dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_pill_tab_selected"
+                            android:text="🧹 Bersihkan"
+                            android:textColor="@color/neon_rose"
+                            android:textSize="9sp" />
+
+                        <com.mattz.launcher.ui.view.AnimButton
+                            android:id="@+id/btn_analyze_crash"
+                            android:layout_width="0dp"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="4dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_bento_card_accent"
+                            android:text="🔍 Cek Crash"
+                            android:textColor="@color/neon_cyan"
+                            android:textSize="9sp" />
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+            <!-- BENTO ROW 3: PORTAL CALCULATOR, SKIN & UTILITIES (Feature 10, 11, 15, 18) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <!-- Card: Nether-Overworld Portal Calculator (Feature 15) -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/card_portal_calc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_bento_card_emerald"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:id="@+id/portal_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🌀 Portal Coordinate Calc"
+                        android:textColor="@color/neon_emerald"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/portal_result_preview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="Overworld [X: 800, Z: 800] ➔ Nether [X: 100, Z: 100]"
+                        android:textColor="@color/secondary_text"
+                        android:textSize="9sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/portal_title" />
+
+                    <com.mattz.launcher.ui.view.AnimButton
+                        android:id="@+id/btn_open_portal_calc"
+                        android:layout_width="match_parent"
+                        android:layout_height="32dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/bg_pill_tab_selected"
+                        android:text="Buka Kalkulator Portal"
+                        android:textColor="@color/neon_emerald"
+                        android:textSize="9sp"
+                        app:layout_constraintTop_toBottomOf="@+id/portal_result_preview" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Card: Quick Launch Tools Hub (World Backup, Skins, Mods, Files) -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/card_tools_hub"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_bento_card"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:id="@+id/tools_hub_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="📦 Hub &amp; Manajemen Game"
+                        android:textColor="@color/neon_cyan"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tools_hub_subtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="World Backup ZIP • Skin 3D • Custom Controls"
+                        android:textColor="@color/secondary_text"
+                        android:textSize="9sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tools_hub_title" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintTop_toBottomOf="@+id/tools_hub_subtitle">
+
+                        <!-- Re-anchored essential utility buttons to keep Pojav integration 100% functional -->
+                        <com.mattz.launcher.ui.view.AnimButton
+                            android:id="@+id/custom_control_button"
+                            android:layout_width="0dp"
+                            android:layout_height="32dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_pill_tab_selected"
+                            android:text="🎮 Tombol"
+                            android:textColor="@color/neon_cyan"
+                            android:textSize="8sp" />
+
+                        <com.mattz.launcher.ui.view.AnimButton
+                            android:id="@+id/open_main_dir_button"
+                            android:layout_width="0dp"
+                            android:layout_height="32dp"
+                            android:layout_marginHorizontal="2dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_pill_tab_selected"
+                            android:text="📂 Berkas"
+                            android:textColor="@color/neon_cyan"
+                            android:textSize="8sp" />
+
+                        <com.mattz.launcher.ui.view.AnimButton
+                            android:id="@+id/install_jar_button"
+                            android:layout_width="0dp"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="3dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_pill_tab_selected"
+                            android:text="⚡ Pasang JAR"
+                            android:textColor="@color/neon_cyan"
+                            android:textSize="8sp" />
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+            <!-- Re-anchored hidden/utility anchors for seamless compatibility -->
+            <LinearLayout
+                android:id="@+id/launcher_menu"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <View
+                    android:id="@+id/about_button"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    android:id="@+id/about_text"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" />
+
+                <View
+                    android:id="@+id/share_logs_button"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- BOTTOM FLOATING GLASS LAUNCH BAR (VisionOS Floating Capsule) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/floating_launch_bar"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/bg_floating_launch_bar"
+        android:elevation="16dp"
+        android:paddingHorizontal="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/play_main_layout"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:background="@color/menu_overlay"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/shadowView">
+            android:id="@+id/play_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/play_buttons_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <!-- Account Badge Chip -->
+                <include
+                    android:id="@+id/view_account"
+                    layout="@layout/view_account"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!-- Current Version Selector Capsule -->
                 <com.mattz.launcher.ui.layout.AnimRelativeLayout
                     android:id="@+id/version"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/_38sdp"
-                    android:layout_marginBottom="@dimen/_8sdp"
-                    app:layout_constraintBottom_toTopOf="@+id/play_button"
+                    android:layout_height="44dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="@drawable/bg_pill_tab_selected"
+                    android:paddingHorizontal="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/manager_profile_button"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
+                    app:layout_constraintStart_toEndOf="@+id/view_account"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
                         android:id="@+id/version_icon"
-                        android:layout_width="@dimen/_36sdp"
-                        android:layout_height="@dimen/_36sdp"
-                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/ic_minecraft"/>
+                        android:src="@drawable/ic_minecraft" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_8sdp"
                         android:layout_centerVertical="true"
-                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="8dp"
                         android:layout_toEndOf="@id/version_icon"
                         android:orientation="vertical">
 
@@ -287,70 +720,57 @@
                             android:id="@+id/version_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="start"
-                            android:singleLine="true"
-                            android:focusable="true"
-                            android:focusableInTouchMode="true"
                             android:ellipsize="marquee"
-                            android:scrollHorizontally="true"
                             android:marqueeRepeatLimit="marquee_forever"
-                            android:text="@string/version_no_versions" />
+                            android:singleLine="true"
+                            android:text="@string/version_no_versions"
+                            android:textColor="@color/primary_text"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/version_info"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="start"
-                            android:singleLine="true"
-                            android:focusable="true"
-                            android:focusableInTouchMode="true"
                             android:ellipsize="marquee"
-                            android:scrollHorizontally="true"
                             android:marqueeRepeatLimit="marquee_forever"
+                            android:singleLine="true"
+                            android:textColor="@color/secondary_text"
+                            android:textSize="9sp"
                             android:visibility="gone" />
 
                     </LinearLayout>
 
                 </com.mattz.launcher.ui.layout.AnimRelativeLayout>
 
+                <!-- Profile Config Button -->
                 <ImageButton
                     android:id="@+id/manager_profile_button"
-                    android:layout_width="@dimen/_38sdp"
-                    android:layout_height="0dp"
-                    android:layout_marginEnd="@dimen/_8sdp"
-                    android:layout_marginBottom="@dimen/_8sdp"
-                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/bg_pill_tab_unselected"
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_setting"
-                    app:layout_constraintBottom_toTopOf="@+id/play_button"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/version" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/play_button"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/neon_cyan" />
 
+                <!-- Massive Glowing Neon Hero Launch Button -->
                 <com.mattz.launcher.ui.view.AnimButton
                     android:id="@+id/play_button"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_38sdp"
-                    android:layout_marginHorizontal="@dimen/_8sdp"
-                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
                     android:background="@drawable/button_play_background"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/_14ssp"
-                    android:text="@string/main_launch"
+                    android:paddingHorizontal="24dp"
+                    android:text="🚀 LUNCURKAN GAME"
                     android:textAllCaps="true"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    tools:ignore="MissingConstraints" />
-
-                <include
-                    android:id="@+id/view_account"
-                    layout="@layout/view_account"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toTopOf="@id/version"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -360,4 +780,3 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-

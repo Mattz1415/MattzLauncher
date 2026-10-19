@@ -1,113 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_app"
     tools:ignore="ContentDescription">
 
     <ImageView
         android:id="@+id/background_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
 
+    <!-- Minimal hidden topbar anchors to maintain complete compatibility with LauncherActivity -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/top_layout"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_40sdp"
-        android:background="@color/background_menu_top"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <com.mattz.launcher.ui.view.AnimTextView
             android:id="@+id/app_title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_12sdp"
-            android:background="?android:attr/selectableItemBackground"
-            android:textColor="@color/menu_bar_text"
-            android:textSize="@dimen/_16ssp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/download_button"
-            android:layout_width="@dimen/_40sdp"
-            android:layout_height="0dp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:layout_marginVertical="@dimen/_3sdp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_download"
-            android:scaleX="1.04"
-            android:scaleY="1.04"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/setting_button"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="#FFF" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/setting_button"
-            android:layout_width="@dimen/_40sdp"
-            android:layout_height="0dp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:layout_marginVertical="@dimen/_3sdp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_menu_settings"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Holding most of the dynamic content -->
+    <!-- Full-screen Gaming Hub hosting the Futuristic Bento Grid & Glass Dock -->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/container_fragment"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/progress_layout"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/top_layout" />
-
-    <View
-        android:id="@+id/shadowView"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_4sdp"
-        android:background="@drawable/shadow_gradient_down"
-        app:layout_constraintTop_toBottomOf="@id/top_layout" />
-
-    <View
-        android:id="@+id/progress_shadowView"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_4sdp"
-        android:background="@drawable/shadow_gradient_up"
-        app:layout_constraintBottom_toTopOf="@+id/progress_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.kdt.mcgui.ProgressLayout
         android:id="@+id/progress_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:layout_marginEnd="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/notice_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="@dimen/_12sdp"
-        android:background="@drawable/background_card"
+        android:background="@drawable/bg_bento_card_accent"
         android:padding="@dimen/_12sdp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/notice_guideline"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/top_layout"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.333">
 
         <TextView
@@ -116,7 +84,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:textColor="@color/black_or_white"
+            android:textColor="@color/neon_cyan"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -137,6 +106,7 @@
                     android:id="@+id/notice_message_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/primary_text"
                     android:textIsSelectable="true"
                     android:textSize="@dimen/_14sdp" />
 
@@ -145,6 +115,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_4sdp"
+                    android:textColor="@color/secondary_text"
                     android:gravity="end" />
 
             </LinearLayout>
@@ -155,6 +126,8 @@
             android:id="@+id/notice_got_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/button_play_background"
+            android:textColor="#FFFFFF"
             android:text="@string/generic_ok"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -167,7 +140,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.35"/>
+        app:layout_constraintGuide_percent="0.45"/>
 
     <ImageView
         android:id="@+id/hair"
@@ -179,6 +152,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_hair" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
