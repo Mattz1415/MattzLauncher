@@ -123,7 +123,7 @@ public class MainMenuFragment extends FragmentWithAnim {
     private void initBentoDashboard() {
         // 1. Dynamic Greeting & Stats
         binding.dynamicGreetingText.setText(GreetingHelper.INSTANCE.getGreeting("Adventurer"));
-        var playtimeStats = PlaytimeTrackerHelper.INSTANCE.getStatsFormatted(requireContext());
+        kotlin.Pair<String, Integer> playtimeStats = PlaytimeTrackerHelper.INSTANCE.getStatsFormatted(requireContext());
         binding.playtimeSessionBadge.setText("Waktu Bermain: " + playtimeStats.getFirst() + " • " + playtimeStats.getSecond() + " Sesi");
 
         // 2. Hardware Live Monitor (RAM & Battery)
@@ -144,7 +144,7 @@ public class MainMenuFragment extends FragmentWithAnim {
         binding.btnPingServer.setOnClickListener(v -> {
             binding.serverPingResult.setText("Memeriksa latency...");
             TaskExecutors.runInBack(() -> {
-                var res = ServerPingHelper.INSTANCE.pingServer("mc.hypixel.net", 25565, 3000);
+                ServerPingHelper.PingResult res = ServerPingHelper.INSTANCE.pingServer("mc.hypixel.net", 25565, 3000);
                 TaskExecutors.runInUIThread(() -> binding.serverPingResult.setText(res.getHost() + " • " + res.getMessage()));
             });
         });
@@ -162,14 +162,14 @@ public class MainMenuFragment extends FragmentWithAnim {
 
         // 8. Cleaner Button
         binding.btnCleanJunk.setOnClickListener(v -> {
-            var result = JunkCleanerHelper.INSTANCE.cleanJunk(requireContext());
+            JunkCleanerHelper.CleanResult result = JunkCleanerHelper.INSTANCE.cleanJunk(requireContext());
             binding.cleanerStatus.setText("Bersih! Membebaskan " + String.format("%.1f", result.getFreedMb()) + " MB");
             Toast.makeText(requireContext(), "🧹 " + String.format("%.1f", result.getFreedMb()) + " MB file sampah & cache dibersihkan!", Toast.LENGTH_SHORT).show();
         });
 
         // 9. Crash Analyzer Button
         binding.btnAnalyzeCrash.setOnClickListener(v -> {
-            var diagnosis = CrashLogAnalyzerHelper.INSTANCE.analyzeLatestCrash();
+            CrashLogAnalyzerHelper.CrashDiagnosis diagnosis = CrashLogAnalyzerHelper.INSTANCE.analyzeLatestCrash();
             new AlertDialog.Builder(requireContext(), R.style.CustomAlertDialogTheme)
                     .setTitle("🔍 " + diagnosis.getSummary())
                     .setMessage("File: " + diagnosis.getReportFile() + "\n\n⚠️ Penyebab:\n" + diagnosis.getSuspectedCause() + "\n\n💡 Solusi:\n" + diagnosis.getRecommendedSolution())
@@ -197,7 +197,7 @@ public class MainMenuFragment extends FragmentWithAnim {
     @SuppressLint("SetTextI18n")
     private void updateHardwareStats() {
         TaskExecutors.runInBack(() -> {
-            var stats = HardwareMonitorHelper.INSTANCE.getLiveStats(requireContext());
+            HardwareMonitorHelper.HardwareStats stats = HardwareMonitorHelper.INSTANCE.getLiveStats(requireContext());
             TaskExecutors.runInUIThread(() -> {
                 binding.hwRamChip.setText("RAM: " + String.format("%.1f", stats.getRamUsedGb()) + "/" + String.format("%.1f", stats.getRamTotalGb()) + " GB (" + stats.getRamPercent() + "%)");
                 binding.hwBatteryChip.setText("Suhu: " + String.format("%.1f", stats.getBatteryTempCelsius()) + "°C (" + stats.getBatteryPercent() + "%)");
@@ -243,7 +243,7 @@ public class MainMenuFragment extends FragmentWithAnim {
     }
 
     private void showJvmPresetDialog() {
-        var presets = JvmOptimizerHelper.JvmPreset.values();
+        JvmOptimizerHelper.JvmPreset[] presets = JvmOptimizerHelper.JvmPreset.values();
         String[] names = new String[presets.length];
         for (int i = 0; i < presets.length; i++) {
             names[i] = presets[i].getDisplayName() + "\n" + presets[i].getDescription();
@@ -294,7 +294,7 @@ public class MainMenuFragment extends FragmentWithAnim {
                     try {
                         x = Integer.parseInt(input.getText().toString().trim());
                     } catch (Exception ignored) {}
-                    var res = PortalCalculatorHelper.INSTANCE.overworldToNether(x, 64, x);
+                    PortalCalculatorHelper.Coords res = PortalCalculatorHelper.INSTANCE.overworldToNether(x, 64, x);
                     binding.portalResultPreview.setText("Overworld [" + x + ", " + x + "] ➔ Nether [" + res.getX() + ", " + res.getZ() + "]");
                     Toast.makeText(requireContext(), "Nether Coords: X=" + res.getX() + ", Z=" + res.getZ(), Toast.LENGTH_LONG).show();
                 })
@@ -315,10 +315,10 @@ public class MainMenuFragment extends FragmentWithAnim {
                 .setTitle("🛠️ Pusat Alat & Utilitas")
                 .setItems(tools, (dialog, which) -> {
                     switch (which) {
-                        case 0 -> {
-                            var notes = PlayerNotesHelper.INSTANCE.getNotes();
+                        case 0: {
+                            java.util.List<PlayerNotesHelper.NoteEntry> notes = PlayerNotesHelper.INSTANCE.getNotes();
                             StringBuilder sb = new StringBuilder();
-                            for (var n : notes) {
+                            for (PlayerNotesHelper.NoteEntry n : notes) {
                                 sb.append("• ").append(n.getTitle()).append(": ").append(n.getCoordinates()).append(" (").append(n.getDescription()).append(")\n\n");
                             }
                             new AlertDialog.Builder(requireContext(), R.style.CustomAlertDialogTheme)
@@ -326,13 +326,15 @@ public class MainMenuFragment extends FragmentWithAnim {
                                     .setMessage(sb.toString().trim())
                                     .setPositiveButton("OK", null)
                                     .show();
+                            break;
                         }
-                        case 1 -> {
-                            var res = JreTesterHelper.INSTANCE.runBenchmark();
+                        case 1: {
+                            JreTesterHelper.BenchmarkResult res = JreTesterHelper.INSTANCE.runBenchmark();
                             Toast.makeText(requireContext(), res.getDetails(), Toast.LENGTH_LONG).show();
+                            break;
                         }
-                        case 2 -> {
-                            var worlds = WorldBackupHelper.INSTANCE.listWorlds();
+                        case 2: {
+                            java.util.List<WorldBackupHelper.WorldItem> worlds = WorldBackupHelper.INSTANCE.listWorlds();
                             if (worlds.isEmpty()) {
                                 Toast.makeText(requireContext(), "Tidak ada folder dunia di .minecraft/saves", Toast.LENGTH_SHORT).show();
                             } else {
@@ -341,9 +343,10 @@ public class MainMenuFragment extends FragmentWithAnim {
                                     TaskExecutors.runInUIThread(() -> Toast.makeText(requireContext(), "Dunia dicadangkan: " + zip.getName(), Toast.LENGTH_LONG).show());
                                 });
                             }
+                            break;
                         }
-                        case 3 -> {
-                            var accents = ThemeEngineHelper.ThemeAccent.values();
+                        case 3: {
+                            ThemeEngineHelper.ThemeAccent[] accents = ThemeEngineHelper.ThemeAccent.values();
                             String[] accNames = new String[accents.length];
                             for (int i = 0; i < accents.length; i++) accNames[i] = accents[i].getDisplayName();
                             new AlertDialog.Builder(requireContext(), R.style.CustomAlertDialogTheme)
@@ -353,8 +356,11 @@ public class MainMenuFragment extends FragmentWithAnim {
                                         Toast.makeText(requireContext(), "Tema diatur ke " + accents[idx].getDisplayName(), Toast.LENGTH_SHORT).show();
                                     })
                                     .show();
+                            break;
                         }
-                        case 4 -> ZHTools.swapFragmentWithAnim(this, AboutFragment.class, AboutFragment.TAG, null);
+                        case 4:
+                            ZHTools.swapFragmentWithAnim(this, AboutFragment.class, AboutFragment.TAG, null);
+                            break;
                     }
                 })
                 .setNegativeButton("Tutup", null)
