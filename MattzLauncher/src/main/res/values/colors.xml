@@ -70,6 +70,7 @@
     <color name="nexus_text_muted">#9CA3AF</color>
     <color name="nexus_text_dim">#6B7280</color>
     <color name="nexus_amber">#F59E0B</color>
+    <color name="nexus_amber_btn_text">#090A0F</color>
     <color name="nexus_green_online">#10B981</color>
     <color name="nexus_cyan_dot">#38BDF8</color>
 </resources>
