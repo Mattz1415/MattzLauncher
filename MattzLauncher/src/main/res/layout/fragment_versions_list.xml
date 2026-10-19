@@ -86,7 +86,7 @@
                 android:layout_height="28dp"
                 android:background="@drawable/bg_nexus_pill_white"
                 android:paddingHorizontal="14dp"
-                android:text="@string/version_manager_install_new"
+                android:text="@string/version_install_new"
                 android:textColor="@color/nexus_pill_active_text"
                 android:textSize="10sp"
                 android:textStyle="bold" />

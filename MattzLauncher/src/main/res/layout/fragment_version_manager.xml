@@ -78,7 +78,7 @@
                 android:background="@drawable/bg_nexus_pill_glass"
                 android:gravity="center_vertical"
                 android:paddingHorizontal="14dp"
-                android:text="@string/version_manager_shortcuts_resource_pack_path"
+                android:text="@string/version_manager_shortcuts_resource_path"
                 android:textColor="#FFFFFF"
                 android:textSize="10sp" />
 
@@ -102,7 +102,7 @@
                 android:background="@drawable/bg_nexus_pill_glass"
                 android:gravity="center_vertical"
                 android:paddingHorizontal="14dp"
-                android:text="@string/version_manager_shortcuts_shader_pack_path"
+                android:text="@string/version_manager_shortcuts_shader_path"
                 android:textColor="#FFFFFF"
                 android:textSize="10sp" />
 
@@ -126,7 +126,7 @@
                 android:background="@drawable/bg_nexus_pill_glass"
                 android:gravity="center_vertical"
                 android:paddingHorizontal="14dp"
-                android:text="@string/version_manager_shortcuts_log_path"
+                android:text="@string/version_manager_shortcuts_logs_path"
                 android:textColor="#FFFFFF"
                 android:textSize="10sp" />
 
@@ -137,7 +137,7 @@
                 android:background="@drawable/bg_nexus_pill_glass"
                 android:gravity="center_vertical"
                 android:paddingHorizontal="14dp"
-                android:text="@string/version_manager_shortcuts_crash_reports_path"
+                android:text="@string/version_manager_shortcuts_crash_report_path"
                 android:textColor="#FFFFFF"
                 android:textSize="10sp" />
 
