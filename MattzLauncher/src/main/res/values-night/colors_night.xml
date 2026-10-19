@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- True Pure OLED Black Foundation (#000000) -->
+    <color name="black_or_white">#FFFFFF</color>
+    <color name="background_app">#000000</color>
+    <color name="background_app_error">#18080C</color>
+    <color name="background_overlay">#8005070B</color>
+    <color name="background_status_bar">#000000</color>
+    <color name="background_navigation_bar">#000000</color>
+    <color name="background_menu_top">#E6080A0F</color>
+    <color name="background_menu_top_error">#CC4D0B1A</color>
+    <color name="background_menu_element">#00F0FF</color>
+    <color name="background_ripple_effect">#3300F0FF</color>
+
+    <!-- Glassmorphic Acrylic Surfaces -->
+    <color name="glass_surface">#8010131B</color>
+    <color name="glass_surface_elevated">#A6151924</color>
+    <color name="glass_border">#2EFFFFFF</color>
+    <color name="glass_border_accent">#8000F0FF</color>
+    <color name="glass_glow">#4D00F0FF</color>
+
+    <!-- Fluent Buttons & Controls -->
+    <color name="button_background">#80141824</color>
+    <color name="button_background_selected">#BF00E5FF</color>
+    <color name="button_border">#33FFFFFF</color>
+    <color name="dialog_background">#F2090B10</color>
+
+    <color name="menu_bar">#80141824</color>
+    <color name="menu_bar_text">#FFFFFF</color>
+    <color name="menu_overlay">#B3080A0E</color>
+    <color name="menu_progress">#00F0FF</color>
+
+    <!-- Interactive Card States -->
+    <color name="background_item">#66121520</color>
+    <color name="background_item_selected">#3300F0FF</color>
+    <color name="background_item_disabled">#4D200E12</color>
+    <color name="background_sponsor_intermediate">#80D97706</color>
+    <color name="background_sponsor_advanced">#80EF4444</color>
+
+    <!-- Form Inputs & Badges -->
+    <color name="edit_box_fill">#66131722</color>
+    <color name="edit_box_fill_selected">#991C2232</color>
+
+    <color name="mod_category_fill">#66141824</color>
+    <color name="text_background_fill">#800E1118</color>
+
+    <!-- Fluent Modern Neon Accents -->
+    <color name="settings_category">#00F0FF</color>
+    <color name="neon_cyan">#00F0FF</color>
+    <color name="neon_azure">#0078D4</color>
+    <color name="neon_violet">#A855F7</color>
+    <color name="neon_emerald">#10B981</color>
+    <color name="neon_rose">#F43F5E</color>
+    <color name="favorite_color">#FF0055</color>
+
+    <color name="icon_color">#FFFFFF</color>
+    <color name="icon_tint_accent">#00F0FF</color>
+    <color name="primary_text">#FFFFFF</color>
+    <color name="secondary_text">#94A3B8</color>
+</resources>

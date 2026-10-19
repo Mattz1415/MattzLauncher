@@ -1,0 +1,9 @@
+/.gradle
+/build
+/*/build
+local.properties
+.idea/
+.vs/
+/curseforge_key.txt
+/MattzLauncher/.cxx/
+/MattzLauncher/release/
