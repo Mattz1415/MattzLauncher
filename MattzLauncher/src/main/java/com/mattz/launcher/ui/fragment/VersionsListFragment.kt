@@ -163,6 +163,7 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
                 )
             }
             returnButton.setOnClickListener { ZHTools.onBackPressed(requireActivity()) }
+            emptyInstallVersion.setOnClickListener { installNew.performClick() }
         }
 
         refresh()
@@ -201,9 +202,11 @@ class VersionsListFragment : FragmentWithAnim(R.layout.fragment_versions_list) {
                 }
             }
 
-            val currentIndex = it.refreshVersions(getVersions())
+            val currentVersions = getVersions()
+            val currentIndex = it.refreshVersions(currentVersions)
             binding.versions.scrollToPosition(currentIndex)
             binding.versions.scheduleLayoutAnimation()
+            binding.emptyVersionsLayout.visibility = if (currentVersions.isEmpty()) View.VISIBLE else View.GONE
         }
     }
 

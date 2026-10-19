@@ -188,6 +188,81 @@
             android:layout_height="match_parent"
             android:overScrollMode="never" />
 
+        <!-- RICH EMPTY STATE CARD -->
+        <LinearLayout
+            android:id="@+id/empty_account_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_nexus_card"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="18dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_nexus_circle_btn"
+                android:padding="12dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_nexus_user" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Belum Ada Akun Terdaftar"
+                android:textColor="#FFFFFF"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="Tambahkan akun Microsoft atau buat akun Offline baru"
+                android:textColor="#8E95A5"
+                android:textSize="10.5sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <com.mattz.launcher.ui.view.AnimButton
+                    android:id="@+id/empty_add_microsoft"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_nexus_pill_glass"
+                    android:paddingHorizontal="14dp"
+                    android:text="@string/account_microsoft_account"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10.5sp"
+                    android:textStyle="bold" />
+
+                <com.mattz.launcher.ui.view.AnimButton
+                    android:id="@+id/empty_add_local"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:background="@drawable/bg_nexus_pill_white"
+                    android:paddingHorizontal="14dp"
+                    android:text="@string/account_local_account"
+                    android:textAllCaps="false"
+                    android:textColor="#050507"
+                    android:textSize="10.5sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

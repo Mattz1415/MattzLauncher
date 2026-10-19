@@ -223,6 +223,8 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
 
             addServer.setOnClickListener(this@AccountFragment)
             returnButton.setOnClickListener(this@AccountFragment)
+            emptyAddMicrosoft.setOnClickListener { addMicrosoftAccount.performClick() }
+            emptyAddLocal.setOnClickListener { addLocalAccount.performClick() }
         }
 
         reloadAccounts()
@@ -236,6 +238,7 @@ class AccountFragment : FragmentWithAnim(R.layout.fragment_account), View.OnClic
 
         this.mAccountAdapter.notifyDataSetChanged()
         binding.accountsRecycler.scheduleLayoutAnimation()
+        binding.emptyAccountLayout.visibility = if (mAccountsData.isEmpty()) View.VISIBLE else View.GONE
     }
 
     private fun reloadAccounts() {

@@ -42,4 +42,25 @@ object BentoAnimationHelper {
             start()
         }
     }
+
+    fun animateSpringPress(target: View, onClick: (() -> Unit)? = null) {
+        val downX = ObjectAnimator.ofFloat(target, "scaleX", 1f, 0.94f).apply { duration = 90 }
+        val downY = ObjectAnimator.ofFloat(target, "scaleY", 1f, 0.94f).apply { duration = 90 }
+        val upX = ObjectAnimator.ofFloat(target, "scaleX", 0.94f, 1f).apply {
+            duration = 280
+            interpolator = OvershootInterpolator(1.9f)
+        }
+        val upY = ObjectAnimator.ofFloat(target, "scaleY", 0.94f, 1f).apply {
+            duration = 280
+            interpolator = OvershootInterpolator(1.9f)
+        }
+        AnimatorSet().apply {
+            play(downX).with(downY)
+            play(upX).with(upY).after(downX)
+            start()
+        }
+        if (onClick != null) {
+            target.postDelayed({ onClick.invoke() }, 90)
+        }
+    }
 }

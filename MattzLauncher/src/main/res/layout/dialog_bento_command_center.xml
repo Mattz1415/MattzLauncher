@@ -1,0 +1,1167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F205070B"
+    android:padding="10dp"
+    tools:ignore="ContentDescription,HardcodedText,SmallSp">
+
+    <!-- Ambient Glow Top Right -->
+    <View
+        android:layout_width="260dp"
+        android:layout_height="120dp"
+        android:alpha="0.12"
+        android:background="@drawable/bg_nexus_circle_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- TOP HEADER BAR (40DP) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cc_header"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:id="@+id/cc_monogram"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/bg_nexus_monogram_badge"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_nexus_m_monogram" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/cc_btn_close"
+            app:layout_constraintStart_toEndOf="@id/cc_monogram"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MATTZ COMMAND CENTER"
+                android:textColor="#FFFFFF"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="50+ Active Futuristic Modules, Tweaks &amp; Live Radars"
+                android:textColor="#9CA3AF"
+                android:textSize="9.5sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/cc_btn_close"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/bg_nexus_circle_btn"
+            android:padding="8dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_nexus_arrow_left"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- HORIZONTAL CATEGORY PILL SELECTOR (32DP) -->
+    <HorizontalScrollView
+        android:id="@+id/cc_tab_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_marginTop="6dp"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        app:layout_constraintTop_toBottomOf="@id/cc_header">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/cc_tab_hardware"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:background="@drawable/bg_nexus_pill_white"
+                android:gravity="center"
+                android:paddingHorizontal="12dp"
+                android:text="Hardware &amp; Display"
+                android:textColor="@color/nexus_pill_active_text"
+                android:textSize="10.5sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/cc_tab_jvm"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/bg_nexus_btn_compact"
+                android:gravity="center"
+                android:paddingHorizontal="12dp"
+                android:text="JVM &amp; System"
+                android:textColor="#9CA3AF"
+                android:textSize="10.5sp" />
+
+            <TextView
+                android:id="@+id/cc_tab_tweaks"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/bg_nexus_btn_compact"
+                android:gravity="center"
+                android:paddingHorizontal="12dp"
+                android:text="Game Tweaks"
+                android:textColor="#9CA3AF"
+                android:textSize="10.5sp" />
+
+            <TextView
+                android:id="@+id/cc_tab_multiplayer"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/bg_nexus_btn_compact"
+                android:gravity="center"
+                android:paddingHorizontal="12dp"
+                android:text="Multiplayer &amp; World"
+                android:textColor="#9CA3AF"
+                android:textSize="10.5sp" />
+
+            <TextView
+                android:id="@+id/cc_tab_custom"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/bg_nexus_btn_compact"
+                android:gravity="center"
+                android:paddingHorizontal="12dp"
+                android:text="Mods &amp; Customization"
+                android:textColor="#9CA3AF"
+                android:textSize="10.5sp" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <!-- CONTENT FRAME / SCROLLABLE BENTO GRIDS -->
+    <ScrollView
+        android:id="@+id/cc_content_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cc_tab_scroll">
+
+        <LinearLayout
+            android:id="@+id/cc_sections_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="16dp">
+
+            <!-- ================= SECTION 1: HARDWARE & DISPLAY (1-10) ================= -->
+            <LinearLayout
+                android:id="@+id/sec_hardware"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- 4 Circular Gauges Row (RAM, CPU, Battery, Storage) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="@drawable/bg_nexus_card"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="8dp">
+
+                    <com.mattz.launcher.ui.view.FuturisticCircularGaugeView
+                        android:id="@+id/gauge_ram"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <com.mattz.launcher.ui.view.FuturisticCircularGaugeView
+                        android:id="@+id/gauge_cpu"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <com.mattz.launcher.ui.view.FuturisticCircularGaugeView
+                        android:id="@+id/gauge_battery"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <com.mattz.launcher.ui.view.FuturisticCircularGaugeView
+                        android:id="@+id/gauge_storage"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <!-- Cards Grid: Display & Performance Tweaks -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <!-- Live FPS Counter Toggle -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_nexus_card"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Live FPS Overlay"
+                            android:textColor="#FFFFFF"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Overlay FPS &amp; frametime"
+                            android:textColor="#9CA3AF"
+                            android:textSize="9sp" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/switch_fps_overlay"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp" />
+                    </LinearLayout>
+
+                    <!-- 120Hz Refresh Unlocker -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_nexus_card"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Unlock 120Hz Refresh"
+                            android:textColor="#FFFFFF"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Bypass 60 FPS panel cap"
+                            android:textColor="#9CA3AF"
+                            android:textSize="9sp" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/switch_unlock_120hz"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:checked="true" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- GPU Renderer Switcher & Resolution Downscaler -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_nexus_card"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="GPU Renderer Architecture"
+                        android:textColor="#FFFFFF"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_current_renderer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Aktif: HolyGL4ES 1.1.5 (Default)"
+                        android:textColor="#00F2FE"
+                        android:textSize="9.5sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/btn_renderer_holy"
+                            android:layout_width="0dp"
+                            android:layout_height="26dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_nexus_btn_compact"
+                            android:gravity="center"
+                            android:text="HolyGL4ES"
+                            android:textColor="#FFFFFF"
+                            android:textSize="9.5sp" />
+
+                        <TextView
+                            android:id="@+id/btn_renderer_virgl"
+                            android:layout_width="0dp"
+                            android:layout_height="26dp"
+                            android:layout_marginHorizontal="3dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_nexus_btn_compact"
+                            android:gravity="center"
+                            android:text="VirGL"
+                            android:textColor="#FFFFFF"
+                            android:textSize="9.5sp" />
+
+                        <TextView
+                            android:id="@+id/btn_renderer_zink"
+                            android:layout_width="0dp"
+                            android:layout_height="26dp"
+                            android:layout_marginHorizontal="3dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_nexus_btn_compact"
+                            android:gravity="center"
+                            android:text="Zink"
+                            android:textColor="#FFFFFF"
+                            android:textSize="9.5sp" />
+
+                        <TextView
+                            android:id="@+id/btn_renderer_angle"
+                            android:layout_width="0dp"
+                            android:layout_height="26dp"
+                            android:layout_marginStart="3dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_nexus_btn_compact"
+                            android:gravity="center"
+                            android:text="Angle"
+                            android:textColor="#FFFFFF"
+                            android:textSize="9.5sp" />
+                    </LinearLayout>
+
+                    <!-- Resolution Downscaler Slider -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/txt_res_scaler"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Resolution Scaler: 100%"
+                            android:textColor="#FFFFFF"
+                            android:textSize="10sp" />
+
+                        <SeekBar
+                            android:id="@+id/seek_res_scaler"
+                            android:layout_width="160dp"
+                            android:layout_height="wrap_content"
+                            android:max="200"
+                            android:progress="100" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- ================= SECTION 2: JVM & SYSTEM (11-20) ================= -->
+            <LinearLayout
+                android:id="@+id/sec_jvm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <!-- Smart JVM Presets -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_nexus_card"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Smart JVM Arguments Optimizer"
+                        android:textColor="#FFFFFF"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_active_jvm_preset"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Preset: Balanced (Default)"
+                        android:textColor="#00F2FE"
+                        android:textSize="9.5sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/btn_jvm_low"
+                            android:layout_width="0dp"
+                            android:layout_height="26dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_nexus_btn_compact"
+                            android:gravity="center"
+                            android:text="Low-End"
+                            android:textColor="#FFFFFF"
+                            android:textSize="9.5sp" />
+
+                        <TextView
+                            android:id="@+id/btn_jvm_balanced"
+                            android:layout_width="0dp"
+                            android:layout_height="26dp"
+                            android:layout_marginHorizontal="3dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_nexus_btn_compact"
+                            android:gravity="center"
+                            android:text="Balanced"
+                            android:textColor="#FFFFFF"
+                            android:textSize="9.5sp" />
+
+                        <TextView
+                            android:id="@+id/btn_jvm_extreme"
+                            android:layout_width="0dp"
+                            android:layout_height="26dp"
+                            android:layout_marginHorizontal="3dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_nexus_btn_compact"
+                            android:gravity="center"
+                            android:text="Extreme"
+                            android:textColor="#FFFFFF"
+                            android:textSize="9.5sp" />
+
+                        <TextView
+                            android:id="@+id/btn_jvm_aikar"
+                            android:layout_width="0dp"
+                            android:layout_height="26dp"
+                            android:layout_marginStart="3dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_nexus_btn_compact"
+                            android:gravity="center"
+                            android:text="Aikar Flags"
+                            android:textColor="#FFFFFF"
+                            android:textSize="9.5sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Garbage Collector & Pre-Launch Purge Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_nexus_card"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Garbage Collector"
+                            android:textColor="#FFFFFF"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/txt_gc_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Trigger manual System.gc()"
+                            android:textColor="#9CA3AF"
+                            android:textSize="9sp" />
+
+                        <TextView
+                            android:id="@+id/btn_trigger_gc"
+                            android:layout_width="match_parent"
+                            android:layout_height="26dp"
+                            android:layout_marginTop="6dp"
+                            android:background="@drawable/bg_nexus_pill_white"
+                            android:gravity="center"
+                            android:text="Trigger GC"
+                            android:textColor="@color/nexus_pill_active_text"
+                            android:textSize="9.5sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_nexus_card"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Cache &amp; Junk Cleaner"
+                            android:textColor="#FFFFFF"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/txt_junk_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Bersihkan file log &amp; crash"
+                            android:textColor="#9CA3AF"
+                            android:textSize="9sp" />
+
+                        <TextView
+                            android:id="@+id/btn_clean_junk"
+                            android:layout_width="match_parent"
+                            android:layout_height="26dp"
+                            android:layout_marginTop="6dp"
+                            android:background="@drawable/bg_nexus_pill_white"
+                            android:gravity="center"
+                            android:text="Bersihkan Sekarang"
+                            android:textColor="@color/nexus_pill_active_text"
+                            android:textSize="9.5sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Crash Log Doctor AI Analyzer -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_nexus_card"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Crash Log Doctor AI"
+                        android:textColor="#FFFFFF"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_crash_doctor_result"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="Siap memindai crash report terkini..."
+                        android:textColor="#9CA3AF"
+                        android:textSize="9.5sp" />
+
+                    <TextView
+                        android:id="@+id/btn_scan_crash"
+                        android:layout_width="wrap_content"
+                        android:layout_height="26dp"
+                        android:layout_marginTop="6dp"
+                        android:background="@drawable/bg_nexus_btn_compact"
+                        android:gravity="center"
+                        android:paddingHorizontal="14dp"
+                        android:text="Pindai Laporan Crash"
+                        android:textColor="#FFFFFF"
+                        android:textSize="9.5sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- ================= SECTION 3: GAME TWEAKS (21-30) ================= -->
+            <LinearLayout
+                android:id="@+id/sec_tweaks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <!-- 2-Column Switches Grid -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Left Column -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_nexus_card"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Fullbright Gamma 1000%"
+                                android:textColor="#FFFFFF"
+                                android:textSize="10.5sp" />
+
+                            <androidx.appcompat.widget.SwitchCompat
+                                android:id="@+id/switch_fullbright"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="VSync Lock"
+                                android:textColor="#FFFFFF"
+                                android:textSize="10.5sp" />
+
+                            <androidx.appcompat.widget.SwitchCompat
+                                android:id="@+id/switch_vsync"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Smooth Lighting (AO)"
+                                android:textColor="#FFFFFF"
+                                android:textSize="10.5sp" />
+
+                            <androidx.appcompat.widget.SwitchCompat
+                                android:id="@+id/switch_smooth_lighting"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Right Column -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_nexus_card"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Render Clouds (Awan)"
+                                android:textColor="#FFFFFF"
+                                android:textSize="10.5sp" />
+
+                            <androidx.appcompat.widget.SwitchCompat
+                                android:id="@+id/switch_clouds"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Entity Shadows"
+                                android:textColor="#FFFFFF"
+                                android:textSize="10.5sp" />
+
+                            <androidx.appcompat.widget.SwitchCompat
+                                android:id="@+id/switch_shadows"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Auto-Jump"
+                                android:textColor="#FFFFFF"
+                                android:textSize="10.5sp" />
+
+                            <androidx.appcompat.widget.SwitchCompat
+                                android:id="@+id/switch_auto_jump"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- FOV & Render Distance Sliders -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_nexus_card"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/txt_fov_val"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Field of View (FOV): 70"
+                            android:textColor="#FFFFFF"
+                            android:textSize="10sp" />
+
+                        <SeekBar
+                            android:id="@+id/seek_fov"
+                            android:layout_width="160dp"
+                            android:layout_height="wrap_content"
+                            android:max="80"
+                            android:progress="40" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/txt_chunks_val"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Render Distance: 8 chunks"
+                            android:textColor="#FFFFFF"
+                            android:textSize="10sp" />
+
+                        <SeekBar
+                            android:id="@+id/seek_chunks"
+                            android:layout_width="160dp"
+                            android:layout_height="wrap_content"
+                            android:max="30"
+                            android:progress="6" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- ================= SECTION 4: MULTIPLAYER & WORLD (31-40) ================= -->
+            <LinearLayout
+                android:id="@+id/sec_multiplayer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <!-- Server Ping Radar & Direct Connect -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_nexus_card"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Minecraft Server Ping Radar"
+                        android:textColor="#FFFFFF"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_server_ping_result"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="mc.hypixel.net: Menunggu cek..."
+                        android:textColor="#9CA3AF"
+                        android:textSize="9.5sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/btn_cc_check_ping"
+                            android:layout_width="wrap_content"
+                            android:layout_height="26dp"
+                            android:layout_marginEnd="6dp"
+                            android:background="@drawable/bg_nexus_pill_white"
+                            android:gravity="center"
+                            android:paddingHorizontal="14dp"
+                            android:text="Cek Ping Radar"
+                            android:textColor="@color/nexus_pill_active_text"
+                            android:textSize="9.5sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/btn_cc_direct_connect"
+                            android:layout_width="wrap_content"
+                            android:layout_height="26dp"
+                            android:background="@drawable/bg_nexus_btn_compact"
+                            android:gravity="center"
+                            android:paddingHorizontal="14dp"
+                            android:text="Direct Connect IP"
+                            android:textColor="#FFFFFF"
+                            android:textSize="9.5sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Nether Portal Calculator & Waypoints Vault -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_nexus_card"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nether Portal Calculator"
+                            android:textColor="#FFFFFF"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/txt_portal_calc_res"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Overworld [800] -> Nether [100]"
+                            android:textColor="#00F2FE"
+                            android:textSize="9sp" />
+
+                        <TextView
+                            android:id="@+id/btn_cc_portal_calc"
+                            android:layout_width="match_parent"
+                            android:layout_height="26dp"
+                            android:layout_marginTop="6dp"
+                            android:background="@drawable/bg_nexus_btn_compact"
+                            android:gravity="center"
+                            android:text="Hitung Koordinat"
+                            android:textColor="#FFFFFF"
+                            android:textSize="9.5sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_nexus_card"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="World Auto-Backup ZIP"
+                            android:textColor="#FFFFFF"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/txt_backup_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Cadangkan folder saves"
+                            android:textColor="#9CA3AF"
+                            android:textSize="9sp" />
+
+                        <TextView
+                            android:id="@+id/btn_cc_backup_world"
+                            android:layout_width="match_parent"
+                            android:layout_height="26dp"
+                            android:layout_marginTop="6dp"
+                            android:background="@drawable/bg_nexus_btn_compact"
+                            android:gravity="center"
+                            android:text="Cadangkan Sekarang"
+                            android:textColor="#FFFFFF"
+                            android:textSize="9.5sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- ================= SECTION 5: MODS & CUSTOMIZATION (41-50+) ================= -->
+            <LinearLayout
+                android:id="@+id/sec_custom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <!-- Theme Accent Engine -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_nexus_card"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="OLED Custom Accent Theme Engine"
+                        android:textColor="#FFFFFF"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_active_theme_accent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Aksen Aktif: Neon Cyan (#00F2FE)"
+                        android:textColor="#00F2FE"
+                        android:textSize="9.5sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/btn_theme_cyan"
+                            android:layout_width="0dp"
+                            android:layout_height="26dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_nexus_btn_compact"
+                            android:gravity="center"
+                            android:text="Cyan"
+                            android:textColor="#00F2FE"
+                            android:textSize="9.5sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/btn_theme_purple"
+                            android:layout_width="0dp"
+                            android:layout_height="26dp"
+                            android:layout_marginHorizontal="3dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_nexus_btn_compact"
+                            android:gravity="center"
+                            android:text="Purple"
+                            android:textColor="#A855F7"
+                            android:textSize="9.5sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/btn_theme_emerald"
+                            android:layout_width="0dp"
+                            android:layout_height="26dp"
+                            android:layout_marginHorizontal="3dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_nexus_btn_compact"
+                            android:gravity="center"
+                            android:text="Emerald"
+                            android:textColor="#10B981"
+                            android:textSize="9.5sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/btn_theme_crimson"
+                            android:layout_width="0dp"
+                            android:layout_height="26dp"
+                            android:layout_marginHorizontal="3dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_nexus_btn_compact"
+                            android:gravity="center"
+                            android:text="Crimson"
+                            android:textColor="#EF4444"
+                            android:textSize="9.5sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/btn_theme_gold"
+                            android:layout_width="0dp"
+                            android:layout_height="26dp"
+                            android:layout_marginStart="3dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_nexus_btn_compact"
+                            android:gravity="center"
+                            android:text="Gold"
+                            android:textColor="#F59E0B"
+                            android:textSize="9.5sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Audio Engine Restarter & Emergency Force-Stop -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_nexus_card"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Audio Engine Restarter"
+                            android:textColor="#FFFFFF"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Reset OpenAL subsystem"
+                            android:textColor="#9CA3AF"
+                            android:textSize="9sp" />
+
+                        <TextView
+                            android:id="@+id/btn_restart_audio"
+                            android:layout_width="match_parent"
+                            android:layout_height="26dp"
+                            android:layout_marginTop="6dp"
+                            android:background="@drawable/bg_nexus_btn_compact"
+                            android:gravity="center"
+                            android:text="Restart Audio Engine"
+                            android:textColor="#FFFFFF"
+                            android:textSize="9.5sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_nexus_card"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Emergency Force-Stop"
+                            android:textColor="#FFFFFF"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Kill frozen game process"
+                            android:textColor="#9CA3AF"
+                            android:textSize="9sp" />
+
+                        <TextView
+                            android:id="@+id/btn_emergency_kill"
+                            android:layout_width="match_parent"
+                            android:layout_height="26dp"
+                            android:layout_marginTop="6dp"
+                            android:background="@drawable/bg_nexus_btn_compact"
+                            android:gravity="center"
+                            android:text="Hentikan Game"
+                            android:textColor="#EF4444"
+                            android:textSize="9.5sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

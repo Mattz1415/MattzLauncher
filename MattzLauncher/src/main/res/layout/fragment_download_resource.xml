@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent">
+    android:background="@android:color/transparent"
+    tools:ignore="ContentDescription,HardcodedText,SmallSp">
 
+    <!-- LEFT LIST AREA -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/download_layout"
         android:layout_width="0dp"
@@ -20,35 +22,33 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginEnd="@dimen/_minus4sdp"
             android:clipToPadding="false"
-            android:paddingHorizontal="@dimen/_8sdp"
-            android:scrollbarThumbVertical="@color/background_menu_element"
+            android:paddingHorizontal="6dp"
+            android:paddingBottom="12dp"
             android:scrollbars="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- FUTURISTIC DUAL-RING LOADING STATE -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/loading_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/background_card"
-            android:orientation="vertical"
-            android:paddingHorizontal="@dimen/_16sdp"
-            android:paddingVertical="@dimen/_8sdp"
+            android:background="@drawable/bg_nexus_card"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="16dp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ProgressBar
+            <com.mattz.launcher.ui.view.FuturisticLoadingSpinnerView
                 android:id="@+id/loading_progress"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -56,44 +56,52 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="@string/generic_loading"
-                android:textSize="@dimen/_14ssp"
+                android:textColor="#E0E6F0"
+                android:textSize="11.5sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/loading_progress" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <!-- STATUS / NO RESULTS / ERROR TEXT -->
         <TextView
             android:id="@+id/status_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/background_item"
-            android:padding="@dimen/_12sdp"
+            android:background="@drawable/bg_nexus_btn_compact"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp"
+            android:textColor="#9DA4B4"
+            android:textSize="11.5sp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/recycler_view"
             app:layout_constraintEnd_toEndOf="@+id/recycler_view"
             app:layout_constraintStart_toStartOf="@+id/recycler_view"
-            app:layout_constraintTop_toTopOf="@+id/recycler_view"
-            tools:ignore="HardcodedText" />
+            app:layout_constraintTop_toTopOf="@+id/recycler_view" />
 
+        <!-- SCROLL TO TOP FLOATING BUTTON -->
         <ImageButton
             android:id="@+id/back_to_top"
-            android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_40sdp"
-            android:layout_marginEnd="@dimen/_18sdp"
-            android:layout_marginBottom="@dimen/_16sdp"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/bg_nexus_circle_btn"
+            android:padding="8dp"
             android:rotation="-90"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_spinner_arrow_right"
+            android:src="@drawable/ic_nexus_chevron_right"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:ignore="ContentDescription" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- RIGHT OPERATE / FILTER PANEL -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/operate_layout"
         android:layout_width="0dp"
@@ -106,9 +114,9 @@
 
         <View
             android:id="@+id/shadowView"
-            android:layout_width="@dimen/_4sdp"
+            android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@drawable/shadow_gradient_right"
+            android:background="#14FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/operate_layout"
             app:layout_constraintTop_toTopOf="parent" />
@@ -117,7 +125,8 @@
             android:id="@+id/operate_main_layout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@color/menu_overlay"
+            android:background="@drawable/bg_nexus_card"
+            android:padding="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/shadowView"
@@ -127,42 +136,57 @@
                 android:id="@+id/search_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginHorizontal="4dp"
+                android:layout_marginTop="4dp"
                 android:text="@string/download_ui_search"
+                android:textAllCaps="true"
+                android:textColor="#8E95A5"
+                android:textSize="9.5sp"
+                android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <!-- SEARCH INPUT BAR -->
             <com.mattz.launcher.ui.view.AnimEditText
                 android:id="@+id/name_edit"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_marginHorizontal="@dimen/_8sdp"
-                android:background="@drawable/background_edit_box"
+                android:layout_height="34dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="6dp"
+                android:background="@drawable/bg_nexus_btn_compact"
+                android:hint="@string/download_ui_search"
+                android:imeOptions="actionSearch"
                 android:inputType="textPersonName"
-                android:paddingHorizontal="@dimen/padding_heavy"
-                android:textSize="@dimen/_13ssp"
+                android:paddingHorizontal="10dp"
+                android:singleLine="true"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#66FFFFFF"
+                android:textSize="11sp"
                 app:layout_constraintEnd_toStartOf="@id/search_view"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/search_title" />
 
             <ImageButton
                 android:id="@+id/search_view"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginEnd="@dimen/_8sdp"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:minWidth="@dimen/_38sdp"
-                android:src="@drawable/ic_mod_search"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/bg_nexus_circle_btn"
+                android:padding="8dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_nexus_search"
                 app:layout_constraintBottom_toBottomOf="@+id/name_edit"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/search_title"
-                tools:ignore="ContentDescription" />
+                app:layout_constraintTop_toTopOf="@+id/name_edit" />
 
+            <!-- FILTER OPTIONS SCROLL -->
             <ScrollView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginVertical="@dimen/_8sdp"
-                app:layout_constraintBottom_toTopOf="@+id/return_button"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                android:scrollbars="none"
+                app:layout_constraintBottom_toTopOf="@+id/reset"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/name_edit">
@@ -170,172 +194,205 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingHorizontal="4dp">
 
                     <com.mattz.launcher.ui.view.AnimButton
                         android:id="@+id/install_button"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_4sdp"
-                        android:text="@string/download_ui_install_local"/>
+                        android:layout_height="32dp"
+                        android:layout_marginBottom="6dp"
+                        android:background="@drawable/bg_nexus_pill_white"
+                        android:text="@string/download_ui_install_local"
+                        android:textAllCaps="false"
+                        android:textColor="#050507"
+                        android:textSize="10.5sp"
+                        android:textStyle="bold" />
 
+                    <!-- MINECRAFT VERSION -->
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/mc_version_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_4sdp"
-                        android:layout_marginHorizontal="@dimen/_8sdp">
+                        android:layout_marginBottom="6dp">
 
                         <TextView
                             android:id="@+id/mc_version_textview"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/download_ui_mc_version"
+                            android:textColor="#8E95A5"
+                            android:textSize="9.5sp"
+                            android:textStyle="bold"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <com.mattz.launcher.ui.view.AnimTextView
                             android:id="@+id/selected_mc_version_view"
-                            android:layout_width="0dp"
-                            android:layout_height="@dimen/_40sdp"
-                            android:background="@drawable/background_edit_box"
+                            android:layout_width="match_parent"
+                            android:layout_height="32dp"
+                            android:layout_marginTop="2dp"
+                            android:background="@drawable/bg_nexus_btn_compact"
+                            android:gravity="center_vertical"
                             android:hint="@string/version_select_hint"
-                            android:paddingHorizontal="@dimen/padding_heavy"
-                            android:textSize="@dimen/_13ssp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
+                            android:paddingHorizontal="10dp"
+                            android:textColor="#FFFFFF"
+                            android:textColorHint="#66FFFFFF"
+                            android:textSize="11sp"
                             app:layout_constraintTop_toBottomOf="@id/mc_version_textview" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
+                    <!-- PLATFORM -->
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/platform_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:layout_marginHorizontal="@dimen/_8sdp">
+                        android:layout_marginBottom="6dp">
 
                         <TextView
                             android:id="@+id/platform_textview"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/download_ui_platform"
+                            android:textColor="#8E95A5"
+                            android:textSize="9.5sp"
+                            android:textStyle="bold"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <com.skydoves.powerspinner.PowerSpinnerView
                             android:id="@+id/platform_spinner"
-                            android:layout_width="0dp"
-                            android:layout_height="@dimen/_40sdp"
-                            android:background="@drawable/background_edit_box"
-                            android:paddingHorizontal="@dimen/_8sdp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
+                            android:layout_width="match_parent"
+                            android:layout_height="32dp"
+                            android:layout_marginTop="2dp"
+                            android:background="@drawable/bg_nexus_btn_compact"
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="8dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="11sp"
                             app:layout_constraintTop_toBottomOf="@id/platform_textview"
-                            app:spinner_arrow_tint="@color/primary_text"
-                            app:spinner_popup_background="@drawable/background_edit_box"
-                            app:spinner_popup_height="@dimen/_80sdp"
-                            tools:paddingVertical="@dimen/_12sdp" />
+                            app:spinner_arrow_tint="#8E95A5"
+                            app:spinner_popup_background="@drawable/bg_nexus_card"
+                            app:spinner_popup_height="120dp" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
+                    <!-- SORT -->
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/sort_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:layout_marginHorizontal="@dimen/_8sdp">
+                        android:layout_marginBottom="6dp">
 
                         <TextView
                             android:id="@+id/sort_textview"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/download_ui_sort_by"
+                            android:textColor="#8E95A5"
+                            android:textSize="9.5sp"
+                            android:textStyle="bold"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <com.skydoves.powerspinner.PowerSpinnerView
                             android:id="@+id/sort_spinner"
-                            android:layout_width="0dp"
-                            android:layout_height="@dimen/_40sdp"
-                            android:background="@drawable/background_edit_box"
-                            android:paddingHorizontal="@dimen/_8sdp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
+                            android:layout_width="match_parent"
+                            android:layout_height="32dp"
+                            android:layout_marginTop="2dp"
+                            android:background="@drawable/bg_nexus_btn_compact"
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="8dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="11sp"
                             app:layout_constraintTop_toBottomOf="@id/sort_textview"
-                            app:spinner_arrow_tint="@color/primary_text"
-                            app:spinner_popup_background="@drawable/background_edit_box"
-                            app:spinner_popup_height="@dimen/_200sdp"
-                            tools:paddingVertical="@dimen/_12sdp" />
+                            app:spinner_arrow_tint="#8E95A5"
+                            app:spinner_popup_background="@drawable/bg_nexus_card"
+                            app:spinner_popup_height="160dp" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
+                    <!-- CATEGORY -->
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/category_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:layout_marginHorizontal="@dimen/_8sdp">
+                        android:layout_marginBottom="6dp">
 
                         <TextView
                             android:id="@+id/category_textview"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/download_ui_category"
+                            android:textColor="#8E95A5"
+                            android:textSize="9.5sp"
+                            android:textStyle="bold"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <com.skydoves.powerspinner.PowerSpinnerView
                             android:id="@+id/category_spinner"
-                            android:layout_width="0dp"
-                            android:layout_height="@dimen/_40sdp"
-                            android:background="@drawable/background_edit_box"
-                            android:paddingHorizontal="@dimen/_8sdp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
+                            android:layout_width="match_parent"
+                            android:layout_height="32dp"
+                            android:layout_marginTop="2dp"
+                            android:background="@drawable/bg_nexus_btn_compact"
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="8dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="11sp"
                             app:layout_constraintTop_toBottomOf="@+id/category_textview"
-                            app:spinner_arrow_tint="@color/primary_text"
-                            app:spinner_popup_background="@drawable/background_edit_box"
-                            app:spinner_popup_height="@dimen/_200sdp"
-                            tools:paddingVertical="@dimen/_12sdp" />
+                            app:spinner_arrow_tint="#8E95A5"
+                            app:spinner_popup_background="@drawable/bg_nexus_card"
+                            app:spinner_popup_height="160dp" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
+                    <!-- MODLOADER -->
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/modloader_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:layout_marginHorizontal="@dimen/_8sdp">
+                        android:layout_marginBottom="6dp">
 
                         <TextView
                             android:id="@+id/modloader_textview"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/download_ui_modloader"
+                            android:textColor="#8E95A5"
+                            android:textSize="9.5sp"
+                            android:textStyle="bold"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <com.skydoves.powerspinner.PowerSpinnerView
                             android:id="@+id/modloader_spinner"
-                            android:layout_width="0dp"
-                            android:layout_height="@dimen/_40sdp"
-                            android:background="@drawable/background_edit_box"
-                            android:paddingHorizontal="@dimen/_8sdp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
+                            android:layout_width="match_parent"
+                            android:layout_height="32dp"
+                            android:layout_marginTop="2dp"
+                            android:background="@drawable/bg_nexus_btn_compact"
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="8dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="11sp"
                             app:layout_constraintTop_toBottomOf="@+id/modloader_textview"
-                            app:spinner_arrow_tint="@color/primary_text"
-                            app:spinner_popup_background="@drawable/background_edit_box"
-                            app:spinner_popup_height="@dimen/_200sdp"
-                            tools:paddingVertical="@dimen/_12sdp" />
+                            app:spinner_arrow_tint="#8E95A5"
+                            app:spinner_popup_background="@drawable/bg_nexus_card"
+                            app:spinner_popup_height="160dp" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
+
                 </LinearLayout>
             </ScrollView>
 
+            <!-- BOTTOM ACTION BUTTONS -->
             <com.mattz.launcher.ui.view.AnimButton
                 android:id="@+id/reset"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/_8sdp"
-                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/bg_nexus_pill_glass"
                 android:text="@string/generic_reset"
+                android:textAllCaps="false"
+                android:textColor="#CBD5E1"
+                android:textSize="10.5sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/return_button"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -343,14 +400,19 @@
             <com.mattz.launcher.ui.view.AnimButton
                 android:id="@+id/return_button"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/_8sdp"
-                android:layout_marginEnd="@dimen/_4sdp"
+                android:layout_height="32dp"
+                android:layout_marginStart="4dp"
+                android:background="@drawable/bg_nexus_btn_compact"
                 android:text="@string/generic_return"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="10.5sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/reset" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

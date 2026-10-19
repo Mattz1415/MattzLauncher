@@ -98,41 +98,59 @@
             android:layout_height="match_parent"
             android:overScrollMode="never" />
 
-        <!-- Empty State View -->
+        <!-- RICH EMPTY STATE CARD -->
         <LinearLayout
             android:id="@+id/nothing_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_nexus_pill_glass"
+            android:background="@drawable/bg_nexus_card"
             android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="10dp"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="18dp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_nexus_circle_btn"
+                android:padding="12dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_nexus_mods" />
+
             <TextView
                 android:id="@+id/nothing_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="@string/file_nothing"
-                android:textColor="@color/nexus_text_muted"
-                android:textSize="11sp" />
+                android:textColor="#FFFFFF"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="Belum ada mod di direktori instance ini"
+                android:textColor="#8E95A5"
+                android:textSize="10.5sp" />
 
             <com.mattz.launcher.ui.view.AnimTextView
                 android:id="@+id/go_download_text"
                 android:layout_width="wrap_content"
-                android:layout_height="28dp"
-                android:layout_marginStart="10dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="12dp"
                 android:background="@drawable/bg_nexus_pill_white"
                 android:gravity="center"
-                android:paddingHorizontal="12dp"
+                android:paddingHorizontal="16dp"
                 android:text="@string/profile_mods_download_mod"
-                android:textColor="@color/nexus_pill_active_text"
-                android:textSize="10sp"
+                android:textColor="#050507"
+                android:textSize="10.5sp"
                 android:textStyle="bold"
                 app:ripple_for_text="true" />
 

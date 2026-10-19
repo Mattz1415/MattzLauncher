@@ -8,56 +8,72 @@ object OptionsTxtTweakerHelper {
         val file = File(PathManager.DIR_GAME_HOME, ".minecraft/options.txt")
         if (!file.exists()) {
             file.parentFile?.mkdirs()
-            file.writeText("gamma:1.0\nfov:0.0\nrenderDistance:8\nenableVsync:false\nguiScale:0\n")
+            file.writeText("gamma:1.0\nfov:0.0\nrenderDistance:8\nenableVsync:false\nguiScale:0\nao:true\nrenderClouds:true\nparticles:0\nentityShadows:true\nautoJump:false\n")
         }
         return file
     }
 
+    private fun loadMap(): MutableMap<String, String> {
+        val file = getOptionsFile()
+        val map = mutableMapOf<String, String>()
+        file.readLines().forEach { line ->
+            if (line.contains(":")) {
+                val k = line.substringBefore(":").trim()
+                val v = line.substringAfter(":").trim()
+                map[k] = v
+            }
+        }
+        return map
+    }
+
+    private fun saveMap(map: Map<String, String>) {
+        val file = getOptionsFile()
+        val text = map.entries.joinToString("\n") { "${it.key}:${it.value}" } + "\n"
+        file.writeText(text)
+    }
+
     fun isFullbrightEnabled(): Boolean {
         return try {
-            val file = getOptionsFile()
-            file.readLines().any { it.startsWith("gamma:") && (it.substringAfter("gamma:").toDoubleOrNull() ?: 1.0) >= 9.0 }
+            val map = loadMap()
+            (map["gamma"]?.toDoubleOrNull() ?: 1.0) >= 9.0
         } catch (e: Exception) {
             false
         }
     }
 
     fun toggleFullbright(): Boolean {
-        val file = getOptionsFile()
-        val lines = file.readLines().toMutableList()
+        val map = loadMap()
         val currentlyOn = isFullbrightEnabled()
-        val newGamma = if (currentlyOn) "1.0" else "10.0"
-
-        var found = false
-        for (i in lines.indices) {
-            if (lines[i].startsWith("gamma:")) {
-                lines[i] = "gamma:$newGamma"
-                found = true
-                break
-            }
-        }
-        if (!found) {
-            lines.add("gamma:$newGamma")
-        }
-        file.writeText(lines.joinToString("\n") + "\n")
+        map["gamma"] = if (currentlyOn) "1.0" else "10.0"
+        saveMap(map)
         return !currentlyOn
     }
 
+    fun setOption(key: String, value: String) {
+        val map = loadMap()
+        map[key] = value
+        saveMap(map)
+    }
+
+    fun getOption(key: String, defaultVal: String = ""): String {
+        val map = loadMap()
+        return map[key] ?: defaultVal
+    }
+
+    fun getBooleanOption(key: String, defaultVal: Boolean = false): Boolean {
+        val v = getOption(key)
+        return if (v.isEmpty()) defaultVal else v.toBoolean()
+    }
+
+    fun getIntOption(key: String, defaultVal: Int = 0): Int {
+        return getOption(key).toIntOrNull() ?: defaultVal
+    }
+
     fun setQuickPresets(fovVal: Float = 0.5f, chunks: Int = 8, vsync: Boolean = false) {
-        val file = getOptionsFile()
-        val map = mutableMapOf<String, String>()
-        file.readLines().forEach { line ->
-            if (line.contains(":")) {
-                val k = line.substringBefore(":")
-                val v = line.substringAfter(":")
-                map[k] = v
-            }
-        }
+        val map = loadMap()
         map["fov"] = fovVal.toString()
         map["renderDistance"] = chunks.toString()
         map["enableVsync"] = vsync.toString()
-
-        val text = map.entries.joinToString("\n") { "${it.key}:${it.value}" } + "\n"
-        file.writeText(text)
+        saveMap(map)
     }
 }

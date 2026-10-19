@@ -31,6 +31,7 @@ import com.mattz.launcher.ui.fragment.AboutFragment;
 import com.mattz.launcher.ui.fragment.ControlButtonFragment;
 import com.mattz.launcher.ui.fragment.FilesFragment;
 import com.mattz.launcher.ui.fragment.FragmentWithAnim;
+import com.mattz.launcher.ui.fragment.InstallGameFragment;
 import com.mattz.launcher.ui.fragment.ModsFragment;
 import com.mattz.launcher.ui.fragment.SettingsFragment;
 import com.mattz.launcher.ui.fragment.VersionManagerFragment;
@@ -96,6 +97,13 @@ public class MainMenuFragment extends FragmentWithAnim {
             ZHTools.swapFragmentWithAnim(this, VersionsListFragment.class, VersionsListFragment.TAG, null);
         });
 
+        if (binding.btnTopSettings != null) {
+            binding.btnTopSettings.setOnClickListener(v -> {
+                BentoAnimationHelper.INSTANCE.animatePillClick(v);
+                ZHTools.swapFragmentWithAnim(this, SettingsFragment.class, SettingsFragment.TAG, null);
+            });
+        }
+
         binding.segTabInstances.setOnClickListener(v -> binding.bentoScrollContainer.smoothScrollTo(0, 0));
 
         binding.segTabLibrary.setOnClickListener(v -> {
@@ -124,17 +132,19 @@ public class MainMenuFragment extends FragmentWithAnim {
 
         binding.tabOptimizer.setOnClickListener(v -> {
             BentoAnimationHelper.INSTANCE.animatePillClick(v);
-            showJvmPresetDialog();
+            new BentoCommandCenterDialog(requireContext()).show();
         });
 
         binding.tabTools.setOnClickListener(v -> {
             BentoAnimationHelper.INSTANCE.animatePillClick(v);
-            showToolsDialog();
+            new BentoCommandCenterDialog(requireContext()).show();
         });
 
         binding.tabProfiles.setOnClickListener(v -> {
             BentoAnimationHelper.INSTANCE.animatePillClick(v);
-            ZHTools.swapFragmentWithAnim(this, VersionsListFragment.class, VersionsListFragment.TAG, null);
+            Bundle bundle = new Bundle();
+            bundle.putString(FilesFragment.BUNDLE_ROOT_PATH, PathManager.DIR_GAME_HOME);
+            ZHTools.swapFragmentWithAnim(this, FilesFragment.class, FilesFragment.TAG, bundle);
         });
 
         if (binding.tabSettings != null) {
@@ -155,7 +165,7 @@ public class MainMenuFragment extends FragmentWithAnim {
         updateHardwareStats();
 
         // 3. JVM Optimizer Button
-        binding.btnOptimizeJvm.setOnClickListener(v -> showJvmPresetDialog());
+        binding.btnOptimizeJvm.setOnClickListener(v -> new BentoCommandCenterDialog(requireContext()).show());
 
         // 4. Boost RAM Button (Amber pill)
         binding.btnBoostRam.setOnClickListener(v -> {
@@ -166,8 +176,8 @@ public class MainMenuFragment extends FragmentWithAnim {
             updateHeroStats();
         });
 
-        // Filter & Quick Tweaks button
-        binding.btnFilterTweaks.setOnClickListener(v -> showQuickTweaksDialog());
+        // Filter & Quick Tweaks button -> Bento Command Center
+        binding.btnFilterTweaks.setOnClickListener(v -> new BentoCommandCenterDialog(requireContext()).show());
 
         // 5. Server Ping Button
         binding.btnPingServer.setOnClickListener(v -> {
@@ -225,50 +235,7 @@ public class MainMenuFragment extends FragmentWithAnim {
     }
 
     private void showQuickTweaksDialog() {
-        String[] options = new String[]{
-                "Toggle Fullbright 1000%",
-                "Pilih Preset JVM Arguments",
-                "Bersihkan Cache & Junk",
-                "Kalkulator Portal Nether",
-                "Periksa Ping Server",
-                "Direct Server Quick-Connect",
-                "Pusat Alat & Utilitas"
-        };
-        new AlertDialog.Builder(requireContext(), R.style.CustomAlertDialogTheme)
-                .setTitle("Filter & Quick Tweaks")
-                .setItems(options, (dialog, which) -> {
-                    switch (which) {
-                        case 0: {
-                            boolean on = OptionsTxtTweakerHelper.INSTANCE.toggleFullbright();
-                            updateFullbrightButtonLabel();
-                            Toast.makeText(requireContext(), on ? "Fullbright 1000% Aktif" : "Gamma Normal (100%)", Toast.LENGTH_SHORT).show();
-                            break;
-                        }
-                        case 1:
-                            showJvmPresetDialog();
-                            break;
-                        case 2: {
-                            JunkCleanerHelper.CleanResult result = JunkCleanerHelper.INSTANCE.cleanJunk(requireContext());
-                            binding.cleanerStatus.setText("Bersih! Membebaskan " + String.format("%.1f", result.getFreedMb()) + " MB");
-                            Toast.makeText(requireContext(), String.format("%.1f", result.getFreedMb()) + " MB cache dibersihkan", Toast.LENGTH_SHORT).show();
-                            break;
-                        }
-                        case 3:
-                            showPortalCalculatorDialog();
-                            break;
-                        case 4:
-                            binding.btnPingServer.performClick();
-                            break;
-                        case 5:
-                            showDirectConnectDialog();
-                            break;
-                        case 6:
-                            showToolsDialog();
-                            break;
-                    }
-                })
-                .setNegativeButton("Tutup", null)
-                .show();
+        new BentoCommandCenterDialog(requireContext()).show();
     }
 
     private void updateHeroStats() {
@@ -281,8 +248,41 @@ public class MainMenuFragment extends FragmentWithAnim {
         TaskExecutors.runInBack(() -> {
             HardwareMonitorHelper.HardwareStats stats = HardwareMonitorHelper.INSTANCE.getLiveStats(requireContext());
             TaskExecutors.runInUIThread(() -> {
-                binding.hwRamChip.setText("RAM: " + String.format("%.1f", stats.getRamUsedGb()) + "/" + String.format("%.1f", stats.getRamTotalGb()) + " GB (" + stats.getRamPercent() + "%)");
-                binding.hwBatteryChip.setText("Suhu: " + String.format("%.1f", stats.getBatteryTempCelsius()) + "°C (" + stats.getBatteryPercent() + "%)");
+                if (binding.gaugeRamDash != null) {
+                    binding.gaugeRamDash.setTitle("RAM");
+                    binding.gaugeRamDash.setAccentColor(0xFF00F2FE);
+                    binding.gaugeRamDash.setSecondaryColor(0xFF4FACFE);
+                    binding.gaugeRamDash.setProgress((float) stats.getRamPercent(), true);
+                    binding.gaugeRamDash.setValueText(String.format("%.1fG", stats.getRamUsedGb()));
+                }
+                if (binding.gaugeCpuDash != null) {
+                    binding.gaugeCpuDash.setTitle("CPU");
+                    binding.gaugeCpuDash.setAccentColor(0xFF10B981);
+                    binding.gaugeCpuDash.setSecondaryColor(0xFF34D399);
+                    binding.gaugeCpuDash.setProgress((float) stats.getCpuLoadPercent(), true);
+                    binding.gaugeCpuDash.setValueText(stats.getCpuLoadPercent() + "%");
+                }
+                if (binding.gaugeBatteryDash != null) {
+                    binding.gaugeBatteryDash.setTitle("SUHU");
+                    binding.gaugeBatteryDash.setAccentColor(0xFFF59E0B);
+                    binding.gaugeBatteryDash.setSecondaryColor(0xFFFBBF24);
+                    binding.gaugeBatteryDash.setProgress(Math.min(100f, (float) stats.getBatteryTempCelsius() * 2f), true);
+                    binding.gaugeBatteryDash.setValueText(((int) stats.getBatteryTempCelsius()) + "°C");
+                }
+                if (binding.gaugeStorageDash != null) {
+                    binding.gaugeStorageDash.setTitle("STORAGE");
+                    binding.gaugeStorageDash.setAccentColor(0xFFA855F7);
+                    binding.gaugeStorageDash.setSecondaryColor(0xFFC084FC);
+                    float storagePct = (float) Math.min(100.0, (stats.getStorageFreeGb() / Math.max(1.0, stats.getStorageTotalGb())) * 100.0);
+                    binding.gaugeStorageDash.setProgress(storagePct, true);
+                    binding.gaugeStorageDash.setValueText(((int) stats.getStorageFreeGb()) + "GB");
+                }
+                if (binding.hwRamChip != null) {
+                    binding.hwRamChip.setText("RAM: " + String.format("%.1f", stats.getRamUsedGb()) + "/" + String.format("%.1f", stats.getRamTotalGb()) + " GB (" + stats.getRamPercent() + "%)");
+                }
+                if (binding.hwBatteryChip != null) {
+                    binding.hwBatteryChip.setText("Suhu: " + String.format("%.1f", stats.getBatteryTempCelsius()) + "°C (" + stats.getBatteryPercent() + "%)");
+                }
             });
         });
     }
@@ -317,8 +317,8 @@ public class MainMenuFragment extends FragmentWithAnim {
 
         binding.managerProfileButton.setOnClickListener(v -> {
             if (!isTaskRunning()) {
-                ViewAnimUtils.setViewAnim(binding.managerProfileButton, Animations.Pulse);
-                ZHTools.swapFragmentWithAnim(this, VersionManagerFragment.class, VersionManagerFragment.TAG, null);
+                BentoAnimationHelper.INSTANCE.animatePillClick(binding.managerProfileButton);
+                ZHTools.swapFragmentWithAnim(this, InstallGameFragment.class, InstallGameFragment.TAG, null);
             } else {
                 ViewAnimUtils.setViewAnim(binding.managerProfileButton, Animations.Shake);
                 Toast.makeText(requireContext(), R.string.version_manager_task_in_progress, Toast.LENGTH_SHORT).show();
@@ -326,10 +326,12 @@ public class MainMenuFragment extends FragmentWithAnim {
         });
 
         binding.playButton.setOnClickListener(v -> {
-            ViewAnimUtils.setViewAnim(binding.playButton, Animations.Pulse);
-            MemoryBoosterHelper.INSTANCE.boostMemory(requireContext());
-            PlaytimeTrackerHelper.INSTANCE.recordSessionLaunch(requireContext());
-            EventBus.getDefault().post(new LaunchGameEvent());
+            BentoAnimationHelper.INSTANCE.animateSpringPress(binding.playButton, () -> {
+                MemoryBoosterHelper.INSTANCE.boostMemory(requireContext());
+                PlaytimeTrackerHelper.INSTANCE.recordSessionLaunch(requireContext());
+                EventBus.getDefault().post(new LaunchGameEvent());
+                return kotlin.Unit.INSTANCE;
+            });
         });
 
         binding.versionName.setSelected(true);
@@ -424,68 +426,7 @@ public class MainMenuFragment extends FragmentWithAnim {
     }
 
     private void showToolsDialog() {
-        String[] tools = new String[]{
-                "Catatan Koordinat & Seed Dunia",
-                "Benchmark Performa Java Runtime",
-                "Cadangkan Dunia (Backup ZIP)",
-                "Ganti Tema Aksen (Theme Engine)",
-                "Tentang MattzLauncher"
-        };
-
-        new AlertDialog.Builder(requireContext(), R.style.CustomAlertDialogTheme)
-                .setTitle("Pusat Alat & Utilitas")
-                .setItems(tools, (dialog, which) -> {
-                    switch (which) {
-                        case 0: {
-                            java.util.List<PlayerNotesHelper.NoteEntry> notes = PlayerNotesHelper.INSTANCE.getNotes();
-                            StringBuilder sb = new StringBuilder();
-                            for (PlayerNotesHelper.NoteEntry n : notes) {
-                                sb.append("• ").append(n.getTitle()).append(": ").append(n.getCoordinates()).append(" (").append(n.getDescription()).append(")\n\n");
-                            }
-                            new AlertDialog.Builder(requireContext(), R.style.CustomAlertDialogTheme)
-                                     .setTitle("Catatan Koordinat")
-                                    .setMessage(sb.toString().trim())
-                                    .setPositiveButton("OK", null)
-                                    .show();
-                            break;
-                        }
-                        case 1: {
-                            JreTesterHelper.BenchmarkResult res = JreTesterHelper.INSTANCE.runBenchmark();
-                            Toast.makeText(requireContext(), res.getDetails(), Toast.LENGTH_LONG).show();
-                            break;
-                        }
-                        case 2: {
-                            java.util.List<WorldBackupHelper.WorldItem> worlds = WorldBackupHelper.INSTANCE.listWorlds();
-                            if (worlds.isEmpty()) {
-                                Toast.makeText(requireContext(), "Tidak ada folder dunia di .minecraft/saves", Toast.LENGTH_SHORT).show();
-                            } else {
-                                TaskExecutors.runInBack(() -> {
-                                    File zip = WorldBackupHelper.INSTANCE.backupWorld(worlds.get(0));
-                                    TaskExecutors.runInUIThread(() -> Toast.makeText(requireContext(), "Dunia dicadangkan: " + zip.getName(), Toast.LENGTH_LONG).show());
-                                });
-                            }
-                            break;
-                        }
-                        case 3: {
-                            ThemeEngineHelper.ThemeAccent[] accents = ThemeEngineHelper.ThemeAccent.values();
-                            String[] accNames = new String[accents.length];
-                            for (int i = 0; i < accents.length; i++) accNames[i] = accents[i].getDisplayName();
-                            new AlertDialog.Builder(requireContext(), R.style.CustomAlertDialogTheme)
-                                    .setTitle("Pilih Tema Aksen")
-                                    .setItems(accNames, (d, idx) -> {
-                                        ThemeEngineHelper.INSTANCE.setAccent(requireContext(), accents[idx]);
-                                        Toast.makeText(requireContext(), "Tema diatur ke " + accents[idx].getDisplayName(), Toast.LENGTH_SHORT).show();
-                                    })
-                                    .show();
-                            break;
-                        }
-                        case 4:
-                            ZHTools.swapFragmentWithAnim(this, AboutFragment.class, AboutFragment.TAG, null);
-                            break;
-                    }
-                })
-                .setNegativeButton("Tutup", null)
-                .show();
+        new BentoCommandCenterDialog(requireContext()).show();
     }
 
     private void refreshCurrentVersion() {
