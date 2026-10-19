@@ -31,6 +31,7 @@ import com.mattz.launcher.utils.file.FileCopyHandler
 import com.mattz.launcher.utils.file.FileTools
 import com.mattz.launcher.utils.file.PasteFile
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension
+import net.kdt.pojavlaunch.Tools
 import com.mattz.launcher.feature.version.VersionsManager
 import com.mattz.launcher.utils.path.PathManager
 import java.io.File
@@ -298,8 +299,8 @@ class ModsFragment : FragmentWithAnim(R.layout.fragment_mods) {
             dir.absolutePath
         } else {
             val version = VersionsManager.getCurrentVersion()
-            val gameDirPath = version?.getGameDir() ?: (PathManager.DIR_GAME_HOME + "/.minecraft")
-            val defaultModsDir = File(gameDirPath, "mods")
+            val gameDir: File = version?.getGameDir() ?: File(PathManager.DIR_GAME_HOME)
+            val defaultModsDir = File(gameDir, "mods")
             if (!defaultModsDir.exists()) defaultModsDir.mkdirs()
             defaultModsDir.absolutePath
         }
