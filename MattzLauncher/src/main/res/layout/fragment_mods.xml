@@ -4,168 +4,140 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent"
-    android:orientation="vertical">
+    android:background="@color/nexus_bg"
+    tools:ignore="ContentDescription,HardcodedText,SmallSp">
 
+    <!-- TOP HEADER: NEXUS EDITORIAL (40DP HEIGHT) -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/mods_layout"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/operate_layout"
-        app:layout_constraintHorizontal_weight="6.5"
+        android:id="@+id/operate_layout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="6dp"
+        android:paddingHorizontal="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/mods_header_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/version_manager_shortcuts_mods"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Checkbox: Multi Select -->
+        <com.mattz.launcher.ui.view.AnimCheckBox
+            android:id="@+id/multi_select_files"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:text="@string/file_multi_select_mode"
+            android:textColor="@color/nexus_text_muted"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/mods_header_title"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Action Bar: Refresh, Search, Add, Paste, Return -->
+        <include
+            android:id="@+id/operate_view"
+            layout="@layout/view_file_action_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- MAIN BENTO DARK GLASS CARD: MODS LIST -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mods_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="8dp"
+        android:background="@drawable/bg_nexus_card"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/operate_layout">
+
+        <!-- Hidden anchor for compatibility -->
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/title_layout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:id="@+id/title_view"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                tools:ignore="MissingConstraints" />
+
+            <com.mattz.launcher.ui.view.AnimCheckBox
+                android:id="@+id/select_all"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="gone"
+                tools:ignore="MissingConstraints" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Recycler View -->
+        <com.mattz.launcher.ui.subassembly.filelist.FileRecyclerView
+            android:id="@+id/file_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/_12sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:layout_marginVertical="@dimen/_12sdp"
-            android:background="@drawable/background_card"
-            android:padding="@dimen/_2sdp"
+            android:overScrollMode="never" />
+
+        <!-- Empty State View -->
+        <LinearLayout
+            android:id="@+id/nothing_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_nexus_pill_glass"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="10dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.mattz.launcher.ui.subassembly.filelist.FileRecyclerView
-                android:id="@+id/file_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginHorizontal="@dimen/_8sdp"
-                android:layout_marginBottom="@dimen/_8sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title_layout" />
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/nothing_layout"
+            <TextView
+                android:id="@+id/nothing_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/background_item"
-                android:padding="@dimen/_8sdp"
-                android:layout_marginHorizontal="@dimen/_8sdp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" >
+                android:text="@string/file_nothing"
+                android:textColor="@color/nexus_text_muted"
+                android:textSize="11sp" />
 
-                <TextView
-                    android:id="@+id/nothing_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/file_nothing"
-                    android:layout_marginStart="@dimen/_8sdp" />
+            <com.mattz.launcher.ui.view.AnimTextView
+                android:id="@+id/go_download_text"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/bg_nexus_pill_white"
+                android:gravity="center"
+                android:paddingHorizontal="12dp"
+                android:text="@string/profile_mods_download_mod"
+                android:textColor="@color/nexus_pill_active_text"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                app:ripple_for_text="true" />
 
-                <com.mattz.launcher.ui.view.AnimTextView
-                    android:id="@+id/go_download_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/button_background"
-                    android:text="@string/profile_mods_download_mod"
-                    android:layout_marginHorizontal="@dimen/_8sdp"
-                    app:ripple_for_text="true"/>
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/title_layout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
-
-                <TextView
-                    android:id="@+id/title_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_8sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:text="@string/version_manager_shortcuts_mods"
-                    android:textColor="@color/primary_text"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <com.mattz.launcher.ui.view.AnimCheckBox
-                    android:id="@+id/select_all"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_16sdp"
-                    android:visibility="gone"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/operate_layout"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_weight="3"
-        app:layout_constraintStart_toEndOf="@+id/mods_layout"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <View
-            android:id="@+id/shadowView"
-            android:layout_width="@dimen/_4sdp"
-            android:layout_height="match_parent"
-            android:background="@drawable/shadow_gradient_right"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/operate_layout"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/operate_main_layout"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:background="@color/menu_overlay"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/shadowView">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/operate_buttons_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <com.mattz.launcher.ui.view.AnimCheckBox
-                    android:id="@+id/multi_select_files"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    android:layout_marginBottom="@dimen/_8sdp"
-                    android:paddingStart="@dimen/_8sdp"
-                    android:text="@string/file_multi_select_mode"
-                    app:layout_constraintBottom_toTopOf="@id/operate_view"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    tools:ignore="RtlSymmetry" />
-
-                <include
-                    android:id="@+id/operate_view"
-                    layout="@layout/view_file_action_bar"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_8sdp"
-                    android:layout_marginBottom="@dimen/_26sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"/>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

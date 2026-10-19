@@ -4,203 +4,199 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/nexus_bg"
+    android:padding="8dp"
     tools:context="com.mattz.launcher.ui.fragment.SettingsFragment">
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/settings_viewpager"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="@dimen/_minus4sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/settings_layout"
-        app:layout_constraintTop_toTopOf="parent" />
-
+    <!-- LEFT TAB RAIL (NEXUS DARK GLASS) -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/settings_layout"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="6dp"
+        android:background="@drawable/bg_nexus_card"
+        android:padding="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <View
             android:id="@+id/shadowView"
-            android:layout_width="@dimen/_4sdp"
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@drawable/shadow_gradient_left"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:visibility="gone"
+            tools:ignore="MissingConstraints" />
 
         <com.angcyo.tablayout.DslTabLayout
             android:id="@+id/settings_tab"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@color/menu_overlay"
-            app:layout_constraintEnd_toStartOf="@+id/shadowView"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:tab_draw_indicator="true"
             app:tab_indicator_enable_flow="true"
-            app:tab_indicator_drawable="@drawable/selector_bar_vertical"
-            app:tab_indicator_x_offset="@dimen/_6sdp"
+            app:tab_indicator_drawable="@drawable/bg_nexus_pill_white"
+            app:tab_indicator_x_offset="4dp"
             app:tab_orientation="VERTICAL">
 
+            <!-- Video Settings Tab -->
             <com.mattz.launcher.ui.layout.AnimRelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_8sdp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="8dp">
 
                 <ImageView
                     android:id="@+id/video_image"
-                    android:layout_width="@dimen/_28sdp"
-                    android:layout_height="@dimen/_28sdp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/_6sdp"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@string/setting_category_video"
-                    android:scaleType="fitCenter"
-                    android:scaleX="0.92"
-                    android:scaleY="0.92"
-                    app:srcCompat="@drawable/ic_setting_video" />
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_setting_video"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
-                    android:layout_width="@dimen/_70sdp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginStart="8dp"
                     android:layout_toEndOf="@+id/video_image"
                     android:text="@string/setting_category_video"
-                    android:textColor="@color/black_or_white" />
+                    android:textColor="#FFFFFF"
+                    android:textSize="11sp" />
             </com.mattz.launcher.ui.layout.AnimRelativeLayout>
 
+            <!-- Control Settings Tab -->
             <com.mattz.launcher.ui.layout.AnimRelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_8sdp"
-                app:layout_constraintStart_toStartOf="@+id/video_settings"
-                app:layout_constraintTop_toBottomOf="@+id/video_settings">
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="8dp">
 
                 <ImageView
                     android:id="@+id/controls_image"
-                    android:layout_width="@dimen/_28sdp"
-                    android:layout_height="@dimen/_28sdp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/_6sdp"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@string/setting_category_control"
-                    android:scaleType="fitCenter"
-                    android:scaleX="0.92"
-                    android:scaleY="0.92"
-                    app:srcCompat="@drawable/ic_menu_custom_controls" />
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_menu_custom_controls"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginStart="8dp"
                     android:layout_toEndOf="@+id/controls_image"
                     android:text="@string/setting_category_control"
-                    android:textColor="@color/black_or_white" />
+                    android:textColor="#FFFFFF"
+                    android:textSize="11sp" />
             </com.mattz.launcher.ui.layout.AnimRelativeLayout>
 
+            <!-- Game Settings Tab -->
             <com.mattz.launcher.ui.layout.AnimRelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_8sdp"
-                app:layout_constraintStart_toStartOf="@+id/controls_settings"
-                app:layout_constraintTop_toBottomOf="@+id/controls_settings">
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="8dp">
 
                 <ImageView
                     android:id="@+id/game_image"
-                    android:layout_width="@dimen/_28sdp"
-                    android:layout_height="@dimen/_28sdp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/_6sdp"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@string/setting_category_launcher"
-                    android:scaleType="fitCenter"
-                    android:scaleX="0.8"
-                    android:scaleY="0.8"
-                    app:srcCompat="@drawable/ic_setting_game" />
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_setting_game"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginStart="8dp"
                     android:layout_toEndOf="@+id/game_image"
                     android:text="@string/setting_category_game"
-                    android:textColor="@color/black_or_white" />
+                    android:textColor="#FFFFFF"
+                    android:textSize="11sp" />
             </com.mattz.launcher.ui.layout.AnimRelativeLayout>
 
+            <!-- Launcher Settings Tab -->
             <com.mattz.launcher.ui.layout.AnimRelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_8sdp"
-                app:layout_constraintStart_toStartOf="@+id/game_settings"
-                app:layout_constraintTop_toBottomOf="@+id/game_settings">
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="8dp">
 
                 <ImageView
                     android:id="@+id/launcher_image"
-                    android:layout_width="@dimen/_28sdp"
-                    android:layout_height="@dimen/_28sdp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/_6sdp"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@string/setting_category_launcher"
-                    android:scaleType="fitCenter"
-                    android:scaleX="0.92"
-                    android:scaleY="0.92"
-                    app:srcCompat="@drawable/ic_setting_launcher" />
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_setting_launcher"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginStart="8dp"
                     android:layout_toEndOf="@+id/launcher_image"
                     android:text="@string/setting_category_launcher"
-                    android:textColor="@color/black_or_white" />
+                    android:textColor="#FFFFFF"
+                    android:textSize="11sp" />
             </com.mattz.launcher.ui.layout.AnimRelativeLayout>
 
+            <!-- Experimental Settings Tab -->
             <com.mattz.launcher.ui.layout.AnimRelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_8sdp"
-                app:layout_constraintStart_toStartOf="@+id/launcher_settings"
-                app:layout_constraintTop_toBottomOf="@+id/launcher_settings">
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="8dp">
 
                 <ImageView
                     android:id="@+id/experimental_image"
-                    android:layout_width="@dimen/_28sdp"
-                    android:layout_height="@dimen/_28sdp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/_6sdp"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@string/setting_category_experimental"
-                    android:scaleType="fitCenter"
-                    android:scaleX="0.92"
-                    android:scaleY="0.92"
-                    app:srcCompat="@drawable/ic_setting_experimental" />
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_setting_experimental"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginStart="8dp"
                     android:layout_toEndOf="@+id/experimental_image"
                     android:text="@string/setting_category_experimental"
-                    android:textColor="@color/black_or_white" />
+                    android:textColor="#FFFFFF"
+                    android:textSize="11sp" />
             </com.mattz.launcher.ui.layout.AnimRelativeLayout>
 
         </com.angcyo.tablayout.DslTabLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- RIGHT CONTENT CARD: VIEW PAGER -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="6dp"
+        android:background="@drawable/bg_nexus_card"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/settings_layout"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/settings_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

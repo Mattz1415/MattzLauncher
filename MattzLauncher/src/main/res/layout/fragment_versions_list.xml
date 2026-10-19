@@ -4,96 +4,153 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent"
-    android:orientation="vertical">
+    android:background="@color/nexus_bg"
+    tools:ignore="ContentDescription,HardcodedText,SmallSp">
 
+    <!-- TOP HEADER: NEXUS EDITORIAL (40DP HEIGHT) -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/version_layout"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        app:layout_constraintHorizontal_weight="6.5"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/operate_layout"
+        android:id="@+id/version_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="6dp"
+        android:paddingHorizontal="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/version_top_bar"
-            android:layout_width="match_parent"
+        <!-- Back Button: 32dp x 32dp circular glass -->
+        <ImageView
+            android:id="@+id/return_button"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/bg_nexus_circle_btn"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="7dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_nexus_arrow_left"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/title_view"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_12sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:layout_marginVertical="@dimen/_12sdp"
+            android:layout_marginStart="12dp"
+            android:text="@string/version_manager_title"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/return_button"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Right Action Capsule Buttons -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.mattz.launcher.ui.layout.AnimRelativeLayout
+            <com.mattz.launcher.ui.view.AnimButton
+                android:id="@+id/refresh_button"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:layout_marginEnd="6dp"
+                android:background="@drawable/bg_nexus_pill_glass"
+                android:paddingHorizontal="12dp"
+                android:text="@string/generic_refresh"
+                android:textColor="#FFFFFF"
+                android:textSize="10sp" />
+
+            <com.mattz.launcher.ui.view.AnimButton
+                android:id="@+id/create_path_button"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:layout_marginEnd="6dp"
+                android:background="@drawable/bg_nexus_pill_glass"
+                android:paddingHorizontal="12dp"
+                android:text="@string/profiles_path_create_new"
+                android:textColor="#FFFFFF"
+                android:textSize="10sp" />
+
+            <!-- Primary White Capsule: Install New -->
+            <com.mattz.launcher.ui.view.AnimButton
                 android:id="@+id/install_new"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:padding="@dimen/_8sdp"
-                android:background="@drawable/background_card"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:ripple_for_relative="true">
+                android:layout_height="28dp"
+                android:background="@drawable/bg_nexus_pill_white"
+                android:paddingHorizontal="14dp"
+                android:text="@string/version_manager_install_new"
+                android:textColor="@color/nexus_pill_active_text"
+                android:textSize="10sp"
+                android:textStyle="bold" />
 
-                <ImageView
-                    android:id="@+id/install_icon"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ic_download"
-                    tools:ignore="ContentDescription" />
+        </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toEndOf="@id/install_icon"
-                    android:layout_marginHorizontal="@dimen/_8sdp"
-                    android:textColor="@color/primary_text"
-                    android:text="@string/version_install_new" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </com.mattz.launcher.ui.layout.AnimRelativeLayout>
+    <!-- MAIN 2-COLUMN SPLIT CONTAINER (SIDE-BY-SIDE LANDSCAPE) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/versions_split_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/version_top_bar">
 
+        <!-- LEFT CARD (60%): VERSIONS LIST -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/versions_list_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="6dp"
+            android:background="@drawable/bg_nexus_card"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/operate_layout"
+            app:layout_constraintHorizontal_weight="0.6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!-- Subheader Tabs & Actions -->
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:background="@drawable/background_card"
-                app:layout_constraintStart_toEndOf="@id/install_new"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                android:id="@+id/versions_sub_bar"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <com.angcyo.tablayout.DslTabLayout
                     android:id="@+id/favorites_folder_tab"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_8sdp"
-                    android:padding="@dimen/_4sdp"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/favorites_actions"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/favorites_actions"
-                    app:tab_deselect_color="@color/black_or_white"
-                    app:tab_select_color="@color/black_or_white"
-                    app:tab_indicator_enable_flow="true"
-                    app:tab_indicator_drawable="@drawable/selector_bar_horizontal"
-                    app:tab_indicator_y_offset="@dimen/_4sdp">
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tab_deselect_color="@color/nexus_text_muted"
+                    app:tab_select_color="#FFFFFF">
 
                     <com.mattz.launcher.ui.layout.AnimRelativeLayout
-                        android:id="@+id/all_category"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingHorizontal="@dimen/_8sdp">
+                        android:paddingHorizontal="6dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:paddingHorizontal="@dimen/_8sdp"
-                            android:maxLines="2"
+                            android:paddingHorizontal="6dp"
                             android:text="@string/generic_all"
-                            android:textColor="@color/black_or_white"/>
+                            android:textColor="#FFFFFF"
+                            android:textSize="11sp" />
 
                     </com.mattz.launcher.ui.layout.AnimRelativeLayout>
 
@@ -101,57 +158,27 @@
 
                 <ImageView
                     android:id="@+id/favorites_actions"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
-                    android:layout_marginEnd="@dimen/_8sdp"
-                    android:scaleType="centerCrop"
-                    android:scaleX="0.92"
-                    android:scaleY="0.92"
-                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:background="@drawable/bg_nexus_circle_btn"
+                    android:padding="6dp"
+                    android:scaleType="centerInside"
                     android:src="@drawable/ic_more"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    tools:ignore="ContentDescription" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/versions_list_layout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_12sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:layout_marginVertical="@dimen/_12sdp"
-            android:background="@drawable/background_card"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/version_top_bar">
-
-            <TextView
-                android:id="@+id/title_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:text="@string/version_manager_title"
-                android:textColor="@color/primary_text"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+            <!-- Versions RecyclerView -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/versions"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginHorizontal="@dimen/_8sdp"
-                android:paddingVertical="@dimen/_4sdp"
+                android:layout_marginTop="6dp"
+                android:overScrollMode="never"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title_view" />
+                app:layout_constraintTop_toBottomOf="@id/versions_sub_bar" />
 
             <ProgressBar
                 android:id="@+id/refresh_versions"
@@ -161,49 +188,32 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title_view"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/operate_layout"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_weight="3"
-        app:layout_constraintStart_toEndOf="@+id/version_layout"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <View
-            android:id="@+id/shadowView"
-            android:layout_width="@dimen/_4sdp"
-            android:layout_height="match_parent"
-            android:background="@drawable/shadow_gradient_right"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/operate_layout"
-            app:layout_constraintTop_toTopOf="parent" />
-
+        <!-- RIGHT CARD (40%): GAME DIRECTORY PATHS -->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/operate_main_layout"
+            android:id="@+id/operate_layout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@color/menu_overlay"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="6dp"
+            android:background="@drawable/bg_nexus_card"
+            android:padding="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/shadowView">
+            app:layout_constraintHorizontal_weight="0.4"
+            app:layout_constraintStart_toEndOf="@+id/versions_list_layout"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/profiles_path_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:layout_marginTop="@dimen/_8sdp"
                 android:text="@string/profiles_path_title"
-                android:textColor="@color/primary_text"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -211,41 +221,13 @@
                 android:id="@+id/profiles_path"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginHorizontal="@dimen/_12sdp"
-                android:paddingVertical="@dimen/_4sdp"
-                app:layout_constraintBottom_toTopOf="@id/operate_view"
-                app:layout_constraintTop_toBottomOf="@id/profiles_path_title"/>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/operate_view"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_8sdp"
-                android:layout_marginBottom="@dimen/_8sdp"
-                android:orientation="vertical"
+                android:layout_marginTop="6dp"
+                android:overScrollMode="never"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/profiles_path_title" />
 
-                <com.mattz.launcher.ui.view.AnimButton
-                    android:id="@+id/create_path_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/profiles_path_create_new"/>
-
-                <com.mattz.launcher.ui.view.AnimButton
-                    android:id="@+id/refresh_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/generic_refresh"/>
-
-                <com.mattz.launcher.ui.view.AnimButton
-                    android:id="@+id/return_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/generic_return"/>
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

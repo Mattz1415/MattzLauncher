@@ -4,350 +4,229 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent"
+    android:background="@color/nexus_bg"
     android:baselineAligned="false"
     android:orientation="horizontal"
-    tools:ignore="ContentDescription">
+    android:padding="12dp"
+    tools:ignore="ContentDescription,HardcodedText,SmallSp">
 
+    <!-- LEFT CARD (50% WIDTH): SHORTCUTS TO DIRECTORIES -->
     <ScrollView
         android:id="@+id/shortcuts_layout"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/_12sdp"
-        android:layout_marginVertical="@dimen/_12sdp"
-        android:layout_marginEnd="@dimen/_6sdp"
+        android:layout_marginEnd="6dp"
         android:layout_weight="1"
-        android:background="@drawable/background_card"
-        android:padding="@dimen/_2sdp"
+        android:background="@drawable/bg_nexus_card"
         android:fillViewport="true"
-        tools:ignore="MissingConstraints">
+        android:overScrollMode="never"
+        android:scrollbars="none">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="@dimen/_12sdp">
+            android:orientation="vertical"
+            android:padding="14dp">
 
             <TextView
                 android:id="@+id/title_textview"
-                style="@style/TextAppearance.AppCompat.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:text="@string/version_manager_shortcuts"
+                android:textColor="#FFFFFF"
+                android:textSize="13sp"
+                android:textStyle="bold" />
 
-                android:textColor="@color/primary_text"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/mods_icon"
-                android:layout_width="@dimen/_32sdp"
-                android:layout_height="@dimen/_32sdp"
-                android:layout_marginStart="@dimen/_16sdp"
-                app:layout_constraintBottom_toBottomOf="@+id/shortcuts_mods"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/shortcuts_mods"
-                app:srcCompat="@drawable/ic_profile_mods" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="10dp"
+                android:text="Akses cepat ke folder game dan data"
+                android:textColor="@color/nexus_text_muted"
+                android:textSize="10sp" />
 
             <com.mattz.launcher.ui.view.AnimButton
                 android:id="@+id/shortcuts_mods"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/padding_heavy"
-                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginBottom="6dp"
+                android:background="@drawable/bg_nexus_pill_glass"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="14dp"
                 android:text="@string/version_manager_shortcuts_mods"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/mods_icon"
-                app:layout_constraintTop_toBottomOf="@+id/title_textview" />
-
-            <ImageView
-                android:id="@+id/game_icon"
-                android:layout_width="@dimen/_32sdp"
-                android:layout_height="@dimen/_32sdp"
-                android:layout_marginStart="@dimen/_16sdp"
-                android:scaleType="centerInside"
-                app:layout_constraintBottom_toBottomOf="@+id/game_path"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/game_path"
-                app:srcCompat="@drawable/ic_profile_folder" />
+                android:textColor="#FFFFFF"
+                android:textSize="10sp" />
 
             <com.mattz.launcher.ui.view.AnimButton
                 android:id="@+id/game_path"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/padding_heavy"
-                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginBottom="6dp"
+                android:background="@drawable/bg_nexus_pill_glass"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="14dp"
                 android:text="@string/version_manager_shortcuts_version_path"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/game_icon"
-                app:layout_constraintTop_toBottomOf="@+id/shortcuts_mods" />
-
-            <ImageView
-                android:id="@+id/resource_icon"
-                android:layout_width="@dimen/_32sdp"
-                android:layout_height="@dimen/_32sdp"
-                android:layout_marginStart="@dimen/_16sdp"
-                android:scaleType="centerInside"
-                app:layout_constraintBottom_toBottomOf="@+id/resource_path"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/resource_path"
-                app:srcCompat="@drawable/ic_profile_resource_pack" />
+                android:textColor="#FFFFFF"
+                android:textSize="10sp" />
 
             <com.mattz.launcher.ui.view.AnimButton
                 android:id="@+id/resource_path"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/padding_heavy"
-                android:layout_marginTop="@dimen/_4sdp"
-                android:text="@string/version_manager_shortcuts_resource_path"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/resource_icon"
-                app:layout_constraintTop_toBottomOf="@+id/game_path" />
-
-            <ImageView
-                android:id="@+id/world_icon"
-                android:layout_width="@dimen/_32sdp"
-                android:layout_height="@dimen/_32sdp"
-                android:layout_marginStart="@dimen/_16sdp"
-                android:scaleType="centerInside"
-                app:layout_constraintBottom_toBottomOf="@+id/world_path"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/world_path"
-                app:srcCompat="@drawable/ic_profile_saves" />
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginBottom="6dp"
+                android:background="@drawable/bg_nexus_pill_glass"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="14dp"
+                android:text="@string/version_manager_shortcuts_resource_pack_path"
+                android:textColor="#FFFFFF"
+                android:textSize="10sp" />
 
             <com.mattz.launcher.ui.view.AnimButton
                 android:id="@+id/world_path"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/padding_heavy"
-                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginBottom="6dp"
+                android:background="@drawable/bg_nexus_pill_glass"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="14dp"
                 android:text="@string/version_manager_shortcuts_world_path"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/world_icon"
-                app:layout_constraintTop_toBottomOf="@+id/resource_path" />
-
-            <ImageView
-                android:id="@+id/shader_icon"
-                android:layout_width="@dimen/_32sdp"
-                android:layout_height="@dimen/_32sdp"
-                android:layout_marginStart="@dimen/_16sdp"
-                android:scaleType="fitCenter"
-                android:scaleX="0.95"
-                android:scaleY="0.95"
-                app:layout_constraintBottom_toBottomOf="@+id/shader_path"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/shader_path"
-                app:srcCompat="@drawable/ic_profile_shader_pack" />
+                android:textColor="#FFFFFF"
+                android:textSize="10sp" />
 
             <com.mattz.launcher.ui.view.AnimButton
                 android:id="@+id/shader_path"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/padding_heavy"
-                android:layout_marginTop="@dimen/_4sdp"
-                android:text="@string/version_manager_shortcuts_shader_path"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/shader_icon"
-                app:layout_constraintTop_toBottomOf="@+id/world_path" />
-
-            <ImageView
-                android:id="@+id/screenshot_icon"
-                android:layout_width="@dimen/_32sdp"
-                android:layout_height="@dimen/_32sdp"
-                android:layout_marginStart="@dimen/_16sdp"
-                android:scaleType="fitCenter"
-                android:scaleX="0.95"
-                android:scaleY="0.95"
-                app:layout_constraintBottom_toBottomOf="@+id/screenshot_path"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/screenshot_path"
-                app:srcCompat="@drawable/ic_screenshot" />
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginBottom="6dp"
+                android:background="@drawable/bg_nexus_pill_glass"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="14dp"
+                android:text="@string/version_manager_shortcuts_shader_pack_path"
+                android:textColor="#FFFFFF"
+                android:textSize="10sp" />
 
             <com.mattz.launcher.ui.view.AnimButton
                 android:id="@+id/screenshot_path"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/padding_heavy"
-                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginBottom="6dp"
+                android:background="@drawable/bg_nexus_pill_glass"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="14dp"
                 android:text="@string/version_manager_shortcuts_screenshot_path"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/screenshot_icon"
-                app:layout_constraintTop_toBottomOf="@+id/shader_path" />
-
-            <ImageView
-                android:id="@+id/logs_icon"
-                android:layout_width="@dimen/_32sdp"
-                android:layout_height="@dimen/_32sdp"
-                android:layout_marginStart="@dimen/_16sdp"
-                android:scaleType="centerInside"
-                app:layout_constraintBottom_toBottomOf="@+id/logs_path"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/logs_path"
-                app:srcCompat="@drawable/ic_profile_logs" />
+                android:textColor="#FFFFFF"
+                android:textSize="10sp" />
 
             <com.mattz.launcher.ui.view.AnimButton
                 android:id="@+id/logs_path"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/padding_heavy"
-                android:layout_marginTop="@dimen/_4sdp"
-                android:text="@string/version_manager_shortcuts_logs_path"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/logs_icon"
-                app:layout_constraintTop_toBottomOf="@+id/screenshot_path" />
-
-            <ImageView
-                android:id="@+id/crash_report_icon"
-                android:layout_width="@dimen/_32sdp"
-                android:layout_height="@dimen/_32sdp"
-                android:layout_marginStart="@dimen/_16sdp"
-                app:layout_constraintBottom_toBottomOf="@+id/crash_report_path"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/crash_report_path"
-                app:srcCompat="@drawable/ic_profile_crash_report" />
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginBottom="6dp"
+                android:background="@drawable/bg_nexus_pill_glass"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="14dp"
+                android:text="@string/version_manager_shortcuts_log_path"
+                android:textColor="#FFFFFF"
+                android:textSize="10sp" />
 
             <com.mattz.launcher.ui.view.AnimButton
                 android:id="@+id/crash_report_path"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/padding_heavy"
-                android:layout_marginTop="@dimen/_4sdp"
-                android:text="@string/version_manager_shortcuts_crash_report_path"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/crash_report_icon"
-                app:layout_constraintTop_toBottomOf="@+id/logs_path" />
-            
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:background="@drawable/bg_nexus_pill_glass"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="14dp"
+                android:text="@string/version_manager_shortcuts_crash_reports_path"
+                android:textColor="#FFFFFF"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
     </ScrollView>
 
+    <!-- RIGHT CARD (50% WIDTH): VERSION OPERATIONS & SETTINGS -->
     <ScrollView
         android:id="@+id/edit_layout"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/_6sdp"
-        android:layout_marginEnd="@dimen/_12sdp"
-        android:layout_marginVertical="@dimen/_12sdp"
+        android:layout_marginStart="6dp"
         android:layout_weight="1"
-        android:background="@drawable/background_card"
-        android:padding="@dimen/_2sdp"
+        android:background="@drawable/bg_nexus_card"
         android:fillViewport="true"
-        tools:ignore="MissingConstraints">
+        android:overScrollMode="never"
+        android:scrollbars="none">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="@dimen/_12sdp">
+            android:orientation="vertical"
+            android:padding="14dp">
 
             <TextView
                 android:id="@+id/title_manage_textview"
-                style="@style/TextAppearance.AppCompat.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:text="@string/version_manager_title"
+                android:textColor="#FFFFFF"
+                android:textSize="13sp"
+                android:textStyle="bold" />
 
-                android:textColor="@color/primary_text"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="12dp"
+                android:text="Konfigurasi dan manajemen instans"
+                android:textColor="@color/nexus_text_muted"
+                android:textSize="10sp" />
 
-            <ImageView
-                android:id="@+id/version_settings_icon"
-                android:layout_width="@dimen/_32sdp"
-                android:layout_height="@dimen/_32sdp"
-                android:layout_marginStart="@dimen/_16sdp"
-                android:scaleType="centerInside"
-                app:layout_constraintBottom_toBottomOf="@+id/version_settings"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/version_settings"
-                app:srcCompat="@drawable/ic_setting" />
-
+            <!-- Primary White Capsule: Version Settings -->
             <com.mattz.launcher.ui.view.AnimButton
                 android:id="@+id/version_settings"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/padding_heavy"
-                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/bg_nexus_pill_white"
                 android:text="@string/setting_category_version"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/version_settings_icon"
-                app:layout_constraintTop_toBottomOf="@+id/title_manage_textview" />
+                android:textColor="@color/nexus_pill_active_text"
+                android:textSize="11sp"
+                android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/rename_version_icon"
-                android:layout_width="@dimen/_32sdp"
-                android:layout_height="@dimen/_32sdp"
-                android:layout_marginStart="@dimen/_16sdp"
-                android:scaleType="centerInside"
-                app:layout_constraintBottom_toBottomOf="@+id/version_rename"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/version_rename"
-                app:srcCompat="@drawable/ic_edit" />
-
+            <!-- Secondary Dark Glass Capsule: Rename -->
             <com.mattz.launcher.ui.view.AnimButton
                 android:id="@+id/version_rename"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/padding_heavy"
-                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/bg_nexus_pill_glass"
                 android:text="@string/version_manager_rename"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/rename_version_icon"
-                app:layout_constraintTop_toBottomOf="@+id/version_settings" />
+                android:textColor="#FFFFFF"
+                android:textSize="10sp" />
 
-            <ImageView
-                android:id="@+id/copy_version_icon"
-                android:layout_width="@dimen/_32sdp"
-                android:layout_height="@dimen/_32sdp"
-                android:layout_marginStart="@dimen/_16sdp"
-                android:scaleType="centerInside"
-                android:scaleX="0.86"
-                android:scaleY="0.86"
-                app:layout_constraintBottom_toBottomOf="@+id/version_copy"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/version_copy"
-                app:srcCompat="@drawable/ic_copy" />
-
+            <!-- Secondary Dark Glass Capsule: Copy -->
             <com.mattz.launcher.ui.view.AnimButton
                 android:id="@+id/version_copy"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/padding_heavy"
-                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/bg_nexus_pill_glass"
                 android:text="@string/version_manager_copy"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/copy_version_icon"
-                app:layout_constraintTop_toBottomOf="@+id/version_rename" />
+                android:textColor="#FFFFFF"
+                android:textSize="10sp" />
 
-            <ImageView
-                android:id="@+id/delete_version_icon"
-                android:layout_width="@dimen/_32sdp"
-                android:layout_height="@dimen/_32sdp"
-                android:layout_marginStart="@dimen/_16sdp"
-                android:scaleType="centerInside"
-                android:scaleX="0.9"
-                android:scaleY="0.9"
-                app:layout_constraintBottom_toBottomOf="@+id/version_delete"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/version_delete"
-                app:srcCompat="@drawable/ic_menu_delete_forever" />
-
+            <!-- Danger Dark Glass Capsule: Delete -->
             <com.mattz.launcher.ui.view.AnimButton
                 android:id="@+id/version_delete"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/padding_heavy"
-                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:background="@drawable/bg_nexus_pill_glass"
                 android:text="@string/version_manager_delete"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/delete_version_icon"
-                app:layout_constraintTop_toBottomOf="@+id/version_copy" />
-            
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                android:textColor="#F43F5E"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
     </ScrollView>
 
 </LinearLayout>
-
