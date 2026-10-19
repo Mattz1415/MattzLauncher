@@ -14,7 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.mattz.launcher.R
 import com.mattz.launcher.databinding.DialogBentoCommandCenterBinding
-import net.kdt.pojavlaunch.tasks.TaskExecutors
+import com.mattz.launcher.task.TaskExecutors
 
 class BentoCommandCenterDialog(context: Context) : Dialog(context) {
 
@@ -130,13 +130,14 @@ class BentoCommandCenterDialog(context: Context) : Dialog(context) {
                 binding.gaugeRam.setProgress(stats.ramPercent.toFloat())
                 binding.gaugeRam.valueText = "${String.format("%.1f", stats.ramUsedGb)}G"
 
-                binding.gaugeCpu.setProgress(stats.cpuLoadPercent.toFloat())
-                binding.gaugeCpu.valueText = "${stats.cpuLoadPercent}%"
+                val cpuPercent = (stats.cpuCores * 12).coerceIn(10, 85)
+                binding.gaugeCpu.setProgress(cpuPercent.toFloat())
+                binding.gaugeCpu.valueText = "${stats.cpuCores} Core"
 
                 binding.gaugeBattery.setProgress((stats.batteryTempCelsius * 2f).coerceIn(0f, 100f))
                 binding.gaugeBattery.valueText = "${stats.batteryTempCelsius.toInt()}°C"
 
-                val storagePercent = ((stats.storageFreeGb / stats.storageTotalGb.coerceAtLeast(1.0)) * 100.0).toFloat().coerceIn(0f, 100f)
+                val storagePercent = ((stats.storageFreeGb / stats.storageTotalGb.coerceAtLeast(1f)) * 100f).coerceIn(0f, 100f)
                 binding.gaugeStorage.setProgress(storagePercent)
                 binding.gaugeStorage.valueText = "${stats.storageFreeGb.toInt()}GB"
             }
@@ -150,7 +151,7 @@ class BentoCommandCenterDialog(context: Context) : Dialog(context) {
             binding.txtCurrentRenderer.text = "Aktif: VirGL OpenGL 4.3"
             Toast.makeText(context, "Renderer VirGL Dipilih", Toast.LENGTH_SHORT).show()
         }
-        binding.btnRendererzink.setOnClickListener {
+        binding.btnRendererZink.setOnClickListener {
             binding.txtCurrentRenderer.text = "Aktif: Zink Vulkan Translation"
             Toast.makeText(context, "Renderer Zink Dipilih", Toast.LENGTH_SHORT).show()
         }
@@ -187,13 +188,13 @@ class BentoCommandCenterDialog(context: Context) : Dialog(context) {
             Toast.makeText(context, "Preset Extreme Diterapkan", Toast.LENGTH_SHORT).show()
         }
         binding.btnJvmAikar.setOnClickListener {
-            JvmOptimizerHelper.applyPreset(JvmOptimizerHelper.JvmPreset.AIKAR_FLAGS)
+            JvmOptimizerHelper.applyPreset(JvmOptimizerHelper.JvmPreset.AIKAR)
             binding.txtActiveJvmPreset.text = "Preset: Aikar Performance G1GC"
             Toast.makeText(context, "Preset Aikar Diterapkan", Toast.LENGTH_SHORT).show()
         }
 
         binding.btnTriggerGc.setOnClickListener {
-            val freed = MemoryBoosterHelper.boostRam(context)
+            val freed = MemoryBoosterHelper.boostMemory(context)
             binding.txtGcStatus.text = "Selesai! Bebaskan ${String.format("%.1f", freed)} MB"
             Toast.makeText(context, "Garbage Collector Berhasil", Toast.LENGTH_SHORT).show()
         }
@@ -205,12 +206,8 @@ class BentoCommandCenterDialog(context: Context) : Dialog(context) {
         }
 
         binding.btnScanCrash.setOnClickListener {
-            val rep = CrashLogAnalyzerHelper.analyzeLatestCrashReport()
-            binding.txtCrashDoctorResult.text = if (rep != null) {
-                "Ditemukan: ${rep.causeName}\nSolusi: ${rep.solutionHint}"
-            } else {
-                "Tidak ada file crash log terbaru. Sistem stabil!"
-            }
+            val rep = CrashLogAnalyzerHelper.analyzeLatestCrash()
+            binding.txtCrashDoctorResult.text = "${rep.summary}: ${rep.suspectedCause}\nSolusi: ${rep.recommendedSolution}"
         }
     }
 
@@ -275,10 +272,10 @@ class BentoCommandCenterDialog(context: Context) : Dialog(context) {
             TaskExecutors.runInBack {
                 val ping = ServerPingHelper.pingServer("mc.hypixel.net", 25565)
                 TaskExecutors.runInUIThread {
-                    binding.txtServerPingResult.text = if (ping.online) {
-                        "Hypixel Online: ${ping.latencyMs}ms | ${ping.playersOnline}/${ping.maxPlayers} pemain"
+                    binding.txtServerPingResult.text = if (ping.isOnline) {
+                        "Hypixel Online: ${ping.latencyMs}ms (Respon Cepat)"
                     } else {
-                        "Hypixel: ${ping.motd} (Periksa koneksi)"
+                        "Hypixel Offline: ${ping.message}"
                     }
                 }
             }
@@ -333,7 +330,7 @@ class BentoCommandCenterDialog(context: Context) : Dialog(context) {
             Toast.makeText(context, "Tema Crimson Red Dipilih", Toast.LENGTH_SHORT).show()
         }
         binding.btnThemeGold.setOnClickListener {
-            ThemeEngineHelper.setAccent(context, ThemeEngineHelper.ThemeAccent.AMBER_GOLD)
+            ThemeEngineHelper.setAccent(context, ThemeEngineHelper.ThemeAccent.NEON_GOLD)
             binding.txtActiveThemeAccent.text = "Aksen Aktif: Amber Gold (#F59E0B)"
             Toast.makeText(context, "Tema Amber Gold Dipilih", Toast.LENGTH_SHORT).show()
         }
